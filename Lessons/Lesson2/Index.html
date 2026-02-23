@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الباحث العلمي وصفاته | منصة تعليمية تفاعلية</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deep: '#16213e',
+                        gold: '#e2b96f',
+                        cream: '#faf8f3',
+                        light: '#ffffff'
+                    },
+                    fontFamily: {
+                        sans: ['Tajawal', 'sans-serif'],
+                        serif: ['Amiri', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #faf8f3; overflow-x: hidden; }
+        
+        /* تأثيرات الظهور */
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* البطاقات القابلة للقلب (Flashcards) */
+        .flip-card { background-color: transparent; perspective: 1000px; height: 220px; cursor: pointer; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .flip-card-front { background-color: #ffffff; border: 2px solid #16213e; }
+        .flip-card-back { background-color: #16213e; color: #faf8f3; border: 2px solid #e2b96f; transform: rotateY(180deg); }
+
+        /* الأكورديون (القوائم المطوية) */
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; }
+        .accordion-content.open { max-height: 500px; }
+        
+        /* خريطة المفاهيم الشجرية (CSS Tree Nativ) */
+        .css-tree { display: flex; justify-content: center; padding: 2rem 0; overflow-x: auto; direction: rtl; }
+        .css-tree ul { padding-top: 20px; position: relative; transition: all 0.5s; display: flex; }
+        .css-tree li { float: right; text-align: center; list-style-type: none; position: relative; padding: 20px 10px 0 10px; transition: all 0.5s; }
+        .css-tree li::before, .css-tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 2px solid #e2b96f; width: 50%; height: 20px; }
+        .css-tree li::after { right: auto; left: 50%; border-left: 2px solid #e2b96f; }
+        .css-tree li:only-child::after, .css-tree li:only-child::before { display: none; }
+        .css-tree li:only-child { padding-top: 0; }
+        .css-tree li:first-child::before, .css-tree li:last-child::after { border: 0 none; }
+        .css-tree li:last-child::before { border-right: 2px solid #e2b96f; border-radius: 0 5px 0 0; }
+        .css-tree li:first-child::after { border-radius: 5px 0 0 0; }
+        .css-tree ul ul::before { content: ''; position: absolute; top: 0; right: 50%; border-left: 2px solid #e2b96f; width: 0; height: 20px; }
+        .css-tree li div.node { border: 2px solid #16213e; padding: 12px 20px; text-decoration: none; color: #16213e; font-family: 'Amiri', serif; font-size: 1.1rem; font-weight: bold; display: inline-block; border-radius: 12px; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.3s; min-width: 120px;}
+        .css-tree li div.node:hover { background: #16213e; color: #e2b96f; transform: scale(1.05); border-color: #e2b96f;}
+        .css-tree li div.root-node { background: #16213e; color: #e2b96f; border-color: #e2b96f; font-size: 1.3rem;}
+
+        /* شريط التمرير */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #faf8f3; }
+        ::-webkit-scrollbar-thumb { background: #e2b96f; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #cda256; }
+    </style>
+</head>
+<body class="text-deep antialiased">
+
+    <div id="welcome-screen" class="fixed inset-0 bg-deep flex items-center justify-center z-50 p-4">
+        <div class="bg-cream rounded-3xl p-8 md:p-12 max-w-lg w-full shadow-2xl fade-in text-center relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-full h-2 bg-gold"></div>
+            <h1 class="font-serif text-4xl md:text-5xl text-deep mb-4 font-bold">الباحث وصفاته</h1>
+            <h2 class="font-sans text-xl text-gold mb-8">الخلاصة في البحث العلمي</h2>
+            <p class="text-gray-600 mb-8 text-lg">مرحباً بك في المنصة التفاعلية. يرجى إدخال اسمك الرباعي للمتابعة والبدء.</p>
+            
+            <div class="mb-6 relative">
+                <input type="text" id="student-name-input" placeholder="أدخل اسمك الرباعي هنا..." class="w-full p-4 rounded-xl border-2 border-gray-300 focus:border-gold outline-none text-lg bg-white transition-colors">
+                <p id="name-error" class="text-red-500 text-sm mt-2 font-bold hidden">يرجى إدخال الاسم الرباعي (3 كلمات على الأقل) بشكل صحيح.</p>
+            </div>
+            
+            <button onclick="startApp()" class="w-full bg-gold hover:bg-yellow-600 text-deep font-bold text-xl p-4 rounded-xl transition-transform transform hover:-translate-y-1 shadow-lg flex items-center justify-center gap-2">
+                <span>دخول المنصة التفاعلية</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="main-app" class="hidden min-h-screen pb-20 md:pb-0 flex flex-col">
+        
+        <header class="bg-deep text-cream sticky top-0 z-40 shadow-md">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+                <h1 class="font-serif text-2xl font-bold text-gold">الباحث والإشراف العلمي</h1>
+                <div class="hidden md:flex items-center gap-2 bg-white/10 px-4 py-1.5 rounded-full">
+                    <span class="text-sm opacity-80">الطالب:</span>
+                    <span id="display-student-name" class="font-bold text-gold"></span>
+                </div>
+            </div>
+        </header>
+
+        <div class="max-w-7xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 w-full flex-1">
+            
+            <aside class="hidden md:block w-64 shrink-0">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 sticky top-24">
+                    <nav class="space-y-2">
+                        <button onclick="switchTab('content')" id="nav-content" class="nav-btn w-full text-right p-3 rounded-xl font-bold bg-gold text-deep transition-colors">المادة العلمية</button>
+                        <button onclick="switchTab('map')" id="nav-map" class="nav-btn w-full text-right p-3 rounded-xl font-bold text-gray-500 hover:bg-gray-50 transition-colors">الخريطة البصرية</button>
+                        <button onclick="switchTab('review')" id="nav-review" class="nav-btn w-full text-right p-3 rounded-xl font-bold text-gray-500 hover:bg-gray-50 transition-colors">المراجعة الذكية</button>
+                        <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn w-full text-right p-3 rounded-xl font-bold text-gray-500 hover:bg-gray-50 transition-colors">التقييم الشامل</button>
+                    </nav>
+                </div>
+            </aside>
+
+            <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 flex justify-around p-2 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
+                <button onclick="switchTab('content')" id="mob-content" class="mob-btn text-gold font-bold p-2 text-xs">المادة</button>
+                <button onclick="switchTab('map')" id="mob-map" class="mob-btn text-gray-400 p-2 text-xs">الخريطة</button>
+                <button onclick="switchTab('review')" id="mob-review" class="mob-btn text-gray-400 p-2 text-xs">المراجعة</button>
+                <button onclick="switchTab('quiz')" id="mob-quiz" class="mob-btn text-gray-400 p-2 text-xs">التقييم</button>
+            </div>
+
+            <main class="flex-1 min-w-0">
+                
+                <section id="tab-content" class="fade-in space-y-8 block">
+                    <h2 class="font-serif text-4xl text-deep border-b-2 border-gold pb-4 inline-block">تعريف الباحث وصفاته</h2>
+                    
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-t-deep mb-8">
+                        <h3 class="text-2xl font-bold text-deep mb-3 font-serif">من هو الباحث؟</h3>
+                        <p class="text-gray-700 leading-relaxed text-justify text-lg">
+                            هو شخص توافرت فيه الاستعدادات الفطرية والنفسية والعلمية التي تؤهله للقيام ببحث علمي؛ فالتأهيل العلمي المسبق، والتزود من المعارف العامة بقدر كاف مطلب أساس لإيجاد الباحث. والباحث الأصيل هو الذي يتطلع إلى المجهول، ويبحث عن الجديد، ويتميز بالمرونة الفكرية، ويمتلك القدرة على تنظيم المعلومات.
+                        </p>
+                    </div>
+
+                    <h3 class="font-serif text-3xl text-deep mb-4">صفات الباحث (14 صفة)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">1. الرغبة</h4>
+                            <p class="text-sm text-gray-600 mt-2">إن لم تكن لديه رغبة قوية فليتكلفها ويشعر نفسه بثمرة البحث، أما إن كان منصرفاً كل الانصراف فلا يكلف الله نفساً إلا وسعها.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">2. الصبر</h4>
+                            <p class="text-sm text-gray-600 mt-2">وقود الباحث الذي لا ينضب، يعينه على معاناة المراجع، الأسفار، والمراجعات النظامية، والصبر على المشرف.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">3. الإنصاف والموضوعية</h4>
+                            <p class="text-sm text-gray-600 mt-2">الأمانة في النقل ونسبة الأقوال دون بتر أو تعسف، وترك الاستسلام للعوارض النفسية.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">4. سلامة الذوق</h4>
+                            <p class="text-sm text-gray-600 mt-2">إحسان المدخل والمأخذ والنقد بعيداً عن الاستفزاز ولغة الانهزام أو العبارات الجافية.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">5. العقلية المنظمة البناءة</h4>
+                            <p class="text-sm text-gray-600 mt-2">لا مجال للفوضى والاضطراب، بل تنظيم وحسن تبويب وترتيب لعمل متناسق.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">6. عمق التفكير وإطالة التأمل</h4>
+                            <p class="text-sm text-gray-600 mt-2">التخفف من الأعمال وحمل قلم وورقة لتدوين الملحوظات والغوص في أعماق البحث.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">7. الفطنة ودقة الملاحظة</h4>
+                            <p class="text-sm text-gray-600 mt-2">التنبه لكل صغيرة وكبيرة لترابط البحث وقوته.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">8. التثبت (الشك العلمي)</h4>
+                            <p class="text-sm text-gray-600 mt-2">عدم قبول كل ما يُقرأ كمسلمة، بل وزنه بميزان دقيق، وهو ضرورة بخلاف الشك المرضي.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">9. المبادرة</h4>
+                            <p class="text-sm text-gray-600 mt-2">انتهاز الفرص ومجانبة التسويف، والسرعة التي تعني عدم التباطؤ وليس العجلة المذمومة.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">10. الحافظة الواعية</h4>
+                            <p class="text-sm text-gray-600 mt-2">جمع ما قُرأ وكتب سابقاً بالحديث لمنع تشتت البحث.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">11. متابعة الجديد</h4>
+                            <p class="text-sm text-gray-600 mt-2">الاطلاع المستمر في ميدان المعرفة والتخصص.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">12. الاستمتاع بالبحث</h4>
+                            <p class="text-sm text-gray-600 mt-2">اللذة العقلية أعظم سعادة وأبقى من اللذات الحسية، وأعظمها احتساب الأجر.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">13. لزوم التواضع</h4>
+                            <p class="text-sm text-gray-600 mt-2">مجانبة الغرور والإعجاب بالنفس، وإكبار العلماء. (كلما زدت علماً زادني علماً بجهلي).</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 border-r-4 border-r-gold hover:shadow-md transition">
+                            <h4 class="font-bold text-lg text-deep">14. التماس البركة</h4>
+                            <p class="text-sm text-gray-600 mt-2">بسلامة النية ومساعدة الزملاء، فالله في عون العبد ما دام العبد في عون أخيه.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-deep text-cream p-8 rounded-2xl shadow-lg mt-12 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-2 h-full bg-gold"></div>
+                        <h3 class="text-3xl font-serif mb-4 text-gold">الإشراف العلمي</h3>
+                        <p class="text-lg leading-relaxed mb-4">
+                            هو توجيه أستاذ متخصص طالب البحث إلى المنهج العلمي في دراسة موضوع ما، وكيفية عرض قضاياه واستخلاص نتائجه. وليس الإشراف عملاً إدارياً بحتاً، بل مهمة صعبة تصنع الباحثين.
+                        </p>
+                        <p class="text-lg leading-relaxed">
+                            لا بد للمشرف من التحلي بالتواضع والحلم والحزم، وحسن التواصل والمبادرة لئلا يضيع وقت الطالب بسبب كثرة اعتذاراته وتأخره.
+                        </p>
+                    </div>
+                </section>
+
+                <section id="tab-map" class="fade-in hidden">
+                    <h2 class="font-serif text-4xl text-deep border-b-2 border-gold pb-4 inline-block mb-8">الهيكل البصري للدرس</h2>
+                    <div class="bg-white p-8 rounded-3xl shadow-md overflow-x-auto border border-gray-100">
+                        <div class="css-tree">
+                            <ul>
+                                <li>
+                                    <div class="node root-node">أطراف البحث العلمي</div>
+                                    <ul>
+                                        <li>
+                                            <div class="node">الباحث الأصيل</div>
+                                            <ul>
+                                                <li><div class="node">تأهيل مسبق</div></li>
+                                                <li><div class="node">مرونة فكرية</div></li>
+                                                <li><div class="node">تنظيم المعلومات</div></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="node">صفات الباحث (أمثلة)</div>
+                                            <ul>
+                                                <li><div class="node">الصبر والمثابرة</div></li>
+                                                <li><div class="node">الموضوعية والإنصاف</div></li>
+                                                <li><div class="node">الشك العلمي (التثبت)</div></li>
+                                                <li><div class="node">التواضع</div></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <div class="node">الإشراف العلمي</div>
+                                            <ul>
+                                                <li><div class="node">توجيه منهجي</div></li>
+                                                <li><div class="node">صناعة الباحثين</div></li>
+                                                <li><div class="node">تواصل مستمر</div></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tab-review" class="fade-in hidden space-y-12">
+                    <div>
+                        <h2 class="font-serif text-3xl text-deep mb-6">بطاقات المفاهيم (انقر للقلب)</h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front"><h3 class="text-xl font-bold font-serif">ما هو وقود الباحث؟</h3><p class="text-xs text-gray-400 mt-2">انقر للقلب</p></div>
+                                    <div class="flip-card-back"><p class="font-medium text-lg leading-relaxed">الصبر، فهو الذي يمده بتحمل مشاق التفتيش والمراجعات والأسفار.</p></div>
+                                </div>
+                            </div>
+                            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front"><h3 class="text-xl font-bold font-serif">ما الفرق بين الشك العلمي والمرضي؟</h3><p class="text-xs text-gray-400 mt-2">انقر للقلب</p></div>
+                                    <div class="flip-card-back"><p class="font-medium text-lg leading-relaxed">الشك العلمي هو التثبت ووزن الأمور للبحث، والمرضي يدفع إليه الهوى لمخالفة المألوف.</p></div>
+                                </div>
+                            </div>
+                            <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front"><h3 class="text-xl font-bold font-serif">ما هو الإشراف العلمي؟</h3><p class="text-xs text-gray-400 mt-2">انقر للقلب</p></div>
+                                    <div class="flip-card-back"><p class="font-medium text-lg leading-relaxed">ليس عملاً إدارياً، بل توجيه منهجي ومهمة صعبة تصنع الباحثين.</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h2 class="font-serif text-3xl text-deep mb-6">مراجعة نصوص الدرس (أكورديون)</h2>
+                        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                            <div class="border-b border-gray-200">
+                                <button onclick="toggleAccordion('acc1')" class="w-full text-right p-4 font-bold text-lg text-deep hover:bg-gray-50 flex justify-between">
+                                    ماذا قال الشافعي عن لذة البحث؟
+                                    <span class="text-gold">▼</span>
+                                </button>
+                                <div id="acc1" class="accordion-content bg-cream/50 px-4">
+                                    <p class="py-4 text-gray-700 leading-relaxed">فضلها على سائر اللذات وقال: "سهري لتنقيح العلوم ألذ لي من وصل غانية وطيب عناقِ... وتمايلي طرباً لحل عويصة أشهى من مدامة ساقي".</p>
+                                </div>
+                            </div>
+                            <div class="border-b border-gray-200">
+                                <button onclick="toggleAccordion('acc2')" class="w-full text-right p-4 font-bold text-lg text-deep hover:bg-gray-50 flex justify-between">
+                                    كيف يلتمس الباحث البركة في عمله؟
+                                    <span class="text-gold">▼</span>
+                                </button>
+                                <div id="acc2" class="accordion-content bg-cream/50 px-4">
+                                    <p class="py-4 text-gray-700 leading-relaxed">بإقباله على ربه، والإلحاح في طلب المعونة، وسلامة النية، وأن يعين زملاءه ولا يبخل عليهم بالفائدة.</p>
+                                </div>
+                            </div>
+                            <div>
+                                <button onclick="toggleAccordion('acc3')" class="w-full text-right p-4 font-bold text-lg text-deep hover:bg-gray-50 flex justify-between">
+                                    ما خطورة تأخير المشرف العلمي؟
+                                    <span class="text-gold">▼</span>
+                                </button>
+                                <div id="acc3" class="accordion-content bg-cream/50 px-4">
+                                    <p class="py-4 text-gray-700 leading-relaxed">كثرة الاعتذارات والتأخر في الرد يقطع الطالب ويضيع عليه الوقت والفرص، والطالب في تلك الأحوال لا حول له ولا قوة.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tab-quiz" class="fade-in hidden max-w-3xl mx-auto">
+                    
+                    <div id="quiz-container">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="font-serif text-2xl text-deep font-bold">التقييم الشامل</h2>
+                            <span id="quiz-progress" class="bg-gold text-deep font-bold px-4 py-1 rounded-full text-sm">السؤال 1 من 20</span>
+                        </div>
+                        
+                        <div class="bg-white p-6 md:p-8 rounded-3xl shadow-md border border-gray-100 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 h-1 bg-deep transition-all duration-300" id="quiz-bar" style="width: 5%"></div>
+                            <h3 id="question-text" class="text-xl md:text-2xl text-deep font-bold mb-8 leading-relaxed mt-4"></h3>
+                            
+                            <div id="options-container" class="space-y-3">
+                                </div>
+                        </div>
+                    </div>
+
+                    <div id="result-container" class="hidden bg-white p-8 rounded-3xl shadow-lg text-center fade-in border-t-8 border-t-gold">
+                        <div class="text-6xl mb-4">🏆</div>
+                        <h2 class="text-3xl font-bold text-deep mb-2">اكتمل التقييم!</h2>
+                        <p class="text-xl text-gray-600 mb-6">أحسنت يا <span id="res-student-name" class="text-gold font-bold"></span></p>
+                        
+                        <div class="text-5xl font-black text-deep mb-8 flex items-center justify-center gap-2">
+                            <span id="final-score">0</span> <span class="text-2xl text-gray-400">/ 20</span>
+                        </div>
+
+                        <a id="google-form-btn" target="_blank" href="#" class="inline-flex items-center gap-2 bg-deep hover:bg-gray-800 text-cream px-8 py-4 rounded-xl font-bold text-lg transition-transform transform hover:-translate-y-1 shadow-xl">
+                            اعتماد النتيجة في النظام
+                        </a>
+                        <p class="text-sm text-gray-400 mt-4">انقر الزر أعلاه لإرسال درجاتك للأستاذ تلقائياً</p>
+                    </div>
+
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+        // إعدادات Google Form التلقائية التي أرسلتها
+        const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdYy7qS_r7pP9BFVY2aVKSrZpZk3Vh1S4PoP-2CId16cP6Zg/viewform";
+        const ENTRY_ID_NAME = "entry.1250768814"; 
+        const ENTRY_ID_SCORE_RAW = "entry.289736692"; // الدرجة من 20
+        const ENTRY_ID_SCORE_PERCENT = "entry.809300628"; // النسبة المئوية أو الدرجة الأخرى
+
+        let studentName = "";
+
+        function startApp() {
+            const input = document.getElementById('student-name-input').value.trim();
+            const words = input.split(/\s+/);
+            if (words.length >= 3) {
+                studentName = input;
+                document.getElementById('welcome-screen').style.display = 'none';
+                document.getElementById('main-app').classList.remove('hidden');
+                document.getElementById('display-student-name').textContent = studentName;
+                document.getElementById('res-student-name').textContent = studentName;
+                initQuiz();
+            } else {
+                document.getElementById('name-error').classList.remove('hidden');
+            }
+        }
+
+        function switchTab(tabId) {
+            ['content', 'map', 'review', 'quiz'].forEach(id => {
+                document.getElementById('tab-' + id).classList.add('hidden');
+                document.getElementById('tab-' + id).classList.remove('block');
+                document.getElementById('nav-' + id).className = "nav-btn w-full text-right p-3 rounded-xl font-bold text-gray-500 hover:bg-gray-50 transition-colors";
+                document.getElementById('mob-' + id).className = "mob-btn text-gray-400 p-2 text-xs";
+            });
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            document.getElementById('tab-' + tabId).classList.add('block');
+            document.getElementById('nav-' + tabId).className = "nav-btn w-full text-right p-3 rounded-xl font-bold bg-gold text-deep transition-colors";
+            document.getElementById('mob-' + tabId).className = "mob-btn text-gold font-bold p-2 text-xs";
+        }
+
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+            } else {
+                document.querySelectorAll('.accordion-content').forEach(el => el.classList.remove('open'));
+                content.classList.add('open');
+            }
+        }
+
+        const MCQ_DATA = [
+            { q: "من هو الباحث الأصيل وفقاً للمادة؟", options: ["الذي يحفظ الكتب عن ظهر قلب", "الذي يتطلع إلى المجهول ويبحث عن الجديد", "الذي يكتفي بنقل آراء السابقين", "الذي يعمل في إدارة الجامعة"], answer: 1 },
+            { q: "ما هي أول صفة من صفات الباحث المذكورة؟", options: ["الصبر", "الموضوعية", "الرغبة", "المبادرة"], answer: 2 },
+            { q: "ماذا يجب على الباحث فعله إذا كانت رغبته في البحث ضئيلة؟", options: ["أن يترك البحث فوراً", "أن يتكلف الرغبة ويشعر نفسه بالثمرة", "أن يستعين بشخص آخر ليكتب له", "أن يغير تخصصه"], answer: 1 },
+            { q: "ما الذي وُصف بأنه 'عدة الباحث ووقوده الذي لا ينضب'؟", options: ["المال", "الصبر", "الكتب", "المشرف العلمي"], answer: 1 },
+            { q: "من أنواع الصبر الأكاديمي المذكورة في الدرس:", options: ["الصبر على الجوع", "الصبر على معاناة الإجراءات النظامية", "الصبر على طول الكتب", "الصبر على النقد العام"], answer: 1 },
+            { q: "ما معنى 'الإنصاف والموضوعية' للباحث؟", options: ["نقد الجميع بحدة", "ترك الاستسلام للعوارض النفسية كالغضب والرضا", "التساهل في توثيق المراجع", "الاعتماد على الرأي الشخصي دائماً"], answer: 1 },
+            { q: "سلامة الذوق في البحث تعني:", options: ["المجاملة المفرطة", "استخدام عبارات صعبة ومعقدة", "تجنب العبارة الجافية الموحشة", "الرد القاسي على المخالفين"], answer: 2 },
+            { q: "العقلية المنظمة البناءة ترفض تماماً:", options: ["التبويب", "الفوضى والاضطراب", "التنسيق", "ترتيب الأفكار"], answer: 1 },
+            { q: "كيف يعين الباحث نفسه على 'عمق التفكير'؟", options: ["بالتخفف من الأعمال وحمل قلم وورقة دائماً", "بالسفر المستمر", "بالنقاش العنيف", "بقراءة الروايات"], answer: 0 },
+            { q: "الشك العلمي في البحث يعتبر:", options: ["مرضاً نفسياً", "ضرورة لوزن الأمور بميزان دقيق", "تشكيكاً في الدين", "إضاعة للوقت"], answer: 1 },
+            { q: "روح المبادرة في البحث العلمي تعني:", options: ["العجلة المذمومة", "السرعة بمعنى عدم التباطؤ", "التسويف لضمان الجودة", "القيام بعدة أبحاث في وقت واحد"], answer: 1 },
+            { q: "ما فائدة الحافظة الواعية والذاكرة القوية للباحث؟", options: ["لتجنب شراء الكتب", "لجمع ما قرأه سابقاً بما قرأه حديثاً لمنع التشتت", "للتفاخر أمام الزملاء", "لحفظ أسماء الباحثين فقط"], answer: 1 },
+            { q: "لذة العلم والبحث تصنف بأنها:", options: ["لذة حسية", "لذة مادية", "لذة عقلية", "لذة مؤقتة"], answer: 2 },
+            { q: "شبه الإمام الشافعي سعادته بالبحث بتنقيح العلوم بأنه ألذ من:", options: ["الطعام", "المال", "وصل غانية وطيب عناق", "النوم الطويل"], answer: 2 },
+            { q: "التواضع يورث الباحث:", options: ["الضعف", "إكبار العلماء واهتضام النفس", "الخوف من النقد", "التكاسل"], answer: 1 },
+            { q: "كيف يلتمس الباحث البركة في بحثه؟", options: ["بسلامة النية وإعانة زملائه", "بالعمل ليلاً فقط", "بكتابة البحث بخط يده", "بالعزلة التامة عن الناس"], answer: 0 },
+            { q: "الإشراف العلمي يُعرّف بأنه:", options: ["عمل إداري بحت", "توجيه منهجي ومهمة تصنع الباحثين", "مراجعة لغوية للبحث", "طباعة البحث ونشره"], answer: 1 },
+            { q: "من صفات المشرف العلمي الناجح:", options: ["التعالي على الطالب", "المبادرة وحسن التواصل", "تأخير الردود لتمرين الطالب على الصبر", "رفض كل فكرة جديدة"], answer: 1 },
+            { q: "ما نتيجة كثرة اعتذارات المشرف وتأخره في الرد؟", options: ["يضيع الوقت والفرص على الطالب", "يزيد من جودة البحث", "يعلم الطالب الاعتماد على النفس", "يوفر المراجع للطالب"], answer: 0 },
+            { q: "عبارة 'إذا لم تستطع شيئاً فدعه وجاوزه إلى ما تستطيع' قيلت في سياق:", options: ["اختيار موضوع صعب", "انصراف الباحث كلياً وانعدام رغبته البتة", "الخلاف مع المشرف", "عدم توفر الكتب"], answer: 1 }
+        ];
+
+        let currentQ = 0;
+        let score = 0;
+
+        function initQuiz() {
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = MCQ_DATA[currentQ];
+            document.getElementById('question-text').textContent = q.q;
+            document.getElementById('quiz-progress').textContent = `السؤال ${currentQ + 1} من ${MCQ_DATA.length}`;
+            document.getElementById('quiz-bar').style.width = `${((currentQ) / MCQ_DATA.length) * 100}%`;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-right p-4 rounded-xl border-2 border-gray-200 hover:border-gold hover:bg-gray-50 text-gray-700 transition-all font-medium text-lg";
+                btn.textContent = opt;
+                btn.onclick = () => handleAnswer(idx, btn);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function handleAnswer(selectedIndex, btnElement) {
+            const buttons = document.getElementById('options-container').querySelectorAll('button');
+            buttons.forEach(b => b.disabled = true);
+
+            const q = MCQ_DATA[currentQ];
+            
+            if (selectedIndex === q.answer) {
+                btnElement.classList.replace('border-gray-200', 'border-green-500');
+                btnElement.classList.replace('text-gray-700', 'text-green-700');
+                btnElement.classList.add('bg-green-50', 'font-bold');
+                score++;
+            } else {
+                btnElement.classList.replace('border-gray-200', 'border-red-500');
+                btnElement.classList.replace('text-gray-700', 'text-red-700');
+                btnElement.classList.add('bg-red-50');
+                buttons[q.answer].classList.replace('border-gray-200', 'border-green-500');
+                buttons[q.answer].classList.add('bg-green-50', 'text-green-700', 'font-bold');
+            }
+
+            setTimeout(() => {
+                if (currentQ < MCQ_DATA.length - 1) {
+                    currentQ++;
+                    renderQuestion();
+                } else {
+                    showFinalResult();
+                }
+            }, 1200);
+        }
+
+        function showFinalResult() {
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('result-container').classList.remove('hidden');
+            document.getElementById('final-score').textContent = score;
+
+            // حساب النسبة المئوية
+            const percentage = Math.round((score / MCQ_DATA.length) * 100) + "%";
+            
+            // توليد رابط Google Form مع إرسال جميع المتغيرات (الاسم، الدرجة من 20، النسبة المئوية)
+            const formLink = `${GOOGLE_FORM_URL}?usp=pp_url&${ENTRY_ID_NAME}=${encodeURIComponent(studentName)}&${ENTRY_ID_SCORE_RAW}=${score}&${ENTRY_ID_SCORE_PERCENT}=${encodeURIComponent(percentage)}`;
+            
+            document.getElementById('google-form-btn').href = formLink;
+        }
+    </script>
+</body>
+</html>
