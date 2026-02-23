@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أسس ومناهج البحث العلمي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0d4f4f;
+            --secondary: #1a7a7a;
+            --accent: #d4a853;
+            --dark: #0a2e2e;
+            --light: #f0f7f7;
+            --muted: #6b8a8a;
+            --white: #ffffff;
+        }
+        
+        body {
+            font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+            background: var(--dark);
+            color: #333;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .mobile-menu {
+            display: none;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 0.75rem 0;
+            color: var(--muted);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 8rem 1.5rem 5rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--dark) 0%, rgba(13, 79, 79, 0.3) 100%);
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(26, 122, 122, 0.2);
+            color: var(--secondary);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(240, 247, 247, 0.8);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: var(--dark);
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 168, 83, 0.3);
+        }
+        
+        .btn-secondary {
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--light);
+            font-weight: 700;
+            border: 2px solid rgba(240, 247, 247, 0.3);
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(240, 247, 247, 0.1);
+        }
+        
+        /* Sections */
+        .section {
+            padding: 5rem 1.5rem;
+        }
+        
+        .section-alt {
+            background: rgba(240, 247, 247, 0.05);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-subtitle {
+            color: rgba(240, 247, 247, 0.7);
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-right: 4px solid var(--accent);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-number {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        /* Content Box */
+        .content-box {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .content-box-title {
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .content-box-highlight {
+            background: linear-gradient(to left, rgba(212, 168, 83, 0.1), transparent);
+            border-right: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+        
+        /* List Styles */
+        .custom-list {
+            list-style: none;
+        }
+        
+        .custom-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .custom-list li::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-top: 0.5rem;
+            flex-shrink: 0;
+        }
+        
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        
+        .grid-item {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .grid-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .grid-item-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(26, 122, 122, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+        }
+        
+        .grid-item-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .grid-item-text {
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        
+        .tag {
+            padding: 0.5rem 1rem;
+            background: rgba(13, 79, 79, 0.1);
+            color: var(--primary);
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .tag-accent {
+            background: rgba(212, 168, 83, 0.2);
+            color: var(--accent);
+        }
+        
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem;
+            text-align: right;
+            font-weight: 600;
+        }
+        
+        .data-table th:first-child {
+            border-radius: 0 12px 0 0;
+        }
+        
+        .data-table th:last-child {
+            border-radius: 12px 0 0 0;
+        }
+        
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .data-table tr:nth-child(even) td {
+            background: var(--light);
+        }
+        
+        /* Method Cards */
+        .method-card {
+            background: linear-gradient(135deg, rgba(13, 79, 79, 0.05), transparent);
+            border: 1px solid rgba(13, 79, 79, 0.1);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+        
+        .method-card-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .method-card-text {
+            font-size: 0.875rem;
+            color: #666;
+        }
+        
+        /* Comparison List */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .comparison-box {
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+        
+        .comparison-box-red {
+            background: rgba(220, 38, 38, 0.05);
+            border-right: 3px solid #dc2626;
+        }
+        
+        .comparison-box-green {
+            background: rgba(5, 150, 105, 0.05);
+            border-right: 3px solid #059669;
+        }
+        
+        .comparison-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .comparison-title-red {
+            color: #dc2626;
+        }
+        
+        .comparison-title-green {
+            color: #059669;
+        }
+        
+        /* Summary Card */
+        .summary-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .summary-text {
+            font-size: 1.125rem;
+            line-height: 2;
+            color: #444;
+            margin-bottom: 1.5rem;
+        }
+        
+        .summary-text strong {
+            color: var(--primary);
+        }
+        
+        .summary-text em {
+            color: var(--secondary);
+            font-style: normal;
+            font-weight: 600;
+        }
+        
+        /* Concept Map */
+        .concept-map-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 2rem;
+            overflow-x: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .concept-map-container svg {
+            min-width: 800px;
+            width: 100%;
+            height: auto;
+        }
+        
+        /* Q&A */
+        .qa-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.3s;
+            border-right: 4px solid var(--primary);
+        }
+        
+        .qa-card:hover {
+            transform: translateX(-10px);
+            border-right-color: var(--accent);
+        }
+        
+        .qa-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .qa-number {
+            width: 40px;
+            height: 40px;
+            background: rgba(13, 79, 79, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .qa-number span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .qa-question {
+            flex: 1;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .qa-icon {
+            flex-shrink: 0;
+            transition: transform 0.3s;
+        }
+        
+        .qa-icon.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .qa-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.3s ease;
+        }
+        
+        .qa-answer.open {
+            max-height: 500px;
+            padding-top: 1rem;
+        }
+        
+        .qa-answer-content {
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .qa-answer-label {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        /* Quiz */
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .quiz-progress {
+            margin-bottom: 2rem;
+        }
+        
+        .quiz-progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+        
+        .quiz-progress-label {
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .quiz-progress-value {
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .quiz-progress-bar {
+            height: 12px;
+            background: #e5e5e5;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .quiz-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #e8c87a);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        .quiz-question {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .quiz-question:last-child {
+            border-bottom: none;
+        }
+        
+        .quiz-question-text {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        
+        .quiz-question-text span {
+            color: var(--primary);
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .quiz-option {
+            padding: 1rem 1.25rem;
+            border: 2px solid #e5e5e5;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .quiz-option:hover {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+            transform: translateX(-5px);
+        }
+        
+        .quiz-option.selected {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--accent);
+        }
+        
+        .quiz-option.correct {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: var(--white);
+            border-color: #059669;
+        }
+        
+        .quiz-option.wrong {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            color: var(--white);
+            border-color: #dc2626;
+        }
+        
+        .quiz-option-letter {
+            width: 32px;
+            height: 32px;
+            border: 2px solid currentColor;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+        }
+        
+        .quiz-option-text {
+            font-weight: 500;
+        }
+        
+        .quiz-submit {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .quiz-submit-btn {
+            padding: 1rem 2.5rem;
+            background: var(--primary);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quiz-submit-btn:hover:not(:disabled) {
+            background: var(--secondary);
+        }
+        
+        .quiz-submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .quiz-count {
+            color: #999;
+            font-size: 0.875rem;
+            margin-top: 0.75rem;
+        }
+        
+        /* Results */
+        .results {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .results-circle {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 1.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .results-percent {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--white);
+        }
+        
+        .results-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .results-message {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .results-reset {
+            padding: 0.875rem 2rem;
+            background: var(--accent);
+            color: var(--dark);
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .results-reset:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        .footer {
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(240, 247, 247, 0.1);
+        }
+        
+        .footer-text {
+            color: rgba(240, 247, 247, 0.5);
+            font-size: 0.875rem;
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .concept-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 2s ease forwards;
+        }
+        
+        @keyframes drawLine {
+            to { stroke-dashoffset: 0; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 7rem 1rem 3rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 3rem 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .summary-card {
+                padding: 1.5rem;
+            }
+            
+            .quiz-container {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-title">مناهج البحث العلمي</h1>
+            <ul class="nav-links">
+                <li><a href="#summary">الملخص</a></li>
+                <li><a href="#content">المحتوى</a></li>
+                <li><a href="#concept-map">خارطة المفاهيم</a></li>
+                <li><a href="#qa">أسئلة وأجوبة</a></li>
+                <li><a href="#quiz">الاختبار</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#summary" onclick="closeMobileMenu()">الملخص</a>
+            <a href="#content" onclick="closeMobileMenu()">المحتوى</a>
+            <a href="#concept-map" onclick="closeMobileMenu()">خارطة المفاهيم</a>
+            <a href="#qa" onclick="closeMobileMenu()">أسئلة وأجوبة</a>
+            <a href="#quiz" onclick="closeMobileMenu()">الاختبار</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <span class="hero-badge">المحاضرة الاولى</span>
+            <h1 class="hero-title">أسس ومناهج البحث العلمي</h1>
+            <p class="hero-subtitle">دليل معرفي شامل يغطي مفاهيم البحث العلمي وأهميته ومناهجه المتعددة</p>
+            <div class="hero-buttons">
+                <a href="#content" class="btn-primary">ابدأ الدراسة</a>
+                <a href="#quiz" class="btn-secondary">اختبر نفسك</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Summary Section -->
+    <section id="summary" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ملخص الدرس</h2>
+                <p class="section-subtitle">نظرة شاملة على المفاهيم الأساسية</p>
+            </div>
+            
+            <div class="summary-card fade-in">
+                <p class="summary-text">
+                    يُعد <strong>البحث العلمي</strong> عملية فكرية منظمة تهدف إلى الكشف عن الحقائق والتحقق منها بمنهجية دقيقة. يتكون مفهومه من شقين: <em>البحث</em> بمعنى الطلب وتتبع الشيء، و<em>العلم</em> بمعنى الإدراك والتمييز عن الجهل.
+                </p>
+                <p class="summary-text">
+                    تكمن أهمية البحث العلمي في ستة أهداف كبرى: التعرف على إنتاج السابقين، تعزيز الفهم السليم، تكوين قواعد البيانات، إضافة الجديد، ترسيخ دقة التصور، والوصول للأحكام الصحيحة.
+                </p>
+                <p class="summary-text">
+                    تتنوع <strong>مناهج البحث</strong> بين: الوصفي لرصد الظواهر، والتاريخي لتتبع التطور، والمقارن للموازنة، والاستنباطي والاستقرائي لاستخراج الأحكام، والجدلي للحوار العلمي، والتطبيقي للتجارب، والتوثيقي لتحقيق التراث.
+                </p>
+                <p class="summary-text">
+                    ويخضع البحث العلمي لمعايير صارمة من <strong>الموضوعية والمعيارية والاطراد</strong>، مع ضرورة تجنب آفات التحكيم كالنزعات الشخصية وضعف البيانات.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section id="content" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">محتوى الدرس</h2>
+                <p class="section-subtitle">دراسة تفصيلية وممنهجة</p>
+            </div>
+
+            <!-- Item 1 -->
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-number">1</div>
+                    <h3 class="card-title">مفهوم البحث العلمي</h3>
+                </div>
+                
+                <div class="content-box">
+                    <h4 class="content-box-title">المفهوم اللغوي:</h4>
+                    <ul class="custom-list">
+                        <li><strong>البحث:</strong> تدور مادته حول معنى الطلب وإثارة الشيء. قال الخليل بن أحمد: "بحثت في التراب" أي استثرته وطلبت فيه شيئاً.</li>
+                        <li><strong>العلم:</strong> نقيض الجهل، يدل على أثر يتميز به الشيء عن غيره. منه اشتُق "العَلَم" بمعنى الراية والجبل.</li>
+                    </ul>
+                </div>
+                
+                <div class="content-box-highlight">
+                    <h4 class="content-box-title">المفهوم المركب:</h4>
+                    <p style="color: #444; line-height: 1.8;">
+                        عملية فكرية عقلية منظمة، يسعى الباحث من خلالها للتحقق والكشف عن مسألة ما، وتوضيح حقيقة علمية محددة. يتميز بـ"بذل الجهد" الذهني للوصول إلى استجلاء الحقائق المطابقة للواقع.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-number">2</div>
+                    <h3 class="card-title">أهمية البحث العلمي وأهدافه</h3>
+                </div>
+                
+                <div class="grid-2">
+                    <div class="grid-item">
+                        <div class="grid-item-title">التعرف على نتاج السابقين</div>
+                        <div class="grid-item-text">الوقوف على ما أنجزه العلماء الأوائل والبناء عليه</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">تعزيز الفهم السليم</div>
+                        <div class="grid-item-text">تعميق الإدراك للقضايا بموضوعية</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">تكوين قاعدة بيانات</div>
+                        <div class="grid-item-text">إرساء مرجعية معلوماتية يعتمد عليها</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">إضافة الجديد</div>
+                        <div class="grid-item-text">إثراء المعرفة بابتكارات لم تُسبق</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">ترسيخ دقة التصور</div>
+                        <div class="grid-item-text">ضمان صحة المعلومة بالتثبت المنهجي</div>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-item-title">الوصول للأحكام الصحيحة</div>
+                        <div class="grid-item-text">صياغة أحكام مستندة للدليل والبرهان</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-number">3</div>
+                    <h3 class="card-title">مناهج البحث العلمي</h3>
+                </div>
+                
+                <div class="content-box">
+                    <h4 class="content-box-title">تعريف المنهج:</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                        <div>
+                            <span style="font-size: 0.875rem; color: var(--accent); font-weight: 600;">لغوياً</span>
+                            <p style="margin-top: 0.5rem; color: #444;">الطريق الواضح المستقيم، ومنه "نهج فلان" إذا أتى منقطع النفس من التعب.</p>
+                        </div>
+                        <div>
+                            <span style="font-size: 0.875rem; color: var(--accent); font-weight: 600;">اصطلاحاً</span>
+                            <p style="margin-top: 0.5rem; color: #444;">الطرق المعيارية والأدوات الإجرائية التي يعتمدها الباحث للوصول للنتيجة المرجوة.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 class="content-box-title" style="margin-bottom: 1rem;">شروط المنهج العلمي:</h4>
+                <div class="tags">
+                    <span class="tag">المعيارية</span>
+                    <span class="tag">الاطراد</span>
+                    <span class="tag tag-accent">الموضوعية</span>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-number">4</div>
+                    <h3 class="card-title">تصنيف أنواع البحوث العلمية</h3>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h4 class="content-box-title" style="margin-bottom: 1rem;">البحوث العامة (ثمانية أبواب):</h4>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                        <span style="padding: 0.5rem 1rem; background: var(--light); border-radius: 8px; font-size: 0.875rem; font-weight: 500;">اختراع جديد</span>
+                        <span style="padding: 0.5rem 1rem; background: var(--light); border-radius: 8px; font-size: 0.875rem; font-weight: 500;">شرح مغلق</span>
+                        <span style="padding: 0.5rem 1rem; background: var(--light); border-radius: 8px; font-size: 0.875rem; font-weight: 500;">إتمام ناقص</span>
+                        <span style="padding: 0.5rem 1rem; background: var(--light); border-radius: 8px; font-size: 0.875rem; font-weight: 500;">اختصار طويل</span>
+                        <span style="padding: 0.5rem 1rem; background: var(--light); border-radius: 8px; font-size: 0.875rem; font-weight: 500;">جمع متفرق</span>
+                        <span style="padding: 0.5rem 1rem; background: var(--light); border-radius: 8px; font-size: 0.875rem; font-weight: 500;">ترتيب مختلط</span>
+                        <span style="padding: 0.5rem 1rem; background: var(--light); border-radius: 8px; font-size: 0.875rem; font-weight: 500;">تصحيح خطأ</span>
+                        <span style="padding: 0.5rem 1rem; background: var(--light); border-radius: 8px; font-size: 0.875rem; font-weight: 500;">تحقيق المخطوطات</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="content-box-title" style="margin-bottom: 1rem;">البحوث الأكاديمية:</h4>
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>نوع البحث</th>
+                                    <th>الهدف الرئيسي</th>
+                                    <th>السمات الإجرائية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight: 600; color: var(--primary);">البحث الصفي</td>
+                                    <td>تدريبي لتنمية مواهب الطالب</td>
+                                    <td style="font-size: 0.875rem; color: #666;">حوالي 50 صفحة، يعتمد على المصادر الأصلية</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600; color: var(--primary);">الماجستير والدكتوراه</td>
+                                    <td>إضافة مبتكرة ونقد سليم</td>
+                                    <td style="font-size: 0.875rem; color: #666;">عمق تحليلي، موازنة، التزام صارم</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 600; color: var(--primary);">البحث المحكم</td>
+                                    <td>الارتقاء فكراً ومنهجية</td>
+                                    <td style="font-size: 0.875rem; color: #666;">لا يتعدى 50 صفحة، شروط المجلة الدقيقة</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-number">5</div>
+                    <h3 class="card-title">مناهج البحث المختلفة</h3>
+                </div>
+                
+                <div class="grid-2">
+                    <div class="method-card">
+                        <div class="method-card-title">المنهج الوصفي</div>
+                        <div class="method-card-text">رصد الظاهرة ووصف خصائصها بدقة وتقديم مقترحات وحلول</div>
+                    </div>
+                    <div class="method-card">
+                        <div class="method-card-title">المنهج التاريخي</div>
+                        <div class="method-card-text">تتبع القضية من النشأة والتطور عبر الزمن مع تحليل الأحداث</div>
+                    </div>
+                    <div class="method-card">
+                        <div class="method-card-title">المنهج المقارن</div>
+                        <div class="method-card-text">المقارنة بين شخصيتين أو فكرتين لإبراز نقاط الخلاف والتقارب</div>
+                    </div>
+                    <div class="method-card">
+                        <div class="method-card-title">المنهج الاستنباطي</div>
+                        <div class="method-card-text">النظر في الأدلة الكلية والجزئية لاستنتاج أحكام عامة</div>
+                    </div>
+                    <div class="method-card">
+                        <div class="method-card-title">المنهج الاستقرائي</div>
+                        <div class="method-card-text">تتبع الجزئيات للوصول إلى حكم كلي أو قاعدة عامة</div>
+                    </div>
+                    <div class="method-card">
+                        <div class="method-card-title">المنهج الجدلي</div>
+                        <div class="method-card-text">الحوار والمحاجة بين رأيين متقابلين لإثبات فكرة أو تفنيدها</div>
+                    </div>
+                    <div class="method-card">
+                        <div class="method-card-title">المنهج التطبيقي</div>
+                        <div class="method-card-text">إجراء تجارب ميدانية ودراسة عينات بطريقة منظمة</div>
+                    </div>
+                    <div class="method-card">
+                        <div class="method-card-title">المنهج التوثيقي</div>
+                        <div class="method-card-text">جمع المادة وتحقيقها علمياً وتاريخياً ويرتبط بتحقيق المخطوطات</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="card fade-in">
+                <div class="card-header">
+                    <div class="card-number">6</div>
+                    <h3 class="card-title">آفات ومعايير تحكيم البحوث</h3>
+                </div>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-box comparison-box-red">
+                        <h4 class="comparison-title comparison-title-red">آفات التحكيم</h4>
+                        <ul class="custom-list">
+                            <li>قلة مراعاة قواعد النشر والشروط الشكلية</li>
+                            <li>تفاوت مستويات المحكمين</li>
+                            <li>النزعات الشخصية وتعنت المحكمين</li>
+                            <li>عدم مطابقة العنوان للمضمون</li>
+                            <li>التأخر في التحكيم لشهور طويلة</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="comparison-box comparison-box-green">
+                        <h4 class="comparison-title comparison-title-green">معايير القبول</h4>
+                        <ul class="custom-list">
+                            <li>الجدة والابتكار</li>
+                            <li>الترابط المنهجي</li>
+                            <li>وضوح مشكلة البحث</li>
+                            <li>كفاية المراجع والمصادر</li>
+                            <li>سلامة الصياغة اللغوية</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept Map Section -->
+    <section id="concept-map" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">خارطة المفاهيم</h2>
+                <p class="section-subtitle">تصور بصري متكامل لأركان البحث العلمي</p>
+            </div>
+            
+            <div class="concept-map-container fade-in">
+                <svg viewBox="0 0 1000 600">
+                    <defs>
+                        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#1a7a7a;stop-opacity:0.3" />
+                            <stop offset="50%" style="stop-color:#d4a853;stop-opacity:0.5" />
+                            <stop offset="100%" style="stop-color:#1a7a7a;stop-opacity:0.3" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- Connection Lines -->
+                    <line x1="500" y1="100" x2="250" y2="220" stroke="url(#lineGrad)" stroke-width="3" class="concept-line"/>
+                    <line x1="500" y1="100" x2="500" y2="220" stroke="url(#lineGrad)" stroke-width="3" class="concept-line"/>
+                    <line x1="500" y1="100" x2="750" y2="220" stroke="url(#lineGrad)" stroke-width="3" class="concept-line"/>
+                    
+                    <line x1="250" y1="280" x2="150" y2="380" stroke="url(#lineGrad)" stroke-width="2" class="concept-line"/>
+                    <line x1="250" y1="280" x2="350" y2="380" stroke="url(#lineGrad)" stroke-width="2" class="concept-line"/>
+                    
+                    <line x1="500" y1="280" x2="500" y2="380" stroke="url(#lineGrad)" stroke-width="2" class="concept-line"/>
+                    
+                    <line x1="750" y1="280" x2="650" y2="380" stroke="url(#lineGrad)" stroke-width="2" class="concept-line"/>
+                    <line x1="750" y1="280" x2="850" y2="380" stroke="url(#lineGrad)" stroke-width="2" class="concept-line"/>
+                    
+                    <line x1="150" y1="440" x2="100" y2="520" stroke="url(#lineGrad)" stroke-width="1.5" class="concept-line"/>
+                    <line x1="150" y1="440" x2="200" y2="520" stroke="url(#lineGrad)" stroke-width="1.5" class="concept-line"/>
+                    
+                    <line x1="350" y1="440" x2="300" y2="520" stroke="url(#lineGrad)" stroke-width="1.5" class="concept-line"/>
+                    <line x1="350" y1="440" x2="400" y2="520" stroke="url(#lineGrad)" stroke-width="1.5" class="concept-line"/>
+                    
+                    <line x1="650" y1="440" x2="600" y2="520" stroke="url(#lineGrad)" stroke-width="1.5" class="concept-line"/>
+                    <line x1="650" y1="440" x2="700" y2="520" stroke="url(#lineGrad)" stroke-width="1.5" class="concept-line"/>
+                    
+                    <line x1="850" y1="440" x2="800" y2="520" stroke="url(#lineGrad)" stroke-width="1.5" class="concept-line"/>
+                    <line x1="850" y1="440" x2="900" y2="520" stroke="url(#lineGrad)" stroke-width="1.5" class="concept-line"/>
+                    
+                    <!-- Central Node -->
+                    <rect x="380" y="40" width="240" height="60" rx="30" fill="#0d4f4f"/>
+                    <text x="500" y="78" text-anchor="middle" fill="white" font-size="20" font-weight="bold">البحث العلمي</text>
+                    
+                    <!-- Level 2 -->
+                    <rect x="150" y="220" width="200" height="55" rx="12" fill="#1a7a7a"/>
+                    <text x="250" y="255" text-anchor="middle" fill="white" font-size="16" font-weight="bold">المفهوم والتعريف</text>
+                    
+                    <rect x="400" y="220" width="200" height="55" rx="12" fill="#d4a853"/>
+                    <text x="500" y="255" text-anchor="middle" fill="#0a2e2e" font-size="16" font-weight="bold">الأهداف والأهمية</text>
+                    
+                    <rect x="650" y="220" width="200" height="55" rx="12" fill="#1a7a7a"/>
+                    <text x="750" y="255" text-anchor="middle" fill="white" font-size="16" font-weight="bold">المناهج والأنواع</text>
+                    
+                    <!-- Level 3 -->
+                    <rect x="70" y="380" width="160" height="50" rx="10" fill="#ffffff" stroke="#1a7a7a" stroke-width="2"/>
+                    <text x="150" y="412" text-anchor="middle" fill="#0d4f4f" font-size="14" font-weight="600">المفهوم اللغوي</text>
+                    
+                    <rect x="270" y="380" width="160" height="50" rx="10" fill="#ffffff" stroke="#1a7a7a" stroke-width="2"/>
+                    <text x="350" y="412" text-anchor="middle" fill="#0d4f4f" font-size="14" font-weight="600">المفهوم الاصطلاحي</text>
+                    
+                    <rect x="420" y="380" width="160" height="50" rx="10" fill="#ffffff" stroke="#d4a853" stroke-width="2"/>
+                    <text x="500" y="412" text-anchor="middle" fill="#0d4f4f" font-size="14" font-weight="600">الأهداف الستة</text>
+                    
+                    <rect x="570" y="380" width="160" height="50" rx="10" fill="#ffffff" stroke="#1a7a7a" stroke-width="2"/>
+                    <text x="650" y="412" text-anchor="middle" fill="#0d4f4f" font-size="14" font-weight="600">مناهج البحث</text>
+                    
+                    <rect x="770" y="380" width="160" height="50" rx="10" fill="#ffffff" stroke="#1a7a7a" stroke-width="2"/>
+                    <text x="850" y="412" text-anchor="middle" fill="#0d4f4f" font-size="14" font-weight="600">أنواع البحوث</text>
+                    
+                    <!-- Level 4 -->
+                    <rect x="40" y="520" width="120" height="40" rx="8" fill="#f0f7f7" stroke="#1a7a7a" stroke-width="1"/>
+                    <text x="100" y="546" text-anchor="middle" fill="#1a7a7a" font-size="12">البحث = الطلب</text>
+                    
+                    <rect x="140" y="520" width="120" height="40" rx="8" fill="#f0f7f7" stroke="#1a7a7a" stroke-width="1"/>
+                    <text x="200" y="546" text-anchor="middle" fill="#1a7a7a" font-size="12">العلم = التمييز</text>
+                    
+                    <rect x="240" y="520" width="120" height="40" rx="8" fill="#f0f7f7" stroke="#d4a853" stroke-width="1"/>
+                    <text x="300" y="546" text-anchor="middle" fill="#0d4f4f" font-size="12">عملية منظمة</text>
+                    
+                    <rect x="340" y="520" width="120" height="40" rx="8" fill="#f0f7f7" stroke="#d4a853" stroke-width="1"/>
+                    <text x="400" y="546" text-anchor="middle" fill="#0d4f4f" font-size="12">الكشف والتحقق</text>
+                    
+                    <rect x="540" y="520" width="120" height="40" rx="8" fill="#f0f7f7" stroke="#1a7a7a" stroke-width="1"/>
+                    <text x="600" y="546" text-anchor="middle" fill="#1a7a7a" font-size="12">8 مناهج أساسية</text>
+                    
+                    <rect x="640" y="520" width="120" height="40" rx="8" fill="#f0f7f7" stroke="#1a7a7a" stroke-width="1"/>
+                    <text x="700" y="546" text-anchor="middle" fill="#1a7a7a" font-size="12">الشروط الثلاثة</text>
+                    
+                    <rect x="740" y="520" width="120" height="40" rx="8" fill="#f0f7f7" stroke="#1a7a7a" stroke-width="1"/>
+                    <text x="800" y="546" text-anchor="middle" fill="#1a7a7a" font-size="12">بحوث عامة</text>
+                    
+                    <rect x="840" y="520" width="120" height="40" rx="8" fill="#f0f7f7" stroke="#1a7a7a" stroke-width="1"/>
+                    <text x="900" y="546" text-anchor="middle" fill="#1a7a7a" font-size="12">بحوث أكاديمية</text>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Q&A Section -->
+    <section id="qa" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">أسئلة وأجوبة</h2>
+                <p class="section-subtitle">اختبر فهمك - اضغط على السؤال لظهور الإجابة</p>
+            </div>
+            
+            <div id="qaContainer"></div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">اختبار شامل</h2>
+                <p class="section-subtitle">قيّم مستوى فهمك للدرس</p>
+            </div>
+            
+            <div class="quiz-container fade-in">
+                <div class="quiz-progress">
+                    <div class="quiz-progress-header">
+                        <span class="quiz-progress-label">التقدم</span>
+                        <span class="quiz-progress-value" id="progressText">0 / 15</span>
+                    </div>
+                    <div class="quiz-progress-bar">
+                        <div class="quiz-progress-fill" id="progressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <div id="quizContainer"></div>
+                
+                <div id="resultsSection" style="display: none;">
+                    <div class="results">
+                        <div class="results-circle">
+                            <span class="results-percent" id="scorePercent">0%</span>
+                        </div>
+                        <h3 class="results-title" id="resultTitle">نتيجتك</h3>
+                        <p class="results-message" id="resultMessage"></p>
+                        <button class="results-reset" onclick="resetQuiz()">إعادة الاختبار</button>
+                    </div>
+                </div>
+                
+                <div class="quiz-submit" id="submitSection">
+                    <button class="quiz-submit-btn" id="submitBtn" onclick="submitQuiz()" disabled>إرسال الإجابات</button>
+                    <p class="quiz-count" id="answeredCount">أجبت على 0 من 15 سؤال</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">المحاضرة الاولى - أسس ومناهج البحث العلمي</p>
+    </footer>
+
+    <script>
+        // Data
+        var qaData = [
+            { q: "ما المعنى اللغوي لمادة (بحث) وما الدليل الذي استشهد به الخليل بن أحمد؟", a: "تدور مادة (بحث) حول معنى الطلب وإثارة الشيء. استشهد الخليل بن أحمد بقوله: 'بحثت في التراب' أي استثرته وطلبت فيه شيئاً، كما يُطلق البحث على الاستخبار والسؤال عن الأمر واستقصاء حقيقته." },
+            { q: "عرّف البحث العلمي اصطلاحاً مع ذكر أهم خصائصه.", a: "البحث العلمي عملية فكرية عقلية منظمة، يسعى الباحث من خلالها للتحقق والكشف عن مسألة ما، وتوضيح حقيقة علمية محددة. ويتميز ببذل الجهد الذهني للوصول إلى استجلاء الحقائق المطابقة للواقع، متجاوزاً مجرد الوصف السطحي." },
+            { q: "اذكر الأهداف الستة الكبرى للبحث العلمي مع شرح موجز لكل منها.", a: "الأهداف الستة هي: 1) التعرف على نتاج السابقين والبناء عليه. 2) تعزيز الفهم السليم للقضايا بموضوعية. 3) تكوين قاعدة بيانات مرجعية. 4) إضافة الجديد وإثراء المعرفة. 5) ترسيخ دقة التصور وضمان صحة المعلومة. 6) الوصول للأحكام الصحيحة المستندة للدليل والبرهان." },
+            { q: "ما الفرق بين المفهوم اللغوي والاصطلاحي للمنهج؟", a: "لغوياً: المنهج هو الطريق الواضح المستقيم، ومنه 'نهج فلان' إذا أتى منقطع النفس من التعب. اصطلاحاً: هي الطرق المعيارية والأدوات الإجرائية التي يعتمدها الباحث في جمع المادة ودراستها للوصول إلى النتيجة المرجوة." },
+            { q: "ما شروط المنهج العلمي الصحيح؟ وضح كل منها.", a: "ثلاثة شروط: 1) المعيارية: الالتزام بالقواعد العلمية المقررة كقواعد المنطق وأصول الفقه. 2) الاطراد: الاستمرار والالتزام بنسق منهجي واحد طوال الدراسة. 3) الموضوعية: حصر الدراسة في الموضوع المبحوث والبعد عن الحشو والنزعات الشخصية." },
+            { q: "قارن بين البحث الصفي وبحث الماجستير من حيث الهدف والسمات الإجرائية.", a: "البحث الصفي: هدف تدريبي لتنمية مواهب الطالب، حوالي 50 صفحة، يعتمد على المصادر الأصلية. بحث الماجستير: يهدف لتقديم إضافة مبتكرة ونقد سليم، يتسم بالعمق والقدرة العالية على الموازنة والتحليل والالتزام الصارم." },
+            { q: "ما الفرق الجوهري بين المنهج الاستنباطي والمنهج الاستقرائي؟", a: "المنهج الاستنباطي: يعتمد على النظر في الأدلة الكلية والجزئية واستنتاج أحكام عامة بناءً على تأمل دقيق. المنهج الاستقرائي: يتتبع الجزئيات والملاحظات المتكررة للوصول إلى حكم كلي أو قاعدة عامة، وقد يكون استقراءً تاماً أو ناقصاً." },
+            { q: "اذكر أربعة من آفات تحكيم البحوث العلمية.", a: "من آفات التحكيم: قلة مراعاة الباحثين لقواعد النشر والشروط الشكلية، تفاوت مستويات المحكمين، النزعات الشخصية أو تعنت بعض المحكمين، عدم مطابقة العنوان للمضمون، ضعف جودة البيانات، التأخر في التحكيم لشهور طويلة." },
+            { q: "ما معايير قبول البحث العلمي للنشر في المجلات المحكمة؟", a: "معايير القبول: الجدة والابتكار، الترابط المنهجي، وضوح مشكلة البحث، كفاية المراجع والمصادر، سلامة الصياغة اللغوية، ووضوح المنهجية." },
+            { q: "وضح المقصود بالمنهج الوصفي مع ذكر مثال تطبيقي.", a: "المنهج الوصفي يقوم على رصد الظاهرة ووصف خصائصها بدقة، ولا يكتفي بالوصف بل يتعداه لتقديم مقترحات وحلول وطرح فرضيات علمية. مثاله: دراسة دلالة الألفاظ في العصر الجاهلي." }
+        ];
+
+        var quizData = [
+            { q: "ما المعنى اللغوي لمادة (بحث)؟", options: ["الجلوس والسكون", "الطلب وإثارة الشيء", "الكتابة والتدوين", "الحفظ والتذكر"], correct: 1 },
+            { q: "من الذي استشهد بقوله: 'بحثت في التراب'؟", options: ["ابن فارس", "الخليل بن أحمد", "سيبويه", "الجاحظ"], correct: 1 },
+            { q: "ما أصل كلمة 'العَلَم' بمعنى الراية؟", options: ["مادة (عرف)", "مادة (علم)", "مادة (رسم)", "مادة (علمة)"], correct: 1 },
+            { q: "كم عدد الأهداف الكبرى للبحث العلمي؟", options: ["أربعة أهداف", "خمسة أهداف", "ستة أهداف", "سبعة أهداف"], correct: 2 },
+            { q: "ما المعيار الأهم من شروط المنهج العلمي؟", options: ["المعيارية", "الاطراد", "الموضوعية", "الشمولية"], correct: 2 },
+            { q: "كم عدد أبواب البحوث العامة التي حصرها الأوائل؟", options: ["ستة أبواب", "سبعة أبواب", "ثمانية أبواب", "تسعة أبواب"], correct: 2 },
+            { q: "ما الحجم التقريبي للبحث الصفي؟", options: ["30 صفحة", "50 صفحة", "100 صفحة", "150 صفحة"], correct: 1 },
+            { q: "أي من المناهج التالية يُعنى بتتبع القضية من النشأة والتطور؟", options: ["المنهج الوصفي", "المنهج التاريخي", "المنهج المقارن", "المنهج التطبيقي"], correct: 1 },
+            { q: "ما مثال المنهج الاستقرائي المذكور في الدرس؟", options: ["دراسة دلالة الألفاظ", "تحقيق المخطوطات", "تتبع موانع إنفاذ الوعيد", "المقارنة بين كتابين"], correct: 2 },
+            { q: "أي منهج يعتمد على الحوار والمحاجة بين رأيين متقابلين؟", options: ["المنهج الاستنباطي", "المنهج الجدلي", "المنهج التوثيقي", "المنهج التطبيقي"], correct: 1 },
+            { q: "ما المنهج الأكثر ارتباطاً بتحقيق المخطوطات؟", options: ["المنهج الوصفي", "المنهج التاريخي", "المنهج التوثيقي", "المنهج الاستقرائي"], correct: 2 },
+            { q: "ما الهدف الرئيسي من البحث المحكم؟", options: ["التخرج من الجامعة", "الترقية الوظيفية فقط", "الارتقاء فكراً ومنهجية", "الحصول على شهادة"], correct: 2 },
+            { q: "أي مما يلي من آفات تحكيم البحوث؟", options: ["كثرة المراجع", "تفاوت مستويات المحكمين", "وضوح العنوان", "جدة الموضوع"], correct: 1 },
+            { q: "ما شرط 'الاطراد' في المنهج العلمي؟", options: ["الالتزام بقواعد المنطق", "الاستمرار بنسق منهجي واحد", "التجرد من الأهواء", "حصر الدراسة في الموضوع"], correct: 1 },
+            { q: "أي مما يلي من معايير قبول البحث العلمي؟", options: ["طول البحث", "كثرة الصفحات", "الجدة والابتكار", "قدم المراجع"], correct: 2 }
+        ];
+
+        var userAnswers = {};
+        var submitted = false;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderQA();
+            renderQuiz();
+            setupScrollObserver();
+        });
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            var menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            var menu = document.getElementById('mobileMenu');
+            menu.classList.remove('active');
+        }
+
+        // Scroll Observer
+        function setupScrollObserver() {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(function(el) {
+                observer.observe(el);
+            });
+        }
+
+        // Render Q&A
+        function renderQA() {
+            var container = document.getElementById('qaContainer');
+            var html = '';
+            
+            for (var i = 0; i < qaData.length; i++) {
+                html += '<div class="qa-card" onclick="toggleAnswer(' + i + ')">' +
+                    '<div class="qa-header">' +
+                    '<div class="qa-number"><span>' + (i + 1) + '</span></div>' +
+                    '<h4 class="qa-question">' + qaData[i].q + '</h4>' +
+                    '<div class="qa-icon" id="icon-' + i + '">' +
+                    '<svg width="24" height="24" fill="none" stroke="#0d4f4f" viewBox="0 0 24 24">' +
+                    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>' +
+                    '</svg></div></div>' +
+                    '<div class="qa-answer" id="answer-' + i + '">' +
+                    '<div class="qa-answer-content">' +
+                    '<span class="qa-answer-label">الجواب:</span>' +
+                    '<p style="margin-top: 0.5rem;">' + qaData[i].a + '</p></div></div></div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function toggleAnswer(index) {
+            var answer = document.getElementById('answer-' + index);
+            var icon = document.getElementById('icon-' + index);
+            
+            if (answer.classList.contains('open')) {
+                answer.classList.remove('open');
+                icon.classList.remove('rotated');
+            } else {
+                answer.classList.add('open');
+                icon.classList.add('rotated');
+            }
+        }
+
+        // Render Quiz
+        function renderQuiz() {
+            var container = document.getElementById('quizContainer');
+            var html = '';
+            var letters = ['أ', 'ب', 'ج', 'د'];
+            
+            for (var q = 0; q < quizData.length; q++) {
+                html += '<div class="quiz-question">' +
+                    '<h4 class="quiz-question-text"><span>' + (q + 1) + '.</span> ' + quizData[q].q + '</h4>' +
+                    '<div class="quiz-options">';
+                
+                for (var o = 0; o < quizData[q].options.length; o++) {
+                    var selectedClass = userAnswers[q] === o ? ' selected' : '';
+                    html += '<div class="quiz-option' + selectedClass + '" onclick="selectAnswer(' + q + ', ' + o + ')" data-q="' + q + '" data-o="' + o + '">' +
+                        '<div class="quiz-option-letter">' + letters[o] + '</div>' +
+                        '<span class="quiz-option-text">' + quizData[q].options[o] + '</span></div>';
+                }
+                
+                html += '</div></div>';
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function selectAnswer(qIndex, oIndex) {
+            if (submitted) return;
+            
+            userAnswers[qIndex] = oIndex;
+            
+            var options = document.querySelectorAll('[data-q="' + qIndex + '"]');
+            options.forEach(function(opt) {
+                opt.classList.remove('selected');
+            });
+            
+            var selected = document.querySelector('[data-q="' + qIndex + '"][data-o="' + oIndex + '"]');
+            if (selected) {
+                selected.classList.add('selected');
+            }
+            
+            updateProgress();
+        }
+
+        function updateProgress() {
+            var answered = Object.keys(userAnswers).length;
+            var total = quizData.length;
+            var percent = (answered / total) * 100;
+            
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressText').textContent = answered + ' / ' + total;
+            document.getElementById('answeredCount').textContent = 'أجبت على ' + answered + ' من ' + total + ' سؤال';
+            document.getElementById('submitBtn').disabled = answered < total;
+        }
+
+        function submitQuiz() {
+            if (submitted) return;
+            submitted = true;
+            
+            var correct = 0;
+            
+            for (var q = 0; q < quizData.length; q++) {
+                var userAnswer = userAnswers[q];
+                var options = document.querySelectorAll('[data-q="' + q + '"]');
+                
+                options.forEach(function(opt, oIndex) {
+                    opt.classList.remove('selected');
+                    if (oIndex === quizData[q].correct) {
+                        opt.classList.add('correct');
+                    } else if (oIndex === userAnswer) {
+                        opt.classList.add('wrong');
+                    }
+                });
+                
+                if (userAnswer === quizData[q].correct) correct++;
+            }
+            
+            var percent = Math.round((correct / quizData.length) * 100);
+            
+            document.getElementById('submitSection').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'block';
+            document.getElementById('scorePercent').textContent = percent + '%';
+            
+            var title, message;
+            if (percent >= 90) {
+                title = "ممتاز!";
+                message = "أداء رائع! لقد أتقنت محتوى الدرس بشكل كامل.";
+            } else if (percent >= 70) {
+                title = "جيد جداً!";
+                message = "أداء جيد! يمكنك مراجعة بعض النقاط لتحسين نتيجتك.";
+            } else if (percent >= 50) {
+                title = "جيد";
+                message = "تحتاج لمراجعة الدرس وإعادة الاختبار لتحسين نتيجتك.";
+            } else {
+                title = "يحتاج تحسين";
+                message = "ننصحك بمراجعة الدرس بعناية ثم إعادة الاختبار.";
+            }
+            
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultMessage').textContent = message;
+        }
+
+        function resetQuiz() {
+            submitted = false;
+            userAnswers = {};
+            
+            document.getElementById('submitSection').style.display = 'block';
+            document.getElementById('resultsSection').style.display = 'none';
+            
+            renderQuiz();
+            updateProgress();
+        }
+    </script>
+</body>
+</html>
