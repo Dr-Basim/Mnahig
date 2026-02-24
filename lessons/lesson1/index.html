@@ -1047,9 +1047,14 @@ async function sendToSheets(r){
   const el=document.getElementById('scSend');
   el.textContent='⏳ جارٍ إرسال نتيجتك للأستاذ...';
   try{
-    const p=new URLSearchParams({name:r.name,section:r.section,
-      score:r.score+'/20',grade:r.grade,studyTime:r.studyTime,date:r.date});
-    await fetch(url+'?'+p,{method:'GET',mode:'no-cors'});
+    const p=new URLSearchParams();
+    p.append('name', r.name);
+    p.append('section', r.section);
+    p.append('score', r.score+'/20');
+    p.append('grade', r.grade);
+    p.append('studyTime', r.studyTime);
+    p.append('date', r.date);
+    await fetch(url+'?'+p.toString(),{method:'GET',mode:'no-cors'});
     el.textContent='✅ تم إرسال نتيجتك للأستاذ بنجاح!';
     el.style.color='#a8e6cc';
   }catch{el.textContent='📡 تعذّر الإرسال التلقائي — تم الحفظ محلياً.'}
@@ -1162,25 +1167,44 @@ document.getElementById('tm').addEventListener('click',function(e){if(e.target==
 const SCRIPT_CODE=`function doGet(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    
+    // Add headers if sheet is empty
     if (sheet.getLastRow() === 0) {
       sheet.appendRow(['الاسم','الشعبة','الدرجة','التقدير','وقت الدراسة','التاريخ','وقت الإرسال']);
-      sheet.setRightToLeft(true);
-      sheet.getRange(1,1,1,7).setFontWeight('bold')
-           .setBackground('#0f3460').setFontColor('#e2b96f');
+      try {
+        sheet.setRightToLeft(true);
+        sheet.getRange(1,1,1,7).setFontWeight('bold')
+             .setBackground('#0f3460').setFontColor('#e2b96f');
+      } catch(fe) {}
     }
-    var p = e.parameter;
+    
+    // Read all parameters safely
+    var params = e.parameter || {};
+    var studentName  = params['name']      || params.name      || '';
+    var studentSec   = params['section']   || params.section   || '';
+    var studentScore = params['score']     || params.score     || '';
+    var studentGrade = params['grade']     || params.grade     || '';
+    var studyTime    = params['studyTime'] || params.studyTime || '';
+    var testDate     = params['date']      || params.date      || '';
+    
     sheet.appendRow([
-      p.name||'', p.section||'', p.score||'',
-      p.grade||'', p.studyTime||'', p.date||'',
+      studentName,
+      studentSec,
+      studentScore,
+      studentGrade,
+      studyTime,
+      testDate,
       new Date().toLocaleString('ar-SA')
     ]);
-    return ContentService.createTextOutput(
-      JSON.stringify({status:'ok'})
-    ).setMimeType(ContentService.MimeType.JSON);
+    
+    return ContentService
+      .createTextOutput(JSON.stringify({status:'ok', name: studentName}))
+      .setMimeType(ContentService.MimeType.JSON);
+      
   } catch(err) {
-    return ContentService.createTextOutput(
-      JSON.stringify({status:'error',msg:err.toString()})
-    ).setMimeType(ContentService.MimeType.JSON);
+    return ContentService
+      .createTextOutput(JSON.stringify({status:'error', msg: err.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
   }
 }`;
 
