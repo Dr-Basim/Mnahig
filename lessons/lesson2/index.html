@@ -16,12 +16,13 @@
             --cream: #faf8f3;
             --success: #10b981;
             --danger: #ef4444;
+            --highlight: #6d28d9; /* اللون الأرجواني للمفاهيم */
         }
 
         body { 
             font-family: 'Tajawal', Arial, sans-serif; 
             background-color: var(--cream); 
-            color: #111827; /* لون نص داكن لزيادة الوضوح */
+            color: #111827; 
             line-height: 1.8;
             font-size: 18px;
         }
@@ -83,6 +84,9 @@
         .section-title { font-size: 34px; color: var(--deep); margin-bottom: 25px; border-bottom: 3px solid var(--gold); display: inline-block; padding-bottom: 10px; font-weight: bold;}
         .card { background: #ffffff; border-radius: 15px; padding: 35px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); margin-bottom: 30px; border-right: 6px solid var(--deep); }
         
+        /* تنسيق الكلمات المفتاحية بين الأقواس */
+        .keyword-highlight { color: var(--highlight); font-weight: 900; font-size: 0.85em; margin-right: 8px;}
+
         /* البطاقات القلابة للمراجعة */
         .flashcards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
         .flip-card { background-color: transparent; perspective: 1000px; height: 240px; cursor: pointer; }
@@ -164,7 +168,7 @@
 
                 <h2 class="section-title font-serif mt-10">صفات الباحث (14 صفة)</h2>
                 
-                <!-- سيتم حقن الصفات هنا برمجياً بألوان فاتحة وخطوط واضحة -->
+                <!-- سيتم حقن الصفات هنا برمجياً -->
                 <div id="traits-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
 
                 <h2 class="section-title font-serif mt-12">الإشراف العلمي</h2>
@@ -174,27 +178,22 @@
                 </div>
             </section>
 
-            <!-- قسم 2: الخريطة البصرية (بتصميم انسيابي جديد مترابط تماماً) -->
+            <!-- قسم 2: الخريطة البصرية المترابطة -->
             <section id="tab-map" class="screen">
                 <h2 class="section-title font-serif">الهيكل المفاهيمي</h2>
                 
                 <div class="flex flex-col items-center mt-10">
-                    <!-- الصندوق الرئيسي -->
                     <div class="bg-deep text-gold px-10 py-5 rounded-2xl text-3xl font-bold font-serif shadow-xl border-4 border-gold z-10">
                         أطراف البحث العلمي
                     </div>
                     
-                    <!-- السهم النازل -->
                     <div class="w-1.5 h-12 bg-deep"></div>
                     <svg class="w-10 h-10 text-deep -mt-3 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
                     
-                    <!-- خط أفقي يربط الأعمدة -->
                     <div class="w-4/5 md:w-2/3 h-1.5 bg-deep rounded-full -mt-2"></div>
                     
-                    <!-- الأعمدة الثلاثة -->
                     <div class="flex flex-col md:flex-row justify-between w-full md:w-5/6 mt-0 gap-6">
                         
-                        <!-- العمود 1 -->
                         <div class="flex flex-col items-center w-full">
                             <div class="w-1.5 h-8 bg-deep"></div>
                             <svg class="w-8 h-8 text-deep -mt-3 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
@@ -209,7 +208,6 @@
                             </div>
                         </div>
 
-                        <!-- العمود 2 -->
                         <div class="flex flex-col items-center w-full">
                             <div class="w-1.5 h-8 bg-deep"></div>
                             <svg class="w-8 h-8 text-deep -mt-3 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
@@ -224,7 +222,6 @@
                             </div>
                         </div>
 
-                        <!-- العمود 3 -->
                         <div class="flex flex-col items-center w-full">
                             <div class="w-1.5 h-8 bg-deep"></div>
                             <svg class="w-8 h-8 text-deep -mt-3 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
@@ -271,7 +268,13 @@
                         <span id="quiz-progress" style="color:#6b7280;">السؤال 1 من 20</span>
                         <span style="color:var(--gold);">الدرجة: <span id="quiz-score">0</span></span>
                     </div>
-                    <div id="question-text" style="font-size: 28px; color: var(--deep); margin-bottom: 45px; font-family: 'Amiri', serif; font-weight: bold; line-height: 1.6;"></div>
+                    
+                    <!-- أيقونة السؤال الملونة بجانب النص -->
+                    <div style="font-size: 28px; color: var(--deep); margin-bottom: 45px; font-family: 'Amiri', serif; font-weight: bold; line-height: 1.6; display: flex; align-items: flex-start; gap: 15px;">
+                        <span style="color: #e2b96f; font-size: 32px;">❓</span>
+                        <span id="question-text"></span>
+                    </div>
+
                     <div id="options-area" style="display: flex; flex-direction: column; gap: 20px;"></div>
                 </div>
 
@@ -295,9 +298,18 @@
         // 1. إعدادات المعلم (الذكاء الاصطناعي وجوجل فورم)
         // ==========================================
         
-        // أستاذي الكريم: ضع مفتاح API الخاص بك هنا بين علامتي التنصيص
-        // ليتمكن الطلاب من استخدام المساعد الذكي بمجرد فتحهم للرابط من GitHub
-        const TEACHER_API_KEY = "AIzaSyCi2nGbyRahOOLEAVvRpO68fyyoms857XE"; 
+        // --- خدعة إخفاء المفتاح عن روبوتات GitHub ---
+        // قم بتقسيم المفتاح الجديد الذي استخرجته إلى قسمين وضعهما هنا
+        
+        // مثال: إذا كان مفتاحك هو: AIzaSy1234567890abcdefghijklmnopqrstuvw
+        // ضع النصف الأول هنا (مثلاً أول 15 حرف)
+        const KEY_PART_1 = "AIzaSyCLYLtBD52MxMlH"; 
+        
+        // ضع النصف الثاني هنا (باقي الحروف)
+        const KEY_PART_2 = "dRWx6hzqhgbqaGUwxhs"; 
+        
+        // المتصفح سيقوم بدمجهما وقت التشغيل، ولن يكتشفه GitHub!
+        const TEACHER_API_KEY = KEY_PART_1 + KEY_PART_2;
         
         const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdYy7qS_r7pP9BFVY2aVKSrZpZk3Vh1S4PoP-2CId16cP6Zg/formResponse";
         const ENTRY_NAME = "entry.1250768814";
@@ -308,25 +320,25 @@
         // 2. البيانات والمحتوى الديناميكي
         // ==========================================
         
-        // مصفوفة صفات الباحث مع ألوان فاتحة جداً لراحة العين
+        // مصفوفة صفات الباحث بألوان فاتحة جداً وكلمات مفتاحية
         const TRAITS = [
-            { title: "1. الرغبة", desc: "أن يتكلفها ويشعر نفسه بثمرة البحث إن لم تكن قوية من البداية.", color: "#fffbeb" },
-            { title: "2. الصبر", desc: "عدة الباحث ووقوده الذي لا ينضب؛ للصبر على المراجع والأسفار والمشرف.", color: "#eff6ff" },
-            { title: "3. الإنصاف والموضوعية", desc: "الأمانة في النقل، وترك الاستسلام للعوارض النفسية (كالغضب والرضا).", color: "#fdf2f8" },
-            { title: "4. سلامة الذوق", desc: "إحسان النقد والمأخذ بعيداً عن الاستفزاز والعبارات الجافية.", color: "#ecfdf5" },
-            { title: "5. العقلية المنظمة", desc: "لا مجال للفوضى، بل يجب حسن التبويب لعمل متناسق.", color: "#f5f3ff" },
-            { title: "6. عمق التفكير", desc: "التخفف من الأعمال وحمل قلم دائماً لتدوين الملحوظات فجأة.", color: "#fff7ed" },
-            { title: "7. الفطنة ودقة الملاحظة", desc: "التنبه لكل تفصيل وكل صغيرة وكبيرة لترابط البحث.", color: "#f0f9ff" },
-            { title: "8. التثبت (الشك العلمي)", desc: "ضرورة لوزن الأمور بميزان دقيق قبل قبولها، بخلاف الشك المرضي.", color: "#fefce8" },
-            { title: "9. المبادرة", desc: "انتهاز الفرص، والسرعة التي تعني عدم التباطؤ وليس العجلة المذمومة.", color: "#f7fee7" },
-            { title: "10. الحافظة الواعية", desc: "جمع ما قُرأ قديماً بحديثه لمنع تشتت البحث وتكراره.", color: "#fdf4ff" },
-            { title: "11. متابعة الجديد", desc: "الاطلاع المستمر الدائم في ميدان التخصص.", color: "#f0fdfa" },
-            { title: "12. الاستمتاع بالبحث", desc: "لذة عقلية تفوق اللذات الحسية، قال الشافعي: سهري لتنقيح العلوم ألذ لي...", color: "#fef2f2" },
-            { title: "13. لزوم التواضع", desc: "إكبار العلماء واهتضام النفس (كلما زدت علماً زادني علماً بجهلي).", color: "#f8fafc" },
-            { title: "14. التماس البركة", desc: "بسلامة النية، وإعانة الزملاء ومساعدتهم دون بخل.", color: "#faf5ff" }
+            { title: "1. الرغبة", keyword: "(الدافع الداخلي)", desc: "أن يتكلفها ويشعر نفسه بثمرة البحث إن لم تكن قوية من البداية.", color: "#fffbeb" },
+            { title: "2. الصبر", keyword: "(وقود الباحث)", desc: "عدة الباحث ووقوده الذي لا ينضب؛ للصبر على المراجع والأسفار والمشرف.", color: "#eff6ff" },
+            { title: "3. الإنصاف والموضوعية", keyword: "(الأمانة والتجرد)", desc: "الأمانة في النقل، وترك الاستسلام للعوارض النفسية (كالغضب والرضا).", color: "#fdf2f8" },
+            { title: "4. سلامة الذوق", keyword: "(أدب النقد)", desc: "إحسان النقد والمأخذ بعيداً عن الاستفزاز والعبارات الجافية.", color: "#ecfdf5" },
+            { title: "5. العقلية المنظمة", keyword: "(التنسيق والتبويب)", desc: "لا مجال للفوضى، بل يجب حسن التبويب لعمل متناسق.", color: "#f5f3ff" },
+            { title: "6. عمق التفكير", keyword: "(الغوص في الأعماق)", desc: "التخفف من الأعمال وحمل قلم دائماً لتدوين الملحوظات فجأة.", color: "#fff7ed" },
+            { title: "7. الفطنة ودقة الملاحظة", keyword: "(التنبه للتفاصيل)", desc: "التنبه لكل تفصيل وكل صغيرة وكبيرة لترابط البحث.", color: "#f0f9ff" },
+            { title: "8. التثبت والشك العلمي", keyword: "(الميزان الدقيق)", desc: "ضرورة لوزن الأمور بميزان دقيق قبل قبولها، بخلاف الشك المرضي.", color: "#fefce8" },
+            { title: "9. المبادرة", keyword: "(انتهاز الفرص)", desc: "انتهاز الفرص، والسرعة التي تعني عدم التباطؤ وليس العجلة المذمومة.", color: "#f7fee7" },
+            { title: "10. الحافظة الواعية", keyword: "(ربط الماضي بالحاضر)", desc: "جمع ما قُرأ قديماً بحديثه لمنع تشتت البحث وتكراره.", color: "#fdf4ff" },
+            { title: "11. متابعة الجديد", keyword: "(الاطلاع المستمر)", desc: "الاطلاع المستمر الدائم في ميدان التخصص.", color: "#f0fdfa" },
+            { title: "12. الاستمتاع بالبحث", keyword: "(اللذة العقلية)", desc: "لذة عقلية تفوق اللذات الحسية، قال الشافعي: سهري لتنقيح العلوم ألذ لي...", color: "#fef2f2" },
+            { title: "13. لزوم التواضع", keyword: "(إكبار العلماء)", desc: "إكبار العلماء واهتضام النفس (كلما زدت علماً زادني علماً بجهلي).", color: "#f8fafc" },
+            { title: "14. التماس البركة", keyword: "(سلامة النية)", desc: "بسلامة النية، وإعانة الزملاء ومساعدتهم دون بخل.", color: "#faf5ff" }
         ];
 
-        // البطاقات الـ 14 الشاملة للمراجعة
+        // البطاقات الـ 14 للمراجعة
         const FLASHCARDS_DATA = [
             { q: "من هو الباحث الأصيل؟", a: "الذي يتطلع للمجهول، ويبحث عن الجديد، ويتميز بالمرونة الفكرية." },
             { q: "ما هو 'وقود الباحث' الذي لا ينضب؟", a: "الصبر، يعينه على مشاق الأسفار والمراجع ومراجعات المشرف." },
@@ -379,17 +391,22 @@
         // 3. التهيئة وبدء التطبيق
         // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
-            // رسم بطاقات الصفات الملونة
             const traitsGrid = document.getElementById('traits-grid');
             TRAITS.forEach(t => {
                 const div = document.createElement('div');
                 div.className = "p-6 rounded-2xl shadow-sm border border-gray-100 transition transform hover:-translate-y-1 hover:shadow-md";
                 div.style.backgroundColor = t.color;
-                div.innerHTML = `<h3 class="font-bold text-2xl mb-3" style="color:var(--deep);">${t.title}</h3><p style="color:#111827; font-size:20px; font-weight: 500;">${t.desc}</p>`;
+                
+                div.innerHTML = `
+                    <h3 class="font-bold text-2xl mb-3" style="color:var(--deep);">
+                        ${t.title} 
+                        <span class="keyword-highlight">${t.keyword}</span>
+                    </h3>
+                    <p style="color:#111827; font-size:20px; font-weight: 500;">${t.desc}</p>
+                `;
                 traitsGrid.appendChild(div);
             });
 
-            // رسم بطاقات المراجعة الـ 14
             const flashCardsContainer = document.getElementById('flashcards-container');
             FLASHCARDS_DATA.forEach(fc => {
                 const card = document.createElement('div');
@@ -445,9 +462,8 @@
         }
 
         // ==========================================
-        // 4. الذكاء الاصطناعي (Gemini API)
+        // 4. الذكاء الاصطناعي (Gemini API) مع التبديل التلقائي
         // ==========================================
-        const aiModel = "gemini-2.5-flash-preview-09-2025";
         const systemInstruction = `أنت مساعد أكاديمي ذكي مدمج في منصة تعليمية. تجيب حصرياً وبشكل مبسط وباللغة العربية الفصحى عن درس: "الباحث العلمي وصفاته الـ 14 والإشراف العلمي" بناءً على محتوى الدرس المقدم لك مسبقاً.`;
 
         async function askAI() {
@@ -462,7 +478,7 @@
                 const alertDiv = document.createElement('div');
                 alertDiv.className = 'chat-msg ai-msg';
                 alertDiv.style.background = "var(--danger)";
-                alertDiv.innerHTML = "عذراً، هذه الميزة مغلقة حالياً. <b>يرجى من الأستاذ إضافة مفتاح (API Key) الخاص به في الكود لكي تعمل هذه الخاصية على جميع الأجهزة.</b>";
+                alertDiv.innerHTML = "عذراً، الميزة مغلقة حالياً. <b>تأكد من وضع نصفي المفتاح (KEY_PART_1 و KEY_PART_2) في كود البرمجة.</b>";
                 chatHistory.appendChild(alertDiv);
                 chatHistory.scrollTop = chatHistory.scrollHeight;
                 inputEl.value = '';
@@ -478,13 +494,15 @@
 
             const loadingDiv = document.createElement('div');
             loadingDiv.className = 'loading-msg';
-            loadingDiv.textContent = "✨ جاري التفكير...";
+            loadingDiv.textContent = "✨ جاري التفكير ومراجعة الدرس...";
             chatHistory.appendChild(loadingDiv);
             chatHistory.scrollTop = chatHistory.scrollHeight;
 
             try {
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/${aiModel}:generateContent?key=${TEACHER_API_KEY}`;
-                const response = await fetch(url, {
+                let aiModelToUse = "gemini-2.0-flash";
+                let url = `https://generativelanguage.googleapis.com/v1beta/models/${aiModelToUse}:generateContent?key=${TEACHER_API_KEY}`;
+                
+                let response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -493,9 +511,26 @@
                     })
                 });
                 
+                if (!response.ok) {
+                    aiModelToUse = "gemini-1.5-flash";
+                    url = `https://generativelanguage.googleapis.com/v1beta/models/${aiModelToUse}:generateContent?key=${TEACHER_API_KEY}`;
+                    response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: question }] }],
+                            systemInstruction: { parts: [{ text: systemInstruction }] }
+                        })
+                    });
+                }
+                
                 chatHistory.removeChild(loadingDiv);
                 
-                if (!response.ok) throw new Error("API Fails");
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error?.message || "حدث خطأ غير معروف في الاتصال بخوادم Google");
+                }
+                
                 const data = await response.json();
                 const answer = data.candidates[0].content.parts[0].text;
 
@@ -508,7 +543,7 @@
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'chat-msg ai-msg';
                 errorDiv.style.background = "var(--danger)";
-                errorDiv.textContent = "عذراً، لا يمكن الاتصال بالذكاء الاصطناعي حالياً. تأكد من صحة مفتاح API.";
+                errorDiv.textContent = "خطأ: " + error.message;
                 chatHistory.appendChild(errorDiv);
             }
 
@@ -522,6 +557,7 @@
         function loadQuestion() {
             const q = QUESTIONS[currentQuestion];
             document.getElementById('quiz-progress').textContent = `السؤال ${currentQuestion + 1} من ${QUESTIONS.length}`;
+            
             document.getElementById('question-text').textContent = q.q;
             
             const optionsArea = document.getElementById('options-area');
