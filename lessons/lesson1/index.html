@@ -1,1099 +1,1223 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أسس ومناهج البحث العلمي</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        :root {
-            --primary: #0d4f4f;
-            --secondary: #1a7a7a;
-            --accent: #d4a853;
-            --dark: #0a2e2e;
-            --light: #f0f7f7;
-            --muted: #6b8a8a;
-            --white: #ffffff;
-        }
-        
-        body {
-            font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
-            background: var(--dark);
-            color: #333;
-            line-height: 1.7;
-            min-height: 100vh;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الخلاصة في البحث العلمي</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --royal:#0f3460;--deep:#16213e;--navy:#0a1628;
+  --gold:#e2b96f;--gold2:#f0cc8a;--cream:#faf8f3;
+  --parch:#f0ead6;--sage:#4a7c6f;--rust:#c44b2b;
+  --mist:#d4dde8;--white:#fff;--ink:#1a1a2e;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--cream);color:var(--ink);overflow-x:hidden;direction:rtl}
 
-        /* Welcome Modal */
-        .welcome-modal {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(10, 46, 46, 0.95);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            backdrop-filter: blur(10px);
-        }
-        .welcome-box {
-            background: white;
-            padding: 3rem;
-            border-radius: 24px;
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.4);
-            animation: slideUp 0.5s ease;
-        }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .welcome-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-        }
-        .welcome-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        .welcome-subtitle {
-            color: #666;
-            margin-bottom: 2rem;
-        }
-        .welcome-input {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-family: inherit;
-            transition: border-color 0.3s;
-        }
-        .welcome-input:focus {
-            border-color: var(--primary);
-            outline: none;
-        }
-        .welcome-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--accent), #e8c87a);
-            color: var(--dark);
-            border: none;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: 800;
-            cursor: pointer;
-            margin-top: 1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .welcome-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(212, 168, 83, 0.3);
-        }
+/* ─── SETUP OVERLAY ─── */
+#ov{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;padding:1rem;
+  background:linear-gradient(135deg,#060e1f 0%,#0f3460 60%,#1a0a2e 100%)}
+.ov-card{background:rgba(255,255,255,.07);backdrop-filter:blur(18px);border:1px solid rgba(226,185,111,.3);
+  border-radius:24px;padding:2.8rem 2.2rem;max-width:430px;width:100%;text-align:center;
+  box-shadow:0 40px 80px rgba(0,0,0,.5);animation:popIn .6s cubic-bezier(.34,1.56,.64,1)}
+@keyframes popIn{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.ov-icon{font-size:3rem;display:block;margin-bottom:.6rem;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.ov-title{font-family:'Amiri',serif;font-size:2rem;color:var(--gold);margin-bottom:.3rem}
+.ov-sub{font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:2rem;line-height:1.7}
+.ov-field{margin-bottom:1.1rem;text-align:right}
+.ov-field label{display:block;font-size:.78rem;font-weight:700;color:rgba(255,255,255,.6);margin-bottom:.4rem;letter-spacing:.04em}
+.ov-input{width:100%;padding:.78rem 1rem;border-radius:11px;border:1.5px solid rgba(255,255,255,.15);
+  background:rgba(255,255,255,.08);color:#fff;font-family:'Cairo',sans-serif;font-size:.95rem;
+  outline:none;transition:border-color .2s,box-shadow .2s;direction:rtl}
+.ov-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(226,185,111,.15)}
+.ov-input::placeholder{color:rgba(255,255,255,.25)}
+.ov-btn{width:100%;padding:.92rem;border-radius:13px;border:none;
+  background:linear-gradient(135deg,var(--gold),#d4a840);
+  color:var(--deep);font-family:'Cairo',sans-serif;font-size:1.05rem;font-weight:900;
+  cursor:pointer;margin-top:.6rem;box-shadow:0 8px 25px rgba(226,185,111,.3);transition:all .25s}
+.ov-btn:hover{transform:translateY(-3px);box-shadow:0 14px 35px rgba(226,185,111,.4)}
+.ov-note{font-size:.72rem;color:rgba(255,255,255,.28);margin-top:1rem;line-height:1.7}
 
-        /* Timer Display */
-        .timer-display {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 30px;
-            font-weight: 700;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-            z-index: 100;
-            display: none;
-            font-size: 1.1rem;
-        }
-        
-        /* Navigation */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-        }
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .nav-title { font-size: 1.25rem; font-weight: 700; color: var(--primary); }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { color: var(--muted); text-decoration: none; font-weight: 500; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--primary); }
-        .mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
-        .mobile-menu { display: none; padding: 1rem 1.5rem; border-top: 1px solid #eee; }
-        .mobile-menu.active { display: block; }
-        .mobile-menu a { display: block; padding: 0.75rem 0; color: var(--muted); text-decoration: none; font-weight: 500; }
+/* ─── STUDENT BAR ─── */
+#sbar{display:none;position:fixed;top:0;right:0;left:0;z-index:1100;height:44px;
+  background:linear-gradient(90deg,#091e3a,#0f3460);border-bottom:1px solid rgba(226,185,111,.18);
+  padding:0 1.5rem;align-items:center;justify-content:space-between;gap:1rem}
+.sb-left{display:flex;align-items:center;gap:.65rem}
+.sb-name{font-size:.87rem;font-weight:800;color:var(--gold)}
+.sb-sec{font-size:.74rem;color:rgba(255,255,255,.5);background:rgba(255,255,255,.1);padding:.17rem .6rem;border-radius:99px}
+.sb-right{display:flex;align-items:center;gap:.5rem;font-size:.82rem;color:rgba(255,255,255,.65)}
+.sb-time{background:rgba(0,0,0,.35);padding:.12rem .55rem;border-radius:6px;font-weight:700;
+  font-variant-numeric:tabular-nums;letter-spacing:.05em;color:var(--gold2)}
 
-        /* Hero Section */
-        .hero {
-            padding: 8rem 1.5rem 5rem;
-            text-align: center;
-            background: linear-gradient(180deg, var(--dark) 0%, rgba(13, 79, 79, 0.3) 100%);
-        }
-        .hero-badge {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: rgba(26, 122, 122, 0.2);
-            color: var(--secondary);
-            border-radius: 50px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-        .hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: var(--white); margin-bottom: 1.5rem; line-height: 1.2; }
-        .hero-subtitle { font-size: 1.25rem; color: rgba(240, 247, 247, 0.8); max-width: 600px; margin: 0 auto 2rem; }
-        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        .btn-primary {
-            padding: 1rem 2rem;
-            background: var(--accent);
-            color: var(--dark);
-            font-weight: 700;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212, 168, 83, 0.3); }
-        .btn-secondary {
-            padding: 1rem 2rem;
-            background: transparent;
-            color: var(--light);
-            font-weight: 700;
-            border: 2px solid rgba(240, 247, 247, 0.3);
-            border-radius: 12px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-        .btn-secondary:hover { background: rgba(240, 247, 247, 0.1); }
+/* ─── NAV ─── */
+nav{position:fixed;top:44px;right:0;left:0;z-index:1000;height:56px;
+  background:rgba(15,26,56,.97);backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(226,185,111,.18);
+  display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;gap:.75rem}
+.nav-brand{font-family:'Amiri',serif;font-size:1.05rem;color:var(--gold);white-space:nowrap}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{display:block;padding:.38rem .82rem;color:var(--mist);text-decoration:none;
+  font-size:.77rem;font-weight:700;border-radius:6px;transition:all .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--gold);background:rgba(226,185,111,.1)}
+.tbtn{padding:.35rem .9rem;border-radius:8px;background:rgba(226,185,111,.12);
+  border:1px solid rgba(226,185,111,.3);color:var(--gold);font-size:.78rem;font-weight:700;
+  cursor:pointer;font-family:'Cairo',sans-serif;transition:all .2s;white-space:nowrap}
+.tbtn:hover{background:rgba(226,185,111,.22)}
+@media(max-width:720px){.nav-links{display:none}}
 
-        /* Sections */
-        .section { padding: 5rem 1.5rem; }
-        .section-alt { background: rgba(240, 247, 247, 0.05); }
-        .container { max-width: 1000px; margin: 0 auto; }
-        .section-header { text-align: center; margin-bottom: 3rem; }
-        .section-title { font-size: 2rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem; }
-        .section-subtitle { color: rgba(240, 247, 247, 0.7); }
+/* ─── PROGRESS ─── */
+.pbar{position:fixed;top:100px;right:0;width:0;height:3px;
+  background:linear-gradient(90deg,var(--gold),var(--rust));z-index:999;transition:width .1s}
 
-        /* Cards */
-        .card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            border-right: 4px solid var(--accent);
-        }
-        .card-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
-        .card-number {
-            width: 48px; height: 48px;
-            background: var(--primary);
-            color: var(--white);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            font-weight: 700;
-            flex-shrink: 0;
-        }
-        .card-title { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+/* ─── HERO ─── */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:120px 2rem 4rem;position:relative;overflow:hidden}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;pointer-events:none}
+.hero::before{width:500px;height:500px;top:-150px;left:-150px;
+  background:radial-gradient(circle,rgba(14,52,96,.1) 0%,transparent 70%)}
+.hero::after{width:400px;height:400px;bottom:-100px;right:-100px;
+  background:radial-gradient(circle,rgba(226,185,111,.08) 0%,transparent 70%)}
+.h-orn{font-size:2.5rem;color:var(--gold);opacity:.6;display:block;margin-bottom:1.3rem;animation:float 4s ease-in-out infinite}
+.h-eye{font-size:.8rem;font-weight:700;letter-spacing:.25em;color:var(--gold);text-transform:uppercase;margin-bottom:1rem;opacity:0;animation:fup .8s .2s ease forwards}
+.h-title{font-family:'Amiri',serif;font-size:clamp(2.4rem,6vw,5rem);line-height:1.2;color:var(--royal);margin-bottom:.9rem;opacity:0;animation:fup .9s .4s ease forwards}
+.h-title span{color:var(--gold);display:block}
+.h-sub{font-size:1.05rem;color:#5a6a7e;max-width:500px;margin:0 auto 2.3rem;line-height:1.8;opacity:0;animation:fup .9s .6s ease forwards}
+.h-btns{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:fup .9s .8s ease forwards}
+@keyframes fup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.pill{padding:.45rem 1.2rem;border-radius:99px;font-size:.82rem;font-weight:700;
+  cursor:pointer;transition:all .25s;text-decoration:none;border:2px solid transparent}
+.pill-g{background:var(--gold);color:var(--deep)}
+.pill-g:hover{background:transparent;border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.pill-o{background:transparent;border-color:var(--royal);color:var(--royal)}
+.pill-o:hover{background:var(--royal);color:#fff;transform:translateY(-2px)}
 
-        /* Content Box */
-        .content-box { background: var(--light); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; }
-        .content-box-title { font-weight: 700; color: var(--secondary); margin-bottom: 0.75rem; }
-        .content-box-highlight {
-            background: linear-gradient(to left, rgba(212, 168, 83, 0.1), transparent);
-            border-right: 4px solid var(--accent);
-            padding: 1.5rem;
-            border-radius: 12px;
-        }
+/* ─── SECTION ─── */
+.sec{position:relative;z-index:1;padding:5rem 2rem;max-width:1080px;margin:0 auto}
+.divider{width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(14,52,96,.15),transparent)}
+.sec-lbl{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.7rem;padding:.22rem .7rem;border:1px solid rgba(226,185,111,.35);border-radius:4px}
+.sec-title{font-family:'Amiri',serif;font-size:clamp(1.7rem,4vw,2.6rem);color:var(--royal);margin-bottom:.5rem;line-height:1.3}
+.sec-desc{color:#6b7b8d;font-size:.97rem;line-height:1.8;max-width:580px;margin-bottom:2.8rem}
 
-        /* List Styles */
-        .custom-list { list-style: none; }
-        .custom-list li { display: flex; align-items: flex-start; gap: 0.75rem; margin-bottom: 0.75rem; }
-        .custom-list li::before {
-            content: '';
-            width: 8px; height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            margin-top: 0.5rem;
-            flex-shrink: 0;
-        }
+/* ─── CARDS ─── */
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.4rem;margin-bottom:2.5rem}
+.dcard{background:#fff;border-radius:16px;padding:1.7rem;border:1px solid rgba(14,52,96,.08);
+  position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.dcard::before{content:'';position:absolute;top:0;right:0;width:100%;height:4px;background:var(--ca,var(--royal))}
+.dcard:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(14,52,96,.12)}
+.dcard-icon{font-size:2rem;margin-bottom:.9rem;display:block}
+.dcard-title{font-family:'Amiri',serif;font-size:1.2rem;color:var(--ca,var(--royal));margin-bottom:.65rem}
+.dcard-text{color:#4a5568;font-size:.92rem;line-height:1.85}
 
-        /* Grid */
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
-        .grid-item {
-            background: var(--light);
-            border-radius: 12px;
-            padding: 1.25rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .grid-item:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
-        .grid-item-icon {
-            width: 40px; height: 40px;
-            background: rgba(26, 122, 122, 0.1);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 0.75rem;
-        }
-        .grid-item-title { font-weight: 700; color: #333; margin-bottom: 0.5rem; }
-        .grid-item-text { font-size: 0.875rem; color: #666; }
+/* ─── HIGHLIGHT BOX ─── */
+.hbox{background:linear-gradient(135deg,#0f3460,#16213e);border-radius:20px;padding:2.2rem;
+  margin-bottom:2.5rem;position:relative;overflow:hidden}
+.hbox::before{content:'⬡';position:absolute;top:-20px;left:-10px;font-size:8rem;opacity:.05;line-height:1}
+.hbox-lbl{font-size:.7rem;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem}
+.hbox-text{font-family:'Amiri',serif;font-size:1.35rem;color:#fff;line-height:1.8}
+.hbox-text em{color:var(--gold);font-style:normal}
 
-        /* Tags */
-        .tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-        .tag { padding: 0.5rem 1rem; background: rgba(13, 79, 79, 0.1); color: var(--primary); border-radius: 8px; font-weight: 600; font-size: 0.875rem; }
-        .tag-accent { background: rgba(212, 168, 83, 0.2); color: var(--accent); }
+/* ─── IMPORTANCE ─── */
+.igrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin-bottom:2.8rem}
+.iitem{display:flex;align-items:flex-start;gap:.95rem;background:#fff;border-radius:12px;
+  padding:1.1rem 1.4rem;border:1px solid rgba(14,52,96,.07);transition:all .25s}
+.iitem:hover{border-color:var(--gold);box-shadow:0 4px 20px rgba(226,185,111,.15);transform:translateX(-4px)}
+.inum{min-width:34px;height:34px;border-radius:50%;background:var(--royal);color:var(--gold);
+  font-size:.82rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.itext{color:#3a4a5c;font-size:.9rem;line-height:1.7;padding-top:.2rem}
 
-        /* Table */
-        .table-wrapper { overflow-x: auto; }
-        .data-table { width: 100%; border-collapse: collapse; }
-        .data-table th { background: var(--primary); color: var(--white); padding: 1rem; text-align: right; font-weight: 600; }
-        .data-table th:first-child { border-radius: 0 12px 0 0; }
-        .data-table th:last-child { border-radius: 12px 0 0 0; }
-        .data-table td { padding: 1rem; border-bottom: 1px solid #eee; }
-        .data-table tr:nth-child(even) td { background: var(--light); }
+/* ─── ACCORDION ─── */
+.acc{display:flex;flex-direction:column;gap:.7rem}
+.ai{background:#fff;border-radius:12px;border:1px solid rgba(14,52,96,.09);overflow:hidden;transition:box-shadow .3s}
+.ai:hover{box-shadow:0 4px 20px rgba(14,52,96,.08)}
+.ah{display:flex;align-items:center;gap:.9rem;padding:1.05rem 1.35rem;cursor:pointer;user-select:none;transition:background .2s}
+.ah:hover{background:var(--parch)}
+.an{min-width:38px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;font-weight:800;flex-shrink:0;font-family:'Amiri',serif}
+.at{font-size:.98rem;font-weight:700;color:var(--ink);flex:1}
+.atag{display:inline-block;font-size:.68rem;font-weight:700;padding:.14rem .5rem;border-radius:4px;text-transform:uppercase}
+.ar{color:#94a3b8;font-size:1.1rem;transition:transform .35s cubic-bezier(.4,0,.2,1);flex-shrink:0}
+.ai.open .ar{transform:rotate(180deg)}
+.ai.open .ah{background:var(--parch)}
+.ab{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+.ai.open .ab{max-height:400px}
+.ac{padding:.9rem 1.35rem 1.35rem;padding-right:calc(1.35rem + 38px + .9rem);
+  color:#4a5568;font-size:.92rem;line-height:1.85;
+  border-top:1px solid rgba(14,52,96,.06);margin:0 1.35rem;padding-top:.9rem}
 
-        /* Method Cards */
-        .method-card {
-            background: linear-gradient(135deg, rgba(13, 79, 79, 0.05), transparent);
-            border: 1px solid rgba(13, 79, 79, 0.1);
-            border-radius: 12px;
-            padding: 1.25rem;
-        }
-        .method-card-title { font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
-        .method-card-text { font-size: 0.875rem; color: #666; }
+/* ─── TABS ─── */
+.tabs-wrap{background:#fff;border-radius:20px;overflow:hidden;border:1px solid rgba(14,52,96,.1);box-shadow:0 8px 40px rgba(14,52,96,.07)}
+.tabs-nav{display:flex;overflow-x:auto;background:var(--deep);scrollbar-width:none}
+.tabs-nav::-webkit-scrollbar{display:none}
+.tb{flex:1;min-width:130px;padding:.88rem 1rem;background:transparent;border:none;
+  color:rgba(255,255,255,.5);font-family:'Cairo',sans-serif;font-size:.82rem;font-weight:700;
+  cursor:pointer;transition:all .25s;position:relative;white-space:nowrap}
+.tb::after{content:'';position:absolute;bottom:0;right:0;left:0;height:3px;
+  background:var(--gold);transform:scaleX(0);transition:transform .25s}
+.tb.active{color:var(--gold);background:rgba(226,185,111,.08)}
+.tb.active::after{transform:scaleX(1)}
+.tp{display:none;padding:2.2rem;animation:fadeIn .3s ease}
+.tp.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.tp-title{font-family:'Amiri',serif;font-size:1.45rem;color:var(--royal);margin-bottom:.4rem}
+.tp-sub{font-size:.82rem;color:var(--gold);font-weight:700;margin-bottom:1rem}
+.tp-badge{display:inline-block;background:var(--parch);border:1px solid #e8d9a0;border-radius:8px;
+  padding:.28rem .75rem;font-size:.76rem;color:#8b6914;font-weight:700;margin-bottom:.85rem}
+.tp-body{color:#4a5568;font-size:.94rem;line-height:1.9}
 
-        /* Comparison List */
-        .comparison-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .comparison-box { padding: 1.5rem; border-radius: 12px; }
-        .comparison-box-red { background: rgba(220, 38, 38, 0.05); border-right: 3px solid #dc2626; }
-        .comparison-box-green { background: rgba(5, 150, 105, 0.05); border-right: 3px solid #059669; }
-        .comparison-title { font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-        .comparison-title-red { color: #dc2626; }
-        .comparison-title-green { color: #059669; }
+/* ─── CONDITIONS ─── */
+.ctrio{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:1.5rem}
+@media(max-width:600px){.ctrio{grid-template-columns:1fr}}
+.cc{border-radius:16px;padding:1.65rem 1.4rem;text-align:center;position:relative;overflow:hidden}
+.cc::after{content:attr(data-n);position:absolute;top:-10px;left:10px;font-family:'Amiri',serif;
+  font-size:5rem;font-weight:700;opacity:.07;line-height:1}
+.cc-icon{font-size:2.1rem;margin-bottom:.7rem;display:block}
+.cc-title{font-family:'Amiri',serif;font-size:1.1rem;font-weight:700;margin-bottom:.45rem}
+.cc-desc{font-size:.85rem;line-height:1.7}
 
-        /* Summary Card */
-        .summary-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 24px;
-            padding: 3rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-        .summary-text { font-size: 1.125rem; line-height: 2; color: #444; margin-bottom: 1.5rem; }
-        .summary-text strong { color: var(--primary); }
-        .summary-text em { color: var(--secondary); font-style: normal; font-weight: 600; }
+/* ─── MAP ─── */
+.map-box{background:#fff;border-radius:20px;border:1px solid rgba(14,52,96,.1);padding:2rem;overflow-x:auto}
+.map-grid{display:flex;flex-direction:column;gap:1.4rem;align-items:center}
+.map-center{background:var(--royal);color:#fff;font-family:'Amiri',serif;font-size:1.3rem;
+  padding:.9rem 2.2rem;border-radius:16px;box-shadow:0 8px 30px rgba(14,52,96,.3);text-align:center;position:relative}
+.map-center::after{content:'';position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:2px;height:20px;background:var(--gold)}
+.map-branches{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;padding-top:.5rem}
+.mb{background:var(--parch);border:2px solid var(--bc,var(--royal));border-radius:12px;
+  padding:.78rem 1.1rem;text-align:center;min-width:150px;position:relative;transition:transform .25s,box-shadow .25s}
+.mb::before{content:'';position:absolute;top:-18px;left:50%;transform:translateX(-50%);width:2px;height:18px;background:var(--bc,var(--royal))}
+.mb:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(14,52,96,.12)}
+.mb-title{font-weight:800;font-size:.87rem;color:var(--bc,var(--royal));display:block;margin-bottom:.2rem}
+.mb-sub{font-size:.74rem;color:#6b7b8d;line-height:1.5}
+.map-pills{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center}
+.mp{border-radius:9px;padding:.55rem .9rem;font-size:.79rem;text-align:center;min-width:100px;transition:transform .2s}
+.mp:hover{transform:translateY(-3px)}
 
-        /* Concept Map */
-        .concept-map-container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 24px;
-            padding: 2rem;
-            overflow-x: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-        .concept-map-container svg { min-width: 800px; width: 100%; height: auto; }
+/* ─── ESSAY ─── */
+.elist{display:flex;flex-direction:column;gap:1.05rem}
+.ei{background:#fff;border-radius:15px;border:1px solid rgba(14,52,96,.09);overflow:hidden;transition:box-shadow .3s}
+.ei:hover{box-shadow:0 6px 28px rgba(14,52,96,.1)}
+.eq{display:flex;align-items:center;gap:.95rem;padding:1.2rem 1.5rem;cursor:pointer;background:var(--parch);user-select:none}
+.eq-ico{width:37px;height:37px;border-radius:9px;background:var(--royal);color:var(--gold);
+  display:flex;align-items:center;justify-content:center;font-size:.95rem;font-weight:900;
+  font-family:'Amiri',serif;flex-shrink:0}
+.eq-text{font-size:.96rem;font-weight:700;color:var(--royal);flex:1;line-height:1.5}
+.etog{font-size:1.25rem;color:var(--gold);transition:transform .3s;flex-shrink:0}
+.ei.open .etog{transform:rotate(45deg)}
+.ea{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+.ei.open .ea{max-height:700px}
+.ea-in{padding:1.3rem 1.5rem;border-top:1px solid rgba(14,52,96,.07)}
+.ea-lbl{font-size:.68rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--sage);margin-bottom:.65rem}
+.ea-text{color:#3a4a5c;font-size:.92rem;line-height:2;white-space:pre-line}
 
-        /* Q&A */
-        .qa-card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            cursor: pointer;
-            transition: all 0.3s;
-            border-right: 4px solid var(--primary);
-        }
-        .qa-card:hover { transform: translateX(-10px); border-right-color: var(--accent); }
-        .qa-header { display: flex; align-items: flex-start; gap: 1rem; }
-        .qa-number {
-            width: 40px; height: 40px;
-            background: rgba(13, 79, 79, 0.1);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .qa-number span { color: var(--primary); font-weight: 700; }
-        .qa-question { flex: 1; font-size: 1.125rem; font-weight: 700; color: #333; }
-        .qa-icon { flex-shrink: 0; transition: transform 0.3s; }
-        .qa-icon.rotated { transform: rotate(180deg); }
-        .qa-answer { max-height: 0; overflow: hidden; transition: max-height 0.5s ease, padding 0.3s ease; }
-        .qa-answer.open { max-height: 500px; padding-top: 1rem; }
-        .qa-answer-content { padding-top: 1rem; border-top: 1px solid #eee; color: #666; line-height: 1.8; }
-        .qa-answer-label { color: var(--accent); font-weight: 600; }
+/* ─── QUIZ SECTION ─── */
+#quiz{background:linear-gradient(135deg,var(--deep) 0%,var(--royal) 100%);padding:5rem 2rem;position:relative;overflow:hidden}
+#quiz::before{content:'';position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e2b96f' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");opacity:.6}
+.qinn{position:relative;max-width:720px;margin:0 auto}
+.qhdr{text-align:center;margin-bottom:2.2rem}
+.qhdr .sec-lbl{color:var(--gold);border-color:rgba(226,185,111,.3)}
+.qhdr .sec-title{color:#fff;font-size:1.85rem}
+.qhdr p{color:rgba(255,255,255,.55);font-size:.88rem;margin-top:.4rem}
+.qprog-wrap{display:flex;align-items:center;gap:1rem;margin-bottom:1.3rem}
+.qprog-bar{flex:1;height:6px;background:rgba(255,255,255,.15);border-radius:99px;overflow:hidden}
+.qprog-fill{height:100%;background:var(--gold);border-radius:99px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+.qprog-txt{color:rgba(255,255,255,.65);font-size:.8rem;font-weight:700;white-space:nowrap}
+.qcard{background:rgba(255,255,255,.06);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);
+  border-radius:20px;padding:1.7rem;animation:slideQ .35s ease}
+@keyframes slideQ{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.qnum{font-size:.74rem;font-weight:800;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem}
+.qtext{font-family:'Amiri',serif;font-size:1.2rem;color:#fff;line-height:1.7;margin-bottom:1.5rem}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+@media(max-width:480px){.opts{grid-template-columns:1fr}}
+.opt{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);border-radius:11px;
+  padding:.82rem 1rem;color:rgba(255,255,255,.9);font-family:'Cairo',sans-serif;
+  font-size:.88rem;text-align:right;cursor:pointer;transition:all .2s;line-height:1.5}
+.opt:hover:not(:disabled){background:rgba(226,185,111,.15);border-color:rgba(226,185,111,.5);transform:translateX(-3px)}
+.opt.correct{background:rgba(74,124,111,.3);border-color:#4a7c6f;color:#a8e6cc}
+.opt.wrong{background:rgba(196,75,43,.25);border-color:var(--rust);color:#f4a08a}
+.opt:disabled{cursor:default}
+.fb{margin-top:1.05rem;padding:.82rem 1.1rem;border-radius:10px;font-size:.88rem;line-height:1.6;display:none}
+.fb.show{display:block;animation:fadeIn .3s ease}
+.fb.ok{background:rgba(74,124,111,.2);color:#a8e6cc;border:1px solid rgba(74,124,111,.4)}
+.fb.bad{background:rgba(196,75,43,.2);color:#f4a08a;border:1px solid rgba(196,75,43,.4)}
+.qnav{display:flex;align-items:center;justify-content:space-between;margin-top:1.3rem}
+.qbtn{padding:.6rem 1.55rem;border-radius:9px;font-family:'Cairo',sans-serif;font-size:.87rem;font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.qbtn-g{background:var(--gold);color:var(--deep)}
+.qbtn-g:hover{background:#d4aa5f;transform:translateY(-2px)}
+.qbtn-gh{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2)}
+.qbtn-gh:hover{background:rgba(255,255,255,.18)}
+/* score */
+#scoreScreen{display:none;text-align:center}
+#scoreScreen.show{display:block;animation:fadeIn .5s ease}
+.sc-circle{width:128px;height:128px;border-radius:50%;border:6px solid var(--gold);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:0 auto 1.3rem;background:rgba(226,185,111,.1)}
+.sc-n{font-family:'Amiri',serif;font-size:2.8rem;color:var(--gold);line-height:1}
+.sc-tot{font-size:.78rem;color:rgba(255,255,255,.45)}
+.sc-msg{font-size:1.35rem;color:#fff;font-family:'Amiri',serif;margin-bottom:.4rem}
+.sc-grade{font-size:.88rem;color:rgba(255,255,255,.6);margin-bottom:.5rem}
+.sc-send{font-size:.8rem;min-height:1.2rem;margin-bottom:1.3rem;color:rgba(255,255,255,.55)}
+.sc-btns{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap}
+#revList{margin-top:1.4rem;text-align:right;display:none}
 
-        /* Quiz */
-        .quiz-container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 24px;
-            padding: 2rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-        }
-        .quiz-progress { margin-bottom: 2rem; }
-        .quiz-progress-header { display: flex; justify-content: space-between; margin-bottom: 0.75rem; }
-        .quiz-progress-label { color: #666; font-weight: 500; }
-        .quiz-progress-value { color: var(--primary); font-weight: 700; }
-        .quiz-progress-bar { height: 12px; background: #e5e5e5; border-radius: 10px; overflow: hidden; }
-        .quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #e8c87a); border-radius: 10px; transition: width 0.5s ease; }
-        .quiz-question { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid #eee; }
-        .quiz-question:last-child { border-bottom: none; }
-        .quiz-question-text { font-size: 1.125rem; font-weight: 700; color: #333; margin-bottom: 1rem; }
-        .quiz-question-text span { color: var(--primary); }
-        .quiz-options { display: flex; flex-direction: column; gap: 0.75rem; }
-        .quiz-option {
-            padding: 1rem 1.25rem;
-            border: 2px solid #e5e5e5;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-        .quiz-option:hover { background: var(--primary); color: var(--white); border-color: var(--primary); transform: translateX(-5px); }
-        .quiz-option.selected { background: var(--primary); color: var(--white); border-color: var(--accent); }
-        .quiz-option.correct { background: linear-gradient(135deg, #059669, #10b981); color: var(--white); border-color: #059669; }
-        .quiz-option.wrong { background: linear-gradient(135deg, #dc2626, #ef4444); color: var(--white); border-color: #dc2626; }
-        .quiz-option-letter {
-            width: 32px; height: 32px;
-            border: 2px solid currentColor;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.875rem;
-            flex-shrink: 0;
-        }
-        .quiz-option-text { font-weight: 500; }
-        .quiz-submit { text-align: center; margin-top: 2rem; }
-        .quiz-submit-btn {
-            padding: 1rem 2.5rem;
-            background: var(--primary);
-            color: var(--white);
-            font-weight: 700;
-            font-size: 1rem;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .quiz-submit-btn:hover:not(:disabled) { background: var(--secondary); }
-        .quiz-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-        .quiz-count { color: #999; font-size: 0.875rem; margin-top: 0.75rem; }
+/* ─── TEACHER MODAL ─── */
+#tm{position:fixed;inset:0;z-index:8000;display:none;align-items:flex-start;
+  justify-content:center;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);
+  overflow-y:auto;padding:1.5rem}
+#tm.open{display:flex}
+.tp2{background:var(--deep);border:1px solid rgba(226,185,111,.2);border-radius:22px;
+  padding:2rem;max-width:880px;width:100%;margin:auto;animation:fup .4s ease}
+.tmhdr{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  gap:1rem;margin-bottom:1.5rem;padding-bottom:1.1rem;border-bottom:1px solid rgba(255,255,255,.07)}
+.tmtitle{font-family:'Amiri',serif;font-size:1.55rem;color:var(--gold)}
+.tm-btns{display:flex;gap:.55rem;flex-wrap:wrap}
+.mbtn{padding:.38rem .95rem;border-radius:8px;font-family:'Cairo',sans-serif;font-size:.78rem;
+  font-weight:700;cursor:pointer;border:none;transition:all .2s}
+.mbtn-ghost{background:rgba(255,255,255,.08);color:rgba(255,255,255,.75);border:1px solid rgba(255,255,255,.15)}
+.mbtn-ghost:hover{background:rgba(255,255,255,.16)}
+.mbtn-danger{background:rgba(196,75,43,.2);color:#f4a08a;border:1px solid rgba(196,75,43,.3)}
+.mbtn-danger:hover{background:rgba(196,75,43,.35)}
+.mbtn-gold{background:rgba(226,185,111,.15);color:var(--gold);border:1px solid rgba(226,185,111,.3)}
+.mbtn-gold:hover{background:rgba(226,185,111,.25)}
+/* sheets box */
+.gsbox{background:rgba(52,168,83,.07);border:1px solid rgba(52,168,83,.2);border-radius:12px;
+  padding:1.1rem 1.3rem;margin-bottom:1.4rem}
+.gsbox-title{font-size:.83rem;font-weight:800;color:#6dd56b;margin-bottom:.5rem}
+.gsbox-steps{font-size:.76rem;color:rgba(255,255,255,.48);line-height:1.8;margin-bottom:.8rem}
+.gsbox-row{display:flex;gap:.55rem;flex-wrap:wrap}
+.gs-url{flex:1;min-width:200px;padding:.5rem .85rem;border-radius:8px;
+  border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.22);
+  color:#fff;font-family:'Cairo',sans-serif;font-size:.8rem;direction:ltr}
+.gs-url::placeholder{color:rgba(255,255,255,.22)}
+.gs-save{padding:.5rem 1.05rem;border-radius:8px;background:#34a853;border:none;color:#fff;
+  font-weight:700;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.8rem;white-space:nowrap;transition:background .2s}
+.gs-save:hover{background:#2d9248}
+.gs-code{padding:.5rem .95rem;border-radius:8px;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);
+  font-family:'Cairo',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s}
+.gs-code:hover{background:rgba(255,255,255,.15)}
+/* stats */
+.tstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.9rem;margin-bottom:1.4rem}
+.tstat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;padding:.95rem;text-align:center}
+.tstat-n{font-family:'Amiri',serif;font-size:2rem;color:var(--gold);line-height:1}
+.tstat-l{font-size:.73rem;color:rgba(255,255,255,.42);margin-top:.28rem}
+/* filters */
+.tfilters{display:flex;gap:.65rem;flex-wrap:wrap;margin-bottom:1rem;align-items:center}
+.tfi{padding:.48rem .88rem;border-radius:8px;border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.06);color:#fff;font-family:'Cairo',sans-serif;font-size:.81rem;direction:rtl;min-width:150px}
+.tfi::placeholder{color:rgba(255,255,255,.25)}
+/* table */
+.ttbl-wrap{overflow-x:auto;border-radius:11px;border:1px solid rgba(255,255,255,.07)}
+.ttbl{width:100%;border-collapse:collapse;font-size:.81rem}
+.ttbl th{background:rgba(255,255,255,.05);color:rgba(255,255,255,.52);font-weight:700;
+  padding:.65rem .95rem;text-align:right;white-space:nowrap;border-bottom:1px solid rgba(255,255,255,.08)}
+.ttbl td{padding:.65rem .95rem;border-bottom:1px solid rgba(255,255,255,.05);
+  color:rgba(255,255,255,.85);vertical-align:middle}
+.ttbl tr:last-child td{border-bottom:none}
+.ttbl tr:hover td{background:rgba(255,255,255,.04)}
+.gbadge{display:inline-block;padding:.2rem .65rem;border-radius:6px;font-size:.74rem;font-weight:800}
+.gA{background:rgba(74,124,111,.3);color:#a8e6cc}
+.gB{background:rgba(41,128,185,.3);color:#85c8f4}
+.gC{background:rgba(212,172,13,.3);color:#f5d76e}
+.gD{background:rgba(196,75,43,.3);color:#f4a08a}
+.tempty{text-align:center;padding:3rem;color:rgba(255,255,255,.28)}
+.tempty-ico{font-size:3rem;margin-bottom:.75rem}
 
-        /* Results */
-        .results { text-align: center; padding: 2rem; }
-        .results-circle {
-            width: 120px; height: 120px;
-            margin: 0 auto 1.5rem;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .results-percent { font-size: 2.5rem; font-weight: 900; color: var(--white); }
-        .results-title { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
-        .results-message { color: #666; margin-bottom: 1rem; }
-        .results-stats {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 1.5rem 0;
-            padding: 1rem;
-            background: #f5f5f5;
-            border-radius: 12px;
-        }
-        .stat-item { text-align: center; }
-        .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--primary); }
-        .stat-label { font-size: 0.875rem; color: #666; }
-        
-        .send-result-btn {
-            display: inline-block;
-            padding: 1rem 3rem;
-            background: linear-gradient(135deg, var(--accent), #e8c87a);
-            color: var(--dark);
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            margin-top: 1.5rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .send-result-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 168, 83, 0.4);
-        }
-        .results-reset {
-            padding: 0.875rem 2rem;
-            background: transparent;
-            color: var(--primary);
-            font-weight: 700;
-            border: 2px solid var(--primary);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 1rem;
-        }
-        .results-reset:hover { background: var(--primary); color: white; }
+/* ─── SCRIPT CODE MODAL ─── */
+#sm{position:fixed;inset:0;z-index:9500;display:none;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.85);backdrop-filter:blur(6px);padding:1.5rem}
+#sm.open{display:flex}
+.sm-card{background:#0d1117;border:1px solid rgba(226,185,111,.2);border-radius:18px;
+  padding:2rem;max-width:700px;width:100%;animation:fup .35s ease}
+.sm-title{font-family:'Amiri',serif;color:var(--gold);font-size:1.25rem;margin-bottom:.65rem}
+.sm-steps{font-size:.78rem;color:rgba(255,255,255,.48);line-height:1.85;margin-bottom:.9rem;
+  background:rgba(255,255,255,.04);border-radius:8px;padding:.75rem 1rem}
+pre#scode{background:#161b22;color:#e2e8f0;padding:1.1rem;border-radius:10px;font-size:.71rem;
+  overflow:auto;line-height:1.75;direction:ltr;text-align:left;max-height:300px;
+  border:1px solid rgba(255,255,255,.08)}
+.sm-btns{display:flex;gap:.7rem;margin-top:1rem;flex-wrap:wrap}
+.sm-copy{padding:.48rem 1.1rem;border-radius:8px;background:var(--gold);color:var(--deep);
+  border:none;font-weight:800;cursor:pointer;font-family:'Cairo',sans-serif;font-size:.83rem;transition:all .2s}
+.sm-copy:hover{background:#d4aa5f;transform:translateY(-1px)}
+.sm-cls{padding:.48rem 1rem;border-radius:8px;background:rgba(255,255,255,.08);
+  color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);
+  cursor:pointer;font-family:'Cairo',sans-serif;font-size:.83rem;transition:all .2s}
+.sm-cls:hover{background:rgba(255,255,255,.15)}
 
-        /* Footer */
-        .footer { padding: 2rem 1.5rem; text-align: center; border-top: 1px solid rgba(240, 247, 247, 0.1); }
-        .footer-text { color: rgba(240, 247, 247, 0.5); font-size: 0.875rem; }
+/* ─── TOAST ─── */
+#toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--royal);color:#fff;padding:.68rem 1.5rem;border-radius:11px;
+  font-size:.86rem;font-weight:700;z-index:99999;
+  transition:transform .4s cubic-bezier(.4,0,.2,1);box-shadow:0 8px 30px rgba(0,0,0,.35);
+  white-space:nowrap;border:1px solid rgba(226,185,111,.2)}
+#toast.show{transform:translateX(-50%) translateY(0)}
 
-        /* Animations */
-        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .concept-line { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: drawLine 2s ease forwards; }
-        @keyframes drawLine { to { stroke-dashoffset: 0; } }
+/* ─── REVEAL ─── */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.rv.vis{opacity:1;transform:translateY(0)}
 
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-menu-btn { display: block; }
-            .hero { padding: 7rem 1rem 3rem; }
-            .section { padding: 3rem 1rem; }
-        }
-    </style>
+/* ─── FOOTER ─── */
+footer{background:var(--deep);color:rgba(255,255,255,.38);text-align:center;
+  padding:2rem 1rem;font-size:.79rem;border-top:1px solid rgba(226,185,111,.12)}
+footer span{color:var(--gold)}
+
+@media(max-width:768px){.sec{padding:3rem 1.25rem}.dgrid{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 
-    <!-- Welcome Modal -->
-    <div class="welcome-modal" id="welcomeModal">
-        <div class="welcome-box">
-            <div class="welcome-icon">
-                <svg width="40" height="40" fill="none" stroke="white" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                </svg>
-            </div>
-            <h2 class="welcome-title">مرحباً بك في المحاضرة</h2>
-            <p class="welcome-subtitle">الرجاء إدخال اسمك الثلاثي للمتابعة</p>
-            <input type="text" id="studentName" class="welcome-input" placeholder="الاسم الثلاثي">
-            <button onclick="startLesson()" class="welcome-btn">ابدأ المحاضرة</button>
-        </div>
+<!-- ══ OVERLAY: تسجيل الطالب ══ -->
+<div id="ov">
+  <div class="ov-card">
+    <span class="ov-icon">📚</span>
+    <h1 class="ov-title">الخلاصة في البحث العلمي</h1>
+    <p class="ov-sub">أدخل بياناتك لتتمكّن من متابعة تقدمك وتسجيل درجتك لدى الأستاذ</p>
+    <div class="ov-field">
+      <label>الاسم الكامل *</label>
+      <input class="ov-input" id="iName" type="text" placeholder="أدخل اسمك الكامل..." maxlength="60">
     </div>
-
-    <!-- Timer Display -->
-    <div class="timer-display" id="timerDisplay">
-        <span id="timer">00:00:00</span>
+    <div class="ov-field">
+      <label>الشعبة / الفصل *</label>
+      <input class="ov-input" id="iSec" type="text" placeholder="مثال: شعبة أ — مناهج البحث" maxlength="40">
     </div>
+    <button class="ov-btn" onclick="startSession()">ابدأ الدراسة ←</button>
+    <p class="ov-note">📌 سيتم تسجيل اسمك ووقت دراستك ودرجة الاختبار تلقائياً</p>
+    <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.1)">
+      <button onclick="openTeacherFromOverlay()" style="width:100%;padding:.65rem;border-radius:10px;border:1px solid rgba(226,185,111,.35);background:rgba(226,185,111,.08);color:var(--gold);font-family:Cairo,sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(226,185,111,.18)'" onmouseout="this.style.background='rgba(226,185,111,.08)'">🔐 دخول لوحة الأستاذ</button>
+    </div>
+  </div>
+</div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <h1 class="nav-title">مناهج البحث العلمي</h1>
-            <ul class="nav-links">
-                <li><a href="#summary">الملخص</a></li>
-                <li><a href="#content">المحتوى</a></li>
-                <li><a href="#qa">أسئلة وأجوبة</a></li>
-                <li><a href="#quiz">الاختبار</a></li>
+<!-- ══ شريط الطالب ══ -->
+<div id="sbar">
+  <div class="sb-left">
+    <span class="sb-name" id="sbName"></span>
+    <span class="sb-sec" id="sbSec"></span>
+  </div>
+  <div class="sb-right">⏱ <span class="sb-time" id="sbTime">00:00</span></div>
+</div>
+
+<!-- ══ شريط التنقل ══ -->
+<nav>
+  <span class="nav-brand">📚 الخلاصة في البحث العلمي</span>
+  <ul class="nav-links">
+    <li><a href="#s1">مفهوم البحث</a></li>
+    <li><a href="#s2">المنهج</a></li>
+    <li><a href="#s3">أنواع البحوث</a></li>
+    <li><a href="#s4">المناهج</a></li>
+    <li><a href="#s5">أسئلة</a></li>
+    <li><a href="#quiz">🎯 اختبار</a></li>
+  </ul>
+  <button class="tbtn" onclick="openTeacher()">🔐 لوحة الأستاذ</button>
+</nav>
+
+<div class="pbar" id="pbar"></div>
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+  <div>
+    <span class="h-orn">❖</span>
+    <p class="h-eye">مادة البحث العلمي</p>
+    <h1 class="h-title">الخلاصة في البحث العلمي <span>ومناهجه</span></h1>
+    <p class="h-sub">دليلك الشامل والتفاعلي — ادرس المحتوى ثم اختبر نفسك وستُسجَّل درجتك تلقائياً.</p>
+    <div class="h-btns">
+      <a class="pill pill-g" href="#s1">ابدأ الدراسة</a>
+      <a class="pill pill-o" href="#quiz">🎯 اختبر نفسك</a>
+    </div>
+  </div>
+</header>
+
+<!-- ══ القسم 1: مفهوم البحث ══ -->
+<div class="divider"></div>
+<section class="sec" id="s1">
+  <div class="rv">
+    <span class="sec-lbl">المسألة الأولى</span>
+    <h2 class="sec-title">مفهوم البحث العلمي</h2>
+    <p class="sec-desc">نتعرف على معنى البحث والعلمي لغةً، ثم نستخلص التعريف الاصطلاحي الجامع.</p>
+  </div>
+  <div class="dgrid rv">
+    <div class="dcard" style="--ca:#0f3460">
+      <span class="dcard-icon">🔍</span>
+      <h3 class="dcard-title">البحث — لغةً</h3>
+      <p class="dcard-text">كلمة ذات أصل واحد يدل على إثارة الشيء وطلبه. يُقال: بحثتُ عن شيء إذا سألتَ عنه. ويُطلق على <strong>طلب الحقيقة وتقصّيها</strong>.</p>
+    </div>
+    <div class="dcard" style="--ca:#4a7c6f">
+      <span class="dcard-icon">🌿</span>
+      <h3 class="dcard-title">العلمي — لغةً</h3>
+      <p class="dcard-text">نسبة إلى العلم، أصلها مادة <strong>(علم)</strong> التي تدور حول <strong>التمييز</strong>. قال ابن فارس: أصل يدل على أثر يتميز به. والعلمُ نقيض الجهل.</p>
+    </div>
+    <div class="dcard" style="--ca:#c44b2b">
+      <span class="dcard-icon">📖</span>
+      <h3 class="dcard-title">العلم — اصطلاحاً</h3>
+      <p class="dcard-text">الاعتقاد الجازم المطابق للواقع. وهو <strong>صفة راسخة</strong> يُدرك بها الكليات والجزئيات.</p>
+    </div>
+  </div>
+  <div class="hbox rv">
+    <p class="hbox-lbl">التعريف الجامع</p>
+    <p class="hbox-text">البحث العلمي هو: <em>عملية فكرية عقلية منظمة</em> تسعى للتحقق، والكشف عن مسألة ما، وتوضيح حقيقة علمية، عن طريق شخص يُسمى: <em>الباحث.</em></p>
+  </div>
+  <div class="rv">
+    <h3 style="font-family:'Amiri',serif;font-size:1.4rem;color:var(--royal);margin-bottom:1.1rem">أهمية البحث العلمي</h3>
+    <div class="igrid">
+      <div class="iitem"><div class="inum">أ</div><p class="itext">يتبيَّن من خلاله ما توصَّل إليه السابقون من نتائج.</p></div>
+      <div class="iitem"><div class="inum">ب</div><p class="itext">تعزيز الفهم السليم للقضايا الفكرية والعلمية والأدبية.</p></div>
+      <div class="iitem"><div class="inum">ج</div><p class="itext">تكوين قاعدة بيانات مهمة للبحث الأكاديمي والتطبيق العملي.</p></div>
+      <div class="iitem"><div class="inum">د</div><p class="itext">إضافة الجديد إلى عالم البحث والمعرفة.</p></div>
+      <div class="iitem"><div class="inum">هـ</div><p class="itext">ترسيخ الحرص على دقة التصور وصحة المعلومات.</p></div>
+      <div class="iitem"><div class="inum">و</div><p class="itext">الإعانة على الوصول إلى الأحكام الصحيحة المستندة على الدليل والبرهان.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ القسم 2: المنهج ══ -->
+<div class="divider"></div>
+<section class="sec" id="s2" style="background:rgba(240,234,214,.3)">
+  <div class="rv">
+    <span class="sec-lbl">ثانياً</span>
+    <h2 class="sec-title">مفهوم مناهج البحث</h2>
+    <p class="sec-desc">معنى المنهج لغةً واصطلاحاً والشروط الضرورية لمناهج البحث.</p>
+  </div>
+  <div class="dgrid rv">
+    <div class="dcard" style="--ca:#4a7c6f">
+      <span class="dcard-icon">🛤️</span>
+      <h3 class="dcard-title">المنهج — لغةً</h3>
+      <p class="dcard-text">أصله مادة <strong>(نهج)</strong>، لها أصلان: <strong>الطريق الواضح المستقيم</strong>، والانقطاع. المنهاج: الطريق الواضح.</p>
+    </div>
+    <div class="dcard" style="--ca:#0f3460">
+      <span class="dcard-icon">⚙️</span>
+      <h3 class="dcard-title">المنهج — اصطلاحاً</h3>
+      <p class="dcard-text">الطريق المسلوك في دراسة موضوع ما لتحقيق هدف معين.</p>
+    </div>
+    <div class="dcard" style="--ca:#e2b96f">
+      <span class="dcard-icon">🔬</span>
+      <h3 class="dcard-title">مناهج البحث</h3>
+      <p class="dcard-text">الطرق العلمية المعيارية والأدوات الإجرائية التي يعتمدها الباحث في جمع المادة ودراستها للوصول إلى نتيجة.</p>
+    </div>
+  </div>
+  <div class="rv">
+    <h3 style="font-family:'Amiri',serif;font-size:1.3rem;color:var(--royal);margin-bottom:.2rem">شروط مناهج البحث</h3>
+    <p style="color:#6b7b8d;font-size:.87rem;margin-bottom:1.2rem">لا بد أن تتصف مناهج البحث بثلاثة شروط:</p>
+    <div class="ctrio">
+      <div class="cc" data-n="١" style="background:#e8f4fd">
+        <span class="cc-icon">📏</span>
+        <h4 class="cc-title" style="color:#0f3460">المعيارية</h4>
+        <p class="cc-desc" style="color:#4a5e7a">القواعد العلمية الثابتة التي يسير عليها المنهج.</p>
+      </div>
+      <div class="cc" data-n="٢" style="background:#fdebd0">
+        <span class="cc-icon">♻️</span>
+        <h4 class="cc-title" style="color:#8b4513">الاطراد</h4>
+        <p class="cc-desc" style="color:#6b4020">الاستمرار والسير على طريق واحد دون تناقض.</p>
+      </div>
+      <div class="cc" data-n="٣" style="background:#eafaf1">
+        <span class="cc-icon">⚖️</span>
+        <h4 class="cc-title" style="color:#1e7e4e">الموضوعية</h4>
+        <p class="cc-desc" style="color:#2d6a4f">حصر الدراسة في الموضوع والبعد عن الأهواء الشخصية.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ القسم 3: أنواع البحوث ══ -->
+<div class="divider"></div>
+<section class="sec" id="s3">
+  <div class="rv">
+    <span class="sec-lbl">المسألة الثانية</span>
+    <h2 class="sec-title">أنواع البحوث</h2>
+    <p class="sec-desc">انقر على كل نوع لعرض تفاصيله.</p>
+  </div>
+  <div class="tabs-wrap rv">
+    <div class="tabs-nav">
+      <button class="tb active" data-tab="tab1">البحوث العامة</button>
+      <button class="tb" data-tab="tab2">البحث الصفي</button>
+      <button class="tb" data-tab="tab3">الماجستير والدكتوراه</button>
+      <button class="tb" data-tab="tab4">البحوث المحكَّمة</button>
+    </div>
+    <div class="tp active" id="tab1">
+      <span class="tp-badge">📚 النوع الأول</span>
+      <h3 class="tp-title">البحوث العامة</h3>
+      <p class="tp-sub">ما كان في مجال التأليف عموماً</p>
+      <div class="tp-body">
+        <p>أبوابها الثمانية:</p>
+        <ol style="margin-top:.6rem;padding-right:1.4rem;display:grid;grid-template-columns:1fr 1fr;gap:.3rem .7rem;font-size:.89rem">
+          <li>اختراع موضوع جديد</li><li>شرح شيء مغلق</li>
+          <li>إتمام ناقص</li><li>اختصار طويل</li>
+          <li>تجميع متفرق</li><li>ترتيب مختلط</li>
+          <li>تصحيح أخطاء في مصنَّف</li><li>تحقيق المخطوطات</li>
+        </ol>
+        <p style="margin-top:.85rem;font-size:.84rem;color:#6b7b8d">⚠️ لا يشترط فيها ما يشترط في البحوث الأكاديمية.</p>
+      </div>
+    </div>
+    <div class="tp" id="tab2">
+      <span class="tp-badge">🎓 البحث الجامعي الأول</span>
+      <h3 class="tp-title">البحث الصفي</h3>
+      <p class="tp-sub">بحث مرحلة البكالوريوس</p>
+      <div class="tp-body">
+        <ul style="padding-right:1.4rem;display:flex;flex-direction:column;gap:.45rem;font-size:.91rem">
+          <li>يُطلب من الطالب في الدراسة الجامعية.</li>
+          <li>يشرف عليه أستاذ متخصص ويرشده للمصادر.</li>
+          <li>يكون في حدود <strong>خمسين صفحة</strong> غالباً.</li>
+          <li>هدفه: <strong>تنمية مواهب الطالب البحثية</strong> وتدريبه على المنهجية.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tp" id="tab3">
+      <span class="tp-badge">🏛️ البحث العلمي الرفيع</span>
+      <h3 class="tp-title">الماجستير والدكتوراه</h3>
+      <p class="tp-sub">إعداد الباحث والبحث الأصيل</p>
+      <div class="tp-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div style="background:#e8f4fd;border-radius:10px;padding:.9rem">
+            <h4 style="color:#0f3460;margin-bottom:.4rem">الماجستير</h4>
+            <ul style="padding-right:1rem;font-size:.86rem;color:#3a4a5c;display:flex;flex-direction:column;gap:.25rem">
+              <li>إعداد <strong>باحث</strong></li><li>ينقد المعلومات علمياً</li><li>له رأي وموقف علمي</li>
             </ul>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                </svg>
-            </button>
+          </div>
+          <div style="background:#fdebd0;border-radius:10px;padding:.9rem">
+            <h4 style="color:#8b4513;margin-bottom:.4rem">الدكتوراه</h4>
+            <ul style="padding-right:1rem;font-size:.86rem;color:#5a3a20;display:flex;flex-direction:column;gap:.25rem">
+              <li>إعداد <strong>بحث</strong> أصيل</li><li>أصالة وتجديد أكبر</li><li>مراجع أوسع وعمق أعمق</li>
+            </ul>
+          </div>
         </div>
-        <div class="mobile-menu" id="mobileMenu">
-            <a href="#summary" onclick="closeMobileMenu()">الملخص</a>
-            <a href="#content" onclick="closeMobileMenu()">المحتوى</a>
-            <a href="#qa" onclick="closeMobileMenu()">أسئلة وأجوبة</a>
-            <a href="#quiz" onclick="closeMobileMenu()">الاختبار</a>
+      </div>
+    </div>
+    <div class="tp" id="tab4">
+      <span class="tp-badge">⭐ أعلى أنواع البحوث</span>
+      <h3 class="tp-title">البحوث المحكَّمة</h3>
+      <p class="tp-sub">بحوث المجلات العلمية المتخصصة</p>
+      <div class="tp-body">
+        <ul style="padding-right:1.4rem;display:flex;flex-direction:column;gap:.5rem;font-size:.91rem">
+          <li>نوع <strong>عالٍ</strong> من البحوث الأكاديمية.</li>
+          <li>تُقدَّم للمجلات العلمية وتُحكَّم من متخصصين.</li>
+          <li>تُفيد الباحث في الارتقاء الوظيفي الأكاديمي.</li>
+          <li>حجمها لا يتجاوز خمسين صفحة غالباً.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ القسم 4: أنواع المناهج ══ -->
+<div class="divider"></div>
+<section class="sec" id="s4">
+  <div class="rv">
+    <span class="sec-lbl">المسألة الثالثة</span>
+    <h2 class="sec-title">أنواع مناهج البحث</h2>
+    <p class="sec-desc">انقر على أي منهج لعرض تعريفه ومثاله.</p>
+  </div>
+  <div class="acc rv">
+    <div class="ai open">
+      <div class="ah" onclick="toggleAcc(this)">
+        <div class="an" style="background:#e8f4fd;color:#0f3460">١</div>
+        <span class="at">المنهج الوصفي</span>
+        <span class="atag" style="background:#e8f4fd;color:#0f3460">الأكثر استخداماً</span>
+        <span class="ar">▾</span>
+      </div>
+      <div class="ab"><div class="ac">يبحث ظاهرةً ما في فترة محددة للوصول إلى إثبات حقيقةٍ، بملاحظتها ووصفها والكشف عن خصائصها.<br><strong>مثال:</strong> دراسة دلالة بعض الألفاظ في العصر الجاهلي.</div></div>
+    </div>
+    <div class="ai">
+      <div class="ah" onclick="toggleAcc(this)">
+        <div class="an" style="background:#eafaf1;color:#117864">٢</div>
+        <span class="at">المنهج التاريخي</span>
+        <span class="ar">▾</span>
+      </div>
+      <div class="ab"><div class="ac">يبحث في قضيةٍ ما من حيث نشأتها وتطورها خلال التاريخ، باستخدام الطريقة العلمية لوصف الأحداث وتحليلها.<br><strong>مثال:</strong> دراسة ألفاظ الشعر الجاهلي ومعانيها عبر العصور.</div></div>
+    </div>
+    <div class="ai">
+      <div class="ah" onclick="toggleAcc(this)">
+        <div class="an" style="background:#f0e6ff;color:#6c3483">٣</div>
+        <span class="at">المنهج المقارن</span>
+        <span class="ar">▾</span>
+      </div>
+      <div class="ab"><div class="ac">يعني المقارنة بين شخصيتين أو كتابين أو أكثر، وتوضيح ما بينهما من خلافات أو تقارب.</div></div>
+    </div>
+    <div class="ai">
+      <div class="ah" onclick="toggleAcc(this)">
+        <div class="an" style="background:#fdebd0;color:#c44b2b">٤</div>
+        <span class="at">المنهج الاستدلالي الاستنباطي</span>
+        <span class="ar">▾</span>
+      </div>
+      <div class="ab"><div class="ac">يتأمل الأمور الجزئية لاستنتاج أحكام منها على مسائل أخرى.<br><strong>مثال:</strong> استنباط أحكام شرعية من الأدلة العامة.</div></div>
+    </div>
+    <div class="ai">
+      <div class="ah" onclick="toggleAcc(this)">
+        <div class="an" style="background:#d6eaf8;color:#1b4f72">٥</div>
+        <span class="at">المنهج الاستقرائي</span>
+        <span class="ar">▾</span>
+      </div>
+      <div class="ab"><div class="ac">يتتبع الجزئيات من خلال الملاحظة والتجربة لاستنتاج حكم كلي.<br><strong>مثال:</strong> استقراء أدلة موانع الإرث للوصول إلى مجموعها.</div></div>
+    </div>
+    <div class="ai">
+      <div class="ah" onclick="toggleAcc(this)">
+        <div class="an" style="background:#f9ebf9;color:#6c3483">٦</div>
+        <span class="at">المنهج الجدلي</span>
+        <span class="ar">▾</span>
+      </div>
+      <div class="ab"><div class="ac">يدور بين اثنين أو أكثر، يقوم على إثبات رأي أو تفنيده وفق طرق معينة.<br><strong>مثال:</strong> الرد على شبهة معينة أو المناظرات العلمية.</div></div>
+    </div>
+    <div class="ai">
+      <div class="ah" onclick="toggleAcc(this)">
+        <div class="an" style="background:#d5f5e3;color:#0b5345">٧</div>
+        <span class="at">المنهج التطبيقي</span>
+        <span class="ar">▾</span>
+      </div>
+      <div class="ab"><div class="ac">يقوم الباحث بإجراء تجارب ودراسة عينات وملاحظة تغيراتها بطريقة علمية منظمة.</div></div>
+    </div>
+    <div class="ai">
+      <div class="ah" onclick="toggleAcc(this)">
+        <div class="an" style="background:#f0f0f0;color:#555">٨</div>
+        <span class="at">المنهج العام</span>
+        <span class="ar">▾</span>
+      </div>
+      <div class="ab"><div class="ac">يُفيد من المناهج السابقة دون التقيد بواحد منها. الموضوعات التي لا تدخل في سابق تندرج هنا.</div></div>
+    </div>
+    <div class="ai">
+      <div class="ah" onclick="toggleAcc(this)">
+        <div class="an" style="background:#fef9e7;color:#9a7d0a">٩</div>
+        <span class="at">المنهج التوثيقي</span>
+        <span class="ar">▾</span>
+      </div>
+      <div class="ab"><div class="ac">يكون في ميدان تحقيق المخطوطات. يهدف إلى تقديم حقائق التراث جمعاً وتحقيقاً وتأريخاً.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ القسم 5: الأسئلة المقالية ══ -->
+<div class="divider"></div>
+<section class="sec" id="s5" style="background:rgba(240,234,214,.3)">
+  <div class="rv">
+    <span class="sec-lbl">مراجعة مقالية</span>
+    <h2 class="sec-title">الأسئلة المقالية مع الإجابات</h2>
+    <p class="sec-desc">انقر على كل سؤال لإظهار إجابته — حاول الإجابة بنفسك أولاً!</p>
+  </div>
+  <div class="elist rv">
+    <div class="ei">
+      <div class="eq" onclick="toggleE(this)"><div class="eq-ico">١</div><p class="eq-text">عرّف البحث العلمي لغةً واصطلاحاً مع ذكر معنى كلمة (العلمي).</p><span class="etog">+</span></div>
+      <div class="ea"><div class="ea-in"><p class="ea-lbl">◆ الإجابة النموذجية</p><p class="ea-text">أولاً — البحث لغةً: كلمة ذات أصل واحد يدل على إثارة الشيء وطلبه، ويُطلق على طلب الحقيقة وتقصّيها.
+
+ثانياً — العلمي لغةً: نسبة إلى العلم، أصلها مادة (علم) التي تدور حول التمييز. والعلمُ نقيض الجهل، وهو الاعتقاد الجازم المطابق للواقع.
+
+ثالثاً — البحث العلمي اصطلاحاً: عملية فكرية عقلية منظمة تسعى للتحقق، والكشف عن مسألة ما، وتوضيح حقيقة علمية، عن طريق شخص يُسمى: الباحث.</p></div></div>
+    </div>
+    <div class="ei">
+      <div class="eq" onclick="toggleE(this)"><div class="eq-ico">٢</div><p class="eq-text">اذكر أهمية البحث العلمي.</p><span class="etog">+</span></div>
+      <div class="ea"><div class="ea-in"><p class="ea-lbl">◆ الإجابة النموذجية</p><p class="ea-text">أ. يتبيَّن من خلاله ما توصَّل إليه السابقون من نتائج.
+ب. تعزيز الفهم السليم للقضايا الفكرية والعلمية والأدبية.
+ج. تكوين قاعدة بيانات للبحث الأكاديمي والتطبيق العملي.
+د. إضافة الجديد إلى عالم البحث والمعرفة.
+هـ. ترسيخ الحرص على دقة التصور وصحة المعلومات.
+و. الإعانة على الوصول إلى الأحكام الصحيحة المستندة على الدليل.</p></div></div>
+    </div>
+    <div class="ei">
+      <div class="eq" onclick="toggleE(this)"><div class="eq-ico">٣</div><p class="eq-text">عرّف المنهج لغةً واصطلاحاً، ثم عرّف مناهج البحث.</p><span class="etog">+</span></div>
+      <div class="ea"><div class="ea-in"><p class="ea-lbl">◆ الإجابة النموذجية</p><p class="ea-text">أولاً — المنهج لغةً: أصله مادة (نهج)، الأول: الطريق الواضح المستقيم. الثاني: الانقطاع.
+
+ثانياً — المنهج اصطلاحاً: الطريق المسلوك في دراسة موضوع ما لتحقيق هدف معين.
+
+ثالثاً — مناهج البحث: الطرق العلمية المعيارية والأدوات الإجرائية التي يعتمدها الباحث في جمع المادة ودراستها للوصول إلى نتيجة.</p></div></div>
+    </div>
+    <div class="ei">
+      <div class="eq" onclick="toggleE(this)"><div class="eq-ico">٤</div><p class="eq-text">ما الشروط التي تتصف بها مناهج البحث؟</p><span class="etog">+</span></div>
+      <div class="ea"><div class="ea-in"><p class="ea-lbl">◆ الإجابة النموذجية</p><p class="ea-text">أ. المعيارية: القواعد العلمية الثابتة التي تحكم المنهج.
+
+ب. الاطراد: الاستمرار والسير على طريق واحد دون تناقض.
+
+ج. الموضوعية: حصر الدراسة في الموضوع والبعد عن النزعات الشخصية.</p></div></div>
+    </div>
+    <div class="ei">
+      <div class="eq" onclick="toggleE(this)"><div class="eq-ico">٥</div><p class="eq-text">اشرح أنواع البحوث الأكاديمية الأربعة.</p><span class="etog">+</span></div>
+      <div class="ea"><div class="ea-in"><p class="ea-lbl">◆ الإجابة النموذجية</p><p class="ea-text">١. البحوث العامة: ما كان في مجال التأليف (شرح، إتمام، تحقيق مخطوطة...).
+٢. البحث الصفي: للطالب الجامعي، يهدف لتنمية مواهبه، نحو خمسين صفحة.
+٣. الماجستير والدكتوراه: موضوع مبتكر. الماجستير: إعداد باحث. الدكتوراه: بحث أصيل.
+٤. البحوث المحكَّمة: تُقدَّم للمجلات العلمية وتُحكَّم من متخصصين.</p></div></div>
+    </div>
+    <div class="ei">
+      <div class="eq" onclick="toggleE(this)"><div class="eq-ico">٦</div><p class="eq-text">عدِّد أنواع مناهج البحث التسعة مع تعريف موجز لكل منهج.</p><span class="etog">+</span></div>
+      <div class="ea"><div class="ea-in"><p class="ea-lbl">◆ الإجابة النموذجية</p><p class="ea-text">١. الوصفي: يصف الظاهرة ويكشف خصائصها في فترة محددة.
+٢. التاريخي: يبحث نشأة القضية وتطورها عبر الزمن.
+٣. المقارن: يقارن بين شخصيتين أو كتابين أو أكثر.
+٤. الاستدلالي: يتأمل الجزئيات لاستنتاج أحكام كلية.
+٥. الاستقرائي: يتتبع الجزئيات بالملاحظة والتجربة.
+٦. الجدلي: يدور بين اثنين لإثبات رأي أو تفنيده.
+٧. التطبيقي: يُجري تجارب ودراسة عينات علمياً.
+٨. العام: يُفيد من جميع المناهج دون التقيد بواحد.
+٩. التوثيقي: يختص بتحقيق المخطوطات وتراث العلماء.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ القسم 6: الاختبار ══ -->
+<section id="quiz">
+  <div class="qinn">
+    <div class="qhdr">
+      <span class="sec-lbl">اختبر فهمك</span>
+      <h2 class="sec-title">اختبار مراجعة شامل</h2>
+      <p>٢٠ سؤالاً — ستُسجَّل درجتك تلقائياً لدى الأستاذ</p>
+    </div>
+    <div class="qprog-wrap">
+      <div class="qprog-bar"><div class="qprog-fill" id="qFill" style="width:5%"></div></div>
+      <span class="qprog-txt" id="qCtr">١ / ٢٠</span>
+    </div>
+    <div class="qcard" id="qCard">
+      <p class="qnum" id="qNum"></p>
+      <p class="qtext" id="qText"></p>
+      <div class="opts" id="qOpts"></div>
+      <div class="fb" id="qFb"></div>
+    </div>
+    <div class="qnav">
+      <button class="qbtn qbtn-gh" id="prevBtn" onclick="prevQ()" style="display:none">← السابق</button>
+      <button class="qbtn qbtn-g" id="nextBtn" onclick="nextQ()" style="display:none">التالي ←</button>
+    </div>
+    <div id="scoreScreen">
+      <div class="qcard" style="margin-top:1.5rem">
+        <div class="sc-circle"><span class="sc-n" id="scN">0</span><span class="sc-tot">من ٢٠</span></div>
+        <p class="sc-msg" id="scMsg"></p>
+        <p class="sc-grade" id="scGrade"></p>
+        <p class="sc-send" id="scSend"></p>
+        <div class="sc-btns">
+          <button class="qbtn qbtn-g" onclick="restartQuiz()">إعادة الاختبار</button>
+          <button class="qbtn qbtn-gh" onclick="reviewAns()">مراجعة الإجابات</button>
         </div>
-    </nav>
+        <div id="revList"></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="container">
-            <span class="hero-badge">المحاضرة الاولى</span>
-            <h1 class="hero-title">أسس ومناهج البحث العلمي</h1>
-            <p class="hero-subtitle">دليل معرفي شامل يغطي مفاهيم البحث العلمي وأهميته ومناهجه المتعددة</p>
-            <div class="hero-buttons">
-                <a href="#content" class="btn-primary">ابدأ الدراسة</a>
-                <a href="#quiz" class="btn-secondary">اختبر نفسك</a>
-            </div>
-        </div>
-    </header>
+<footer>
+  <p>الخلاصة في البحث العلمي — صفحة تعليمية تفاعلية</p>
+  <p style="margin-top:.35rem">صُمِّمت لتسهيل الدراسة والمراجعة <span>❖</span></p>
+</footer>
 
-    <!-- Summary Section -->
-    <section id="summary" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">ملخص الدرس</h2>
-                <p class="section-subtitle">نظرة شاملة على المفاهيم الأساسية</p>
-            </div>
-            
-            <div class="summary-card fade-in">
-                <p class="summary-text">
-                    يُعد <strong>البحث العلمي</strong> عملية فكرية منظمة تهدف إلى الكشف عن الحقائق والتحقق منها بمنهجية دقيقة. يتكون مفهومه من شقين: <em>البحث</em> بمعنى الطلب وتتبع الشيء، و<em>العلم</em> بمعنى الإدراك والتمييز عن الجهل.
-                </p>
-                <p class="summary-text">
-                    تكمن أهمية البحث العلمي في ستة أهداف كبرى: التعرف على إنتاج السابقين، تعزيز الفهم السليم، تكوين قواعد البيانات، إضافة الجديد، ترسيخ دقة التصور، والوصول للأحكام الصحيحة.
-                </p>
-                <p class="summary-text">
-                    تتنوع <strong>مناهج البحث</strong> بين: الوصفي لرصد الظواهر، والتاريخي لتتبع التطور، والمقارن للموازنة، والاستنباطي والاستقرائي لاستخراج الأحكام، والجدلي للحوار العلمي، والتطبيقي للتجارب، والتوثيقي لتحقيق التراث.
-                </p>
-            </div>
-        </div>
-    </section>
+<!-- ══ لوحة الأستاذ ══ -->
+<div id="tm">
+  <div class="tp2">
+    <div class="tmhdr">
+      <h2 class="tmtitle">📊 لوحة متابعة الطلاب</h2>
+      <div class="tm-btns">
+        <button class="mbtn mbtn-gold" onclick="exportCSV()">⬇️ تصدير CSV</button>
+        <button class="mbtn mbtn-danger" onclick="clearAll()">🗑️ مسح الكل</button>
+        <button class="mbtn mbtn-ghost" onclick="closeTM()">✕ إغلاق</button>
+      </div>
+    </div>
 
-    <!-- Content Section -->
-    <section id="content" class="section section-alt">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">محتوى الدرس</h2>
-                <p class="section-subtitle">دراسة تفصيلية وممنهجة</p>
-            </div>
+    <!-- ربط Google Sheets -->
+    <div class="gsbox">
+      <p class="gsbox-title">🔗 ربط Google Sheets — استقبال نتائج الطلاب تلقائياً</p>
+      <p class="gsbox-steps">
+        الخطوات: ١. أنشئ Google Sheet جديداً &nbsp;|&nbsp;
+        ٢. من القائمة اذهب لـ Extensions ← Apps Script &nbsp;|&nbsp;
+        ٣. الصق الكود (اضغط زر "كود Apps Script") &nbsp;|&nbsp;
+        ٤. اضغط Deploy ← New Deployment ← Web App ← Anyone ← Deploy &nbsp;|&nbsp;
+        ٥. انسخ الرابط وألصقه هنا وادخل حفظ
+      </p>
+      <div class="gsbox-row">
+        <input class="gs-url" id="gsUrl" type="url" placeholder="https://script.google.com/macros/s/...">
+        <button class="gs-save" onclick="saveGsUrl()">💾 حفظ الرابط</button>
+        <button class="gs-code" onclick="openScriptModal()">📋 كود Apps Script</button>
+      </div>
+    </div>
 
-            <!-- Item 1 -->
-            <div class="card fade-in">
-                <div class="card-header">
-                    <div class="card-number">1</div>
-                    <h3 class="card-title">مفهوم البحث العلمي</h3>
-                </div>
-                <div class="content-box">
-                    <h4 class="content-box-title">المفهوم اللغوي:</h4>
-                    <ul class="custom-list">
-                        <li><strong>البحث:</strong> تدور مادته حول معنى الطلب وإثارة الشيء.</li>
-                        <li><strong>العلم:</strong> نقيض الجهل، يدل على أثر يتميز به الشيء عن غيره.</li>
-                    </ul>
-                </div>
-                <div class="content-box-highlight">
-                    <h4 class="content-box-title">المفهوم المركب:</h4>
-                    <p style="color: #444; line-height: 1.8;">
-                        عملية فكرية عقلية منظمة، يسعى الباحث من خلالها للتحقق والكشف عن مسألة ما، وتوضيح حقيقة علمية محددة.
-                    </p>
-                </div>
-            </div>
+    <!-- إحصائيات -->
+    <div class="tstats" id="tmStats"></div>
 
-            <!-- Item 2 -->
-            <div class="card fade-in">
-                <div class="card-header">
-                    <div class="card-number">2</div>
-                    <h3 class="card-title">أهمية البحث العلمي وأهدافه</h3>
-                </div>
-                <div class="grid-2">
-                    <div class="grid-item">
-                        <div class="grid-item-title">التعرف على نتاج السابقين</div>
-                        <div class="grid-item-text">الوقوف على ما أنجزه العلماء الأوائل</div>
-                    </div>
-                    <div class="grid-item">
-                        <div class="grid-item-title">تعزيز الفهم السليم</div>
-                        <div class="grid-item-text">تعميق الإدراك للقضايا بموضوعية</div>
-                    </div>
-                    <div class="grid-item">
-                        <div class="grid-item-title">تكوين قاعدة بيانات</div>
-                        <div class="grid-item-text">إرساء مرجعية معلوماتية</div>
-                    </div>
-                    <div class="grid-item">
-                        <div class="grid-item-title">إضافة الجديد</div>
-                        <div class="grid-item-text">إثراء المعرفة بابتكارات</div>
-                    </div>
-                    <div class="grid-item">
-                        <div class="grid-item-title">ترسيخ دقة التصور</div>
-                        <div class="grid-item-text">ضمان صحة المعلومة</div>
-                    </div>
-                    <div class="grid-item">
-                        <div class="grid-item-title">الوصول للأحكام الصحيحة</div>
-                        <div class="grid-item-text">أحكام مستندة للدليل</div>
-                    </div>
-                </div>
-            </div>
+    <!-- فلاتر -->
+    <div class="tfilters">
+      <input class="tfi" id="fName" placeholder="🔍 ابحث بالاسم..." oninput="renderTable()">
+      <input class="tfi" id="fSec" placeholder="🔍 الشعبة..." oninput="renderTable()" style="max-width:170px">
+      <select class="tfi" id="fGrade" onchange="renderTable()" style="max-width:140px">
+        <option value="">كل التقديرات</option>
+        <option value="A">ممتاز</option>
+        <option value="B">جيد جداً</option>
+        <option value="C">جيد</option>
+        <option value="D">ضعيف</option>
+      </select>
+    </div>
 
-            <!-- Item 3 -->
-            <div class="card fade-in">
-                <div class="card-header">
-                    <div class="card-number">3</div>
-                    <h3 class="card-title">مناهج البحث العلمي</h3>
-                </div>
-                <div class="content-box">
-                    <h4 class="content-box-title">تعريف المنهج:</h4>
-                    <p style="color: #444;"><strong>لغوياً:</strong> الطريق الواضح المستقيم. <strong>اصطلاحاً:</strong> الطرق المعيارية والأدوات الإجرائية للباحث.</p>
-                </div>
-                <h4 class="content-box-title" style="margin-bottom: 1rem;">شروط المنهج العلمي:</h4>
-                <div class="tags">
-                    <span class="tag">المعيارية</span>
-                    <span class="tag">الاطراد</span>
-                    <span class="tag tag-accent">الموضوعية</span>
-                </div>
-            </div>
+    <!-- الجدول -->
+    <div class="ttbl-wrap">
+      <table class="ttbl">
+        <thead><tr>
+          <th>#</th><th>الاسم</th><th>الشعبة</th>
+          <th>الدرجة</th><th>التقدير</th>
+          <th>وقت الدراسة</th><th>التاريخ</th>
+        </tr></thead>
+        <tbody id="tmBody"></tbody>
+      </table>
+      <div class="tempty" id="tmEmpty" style="display:none">
+        <div class="tempty-ico">📭</div>
+        <p>لا يوجد طلاب مسجّلون بعد.</p>
+        <p style="font-size:.78rem;margin-top:.35rem;color:rgba(255,255,255,.22)">ستظهر البيانات هنا بعد أن يُكمل الطلاب الاختبار.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-            <!-- Item 4 -->
-            <div class="card fade-in">
-                <div class="card-header">
-                    <div class="card-number">4</div>
-                    <h3 class="card-title">تصنيف أنواع البحوث</h3>
-                </div>
-                <div style="margin-bottom: 2rem;">
-                    <h4 class="content-box-title" style="margin-bottom: 1rem;">البحوث العامة (8 أبواب):</h4>
-                    <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
-                        <span style="padding: 0.5rem 1rem; background: var(--light); border-radius: 8px; font-size: 0.875rem;">اختراع جديد</span>
-                        <span style="padding: 0.5rem 1rem; background: var(--light); border-radius: 8px; font-size: 0.875rem;">شرح مغلق</span>
-                        <span style="padding: 0.5rem 1rem; background: var(--light); border-radius: 8px; font-size: 0.875rem;">إتمام ناقص</span>
-                        <span style="padding: 0.5rem 1rem; background: var(--light); border-radius: 8px; font-size: 0.875rem;">تحقيق المخطوطات</span>
-                    </div>
-                </div>
-                <div class="table-wrapper">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>النوع</th>
-                                <th>الهدف</th>
-                                <th>الحجم</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td style="font-weight: 600; color: var(--primary);">البحث الصفي</td>
-                                <td>تدريبي</td>
-                                <td>50 صفحة</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 600; color: var(--primary);">الماجستير</td>
-                                <td>إضافة مبتكرة</td>
-                                <td>عمق تحليلي</td>
-                            </tr>
-                            <tr>
-                                <td style="font-weight: 600; color: var(--primary);">المحكم</td>
-                                <td>الارتقاء فكراً</td>
-                                <td>50 صفحة</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<!-- ══ مودال كود Apps Script ══ -->
+<div id="sm">
+  <div class="sm-card">
+    <h3 class="sm-title">📋 كود Google Apps Script</h3>
+    <div class="sm-steps">
+      <strong style="color:var(--gold)">خطوات الربط مع Google Sheets:</strong><br>
+      ١. افتح Google Sheet الخاص بك<br>
+      ٢. من القائمة العلوية: Extensions ← Apps Script<br>
+      ٣. احذف أي كود موجود والصق الكود التالي<br>
+      ٤. اضغط 💾 حفظ، ثم Deploy ← New Deployment<br>
+      ٥. اختر: Type = Web App &nbsp;|&nbsp; Execute as = Me &nbsp;|&nbsp; Who has access = Anyone<br>
+      ٦. اضغط Deploy، انسخ رابط الـ Web App<br>
+      ٧. ألصق الرابط في خانة "ربط Google Sheets" في لوحة الأستاذ واضغط حفظ
+    </div>
+    <pre id="scode"></pre>
+    <div class="sm-btns">
+      <button class="sm-copy" onclick="copyCode()">📋 نسخ الكود</button>
+      <button class="sm-cls" onclick="closeSM()">إغلاق</button>
+    </div>
+  </div>
+</div>
 
-            <!-- Item 5 -->
-            <div class="card fade-in">
-                <div class="card-header">
-                    <div class="card-number">5</div>
-                    <h3 class="card-title">مناهج البحث المختلفة</h3>
-                </div>
-                <div class="grid-2">
-                    <div class="method-card">
-                        <div class="method-card-title">المنهج الوصفي</div>
-                        <div class="method-card-text">رصد الظاهرة ووصف خصائصها بدقة</div>
-                    </div>
-                    <div class="method-card">
-                        <div class="method-card-title">المنهج التاريخي</div>
-                        <div class="method-card-text">تتبع القضية من النشأة والتطور</div>
-                    </div>
-                    <div class="method-card">
-                        <div class="method-card-title">المنهج المقارن</div>
-                        <div class="method-card-text">المقارنة لإبراز نقاط الخلاف</div>
-                    </div>
-                    <div class="method-card">
-                        <div class="method-card-title">المنهج الاستنباطي</div>
-                        <div class="method-card-text">استنتاج أحكام عامة من أدلة</div>
-                    </div>
-                    <div class="method-card">
-                        <div class="method-card-title">المنهج الاستقرائي</div>
-                        <div class="method-card-text">تتبع الجزئيات للوصول لحكم كلي</div>
-                    </div>
-                    <div class="method-card">
-                        <div class="method-card-title">المنهج الجدلي</div>
-                        <div class="method-card-text">الحوار بين رأيين متقابلين</div>
-                    </div>
-                    <div class="method-card">
-                        <div class="method-card-title">المنهج التطبيقي</div>
-                        <div class="method-card-text">إجراء تجارب ميدانية</div>
-                    </div>
-                    <div class="method-card">
-                        <div class="method-card-title">المنهج التوثيقي</div>
-                        <div class="method-card-text">تحقيق التراث والمخطوطات</div>
-                    </div>
-                </div>
-            </div>
+<!-- ══ Toast ══ -->
+<div id="toast"></div>
 
-            <!-- Item 6 -->
-            <div class="card fade-in">
-                <div class="card-header">
-                    <div class="card-number">6</div>
-                    <h3 class="card-title">آفات ومعايير التحكيم</h3>
-                </div>
-                <div class="comparison-grid">
-                    <div class="comparison-box comparison-box-red">
-                        <h4 class="comparison-title comparison-title-red">آفات التحكيم</h4>
-                        <ul class="custom-list">
-                            <li>تفاوت مستويات المحكمين</li>
-                            <li>النزعات الشخصية</li>
-                            <li>التأخر في التحكيم</li>
-                        </ul>
-                    </div>
-                    <div class="comparison-box comparison-box-green">
-                        <h4 class="comparison-title comparison-title-green">معايير القبول</h4>
-                        <ul class="custom-list">
-                            <li>الجدة والابتكار</li>
-                            <li>الترابط المنهجي</li>
-                            <li>سلامة الصياغة</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+// ═══════════════ DATA ═══════════════
+const DB='bht_v4', SU='bht_su_v4';
+const getRec=()=>{try{return JSON.parse(localStorage.getItem(DB)||'[]')}catch{return[]}};
+const setRec=a=>localStorage.setItem(DB,JSON.stringify(a));
+const getUrl=()=>localStorage.getItem(SU)||'';
+const setUrl=u=>localStorage.setItem(SU,u);
 
-    <!-- Q&A Section -->
-    <section id="qa" class="section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">أسئلة وأجوبة</h2>
-                <p class="section-subtitle">اختبر فهمك - اضغط على السؤال</p>
-            </div>
-            <div id="qaContainer"></div>
-        </div>
-    </section>
+// ═══════════════ SESSION ═══════════════
+let sName='',sSec='',sStart=null,sTimer=null,qDone=false;
 
-    <!-- Quiz Section -->
-    <section id="quiz" class="section section-alt">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">اختبار شامل</h2>
-                <p class="section-subtitle">قيّم مستوى فهمك للدرس</p>
-            </div>
-            
-            <div class="quiz-container fade-in">
-                <div class="quiz-progress">
-                    <div class="quiz-progress-header">
-                        <span class="quiz-progress-label">التقدم</span>
-                        <span class="quiz-progress-value" id="progressText">0 / 15</span>
-                    </div>
-                    <div class="quiz-progress-bar">
-                        <div class="quiz-progress-fill" id="progressBar" style="width: 0%"></div>
-                    </div>
-                </div>
-                
-                <div id="quizContainer"></div>
-                
-                <div id="resultsSection" style="display: none;">
-                    <div class="results">
-                        <div class="results-circle">
-                            <span class="results-percent" id="scorePercent">0%</span>
-                        </div>
-                        <h3 class="results-title" id="resultTitle">نتيجتك</h3>
-                        <p class="results-message" id="resultMessage"></p>
-                        
-                        <div class="results-stats">
-                            <div class="stat-item">
-                                <div class="stat-value" id="finalScore">0/15</div>
-                                <div class="stat-label">الدرجة</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-value" id="finalTime">00:00</div>
-                                <div class="stat-label">الوقت</div>
-                            </div>
-                        </div>
-                        
-                        <a href="#" id="submitLink" target="_blank" class="send-result-btn">إرسال النتيجة للمعلم</a>
-                        
-                        <p style="margin-top: 1rem; color: #999; font-size: 0.875rem;">
-                            اضغط على الزر أعلاه لتسجيل نتيجتك
-                        </p>
-                        
-                        <button class="results-reset" onclick="resetQuiz()">إعادة الاختبار</button>
-                    </div>
-                </div>
-                
-                <div class="quiz-submit" id="submitSection">
-                    <button class="quiz-submit-btn" id="submitBtn" onclick="submitQuiz()" disabled>إرسال الإجابات</button>
-                    <p class="quiz-count" id="answeredCount">أجبت على 0 من 15 سؤال</p>
-                </div>
-            </div>
-        </div>
-    </section>
+function startSession(){
+  const n=document.getElementById('iName').value.trim();
+  const s=document.getElementById('iSec').value.trim();
+  if(!n){toast('⚠️ أدخل اسمك الكامل');return}
+  if(!s){toast('⚠️ أدخل الشعبة');return}
+  sName=n; sSec=s; sStart=Date.now(); qDone=false;
+  document.getElementById('sbName').textContent='👤 '+n;
+  document.getElementById('sbSec').textContent=s;
+  const bar=document.getElementById('sbar');
+  bar.style.display='flex';
+  const ov=document.getElementById('ov');
+  ov.style.opacity='0'; ov.style.transition='opacity .5s';
+  setTimeout(()=>ov.style.display='none',500);
+  sTimer=setInterval(tickTimer,1000); tickTimer();
+}
+function tickTimer(){
+  if(!sStart)return;
+  const s=Math.floor((Date.now()-sStart)/1000);
+  document.getElementById('sbTime').textContent=
+    String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+}
+function elapsed(){
+  if(!sStart)return'00:00';
+  const s=Math.floor((Date.now()-sStart)/1000);
+  return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+}
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p class="footer-text">المحاضرة الاولى - أسس ومناهج البحث العلمي</p>
-    </footer>
+// ═══════════════ SCROLL ═══════════════
+window.addEventListener('scroll',()=>{
+  const d=document.documentElement;
+  document.getElementById('pbar').style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';
+});
+const rv=document.querySelectorAll('.rv');
+const ro=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}}),{threshold:.1});
+rv.forEach(el=>ro.observe(el));
 
-    <script>
-        // ============ إعدادات Google Form ============
-        const FORM_BASE_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfcabrhS-pcmxe2CV2pMv0JBZFCCWwOANrnRXVi0h_xV9AYtA/viewform';
-        const FIELD_NAME = 'entry.1193970166';
-        const FIELD_SCORE = 'entry.1572514900';
-        const FIELD_TIME = 'entry.1676978669';
-        // ==============================================
+// ═══════════════ TABS ═══════════════
+document.querySelectorAll('.tb').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tb').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.tp').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById(b.dataset.tab).classList.add('active');
+}));
 
-        var qaData = [
-            { q: "ما المعنى اللغوي لمادة (بحث)؟", a: "تدور مادة (بحث) حول معنى الطلب وإثارة الشيء." },
-            { q: "عرّف البحث العلمي اصطلاحاً.", a: "عملية فكرية عقلية منظمة للتحقق والكشف عن مسألة ما." },
-            { q: "ما شروط المنهج العلمي؟", a: "المعيارية، الاطراد، الموضوعية." },
-            { q: "ما الفرق بين المنهج الاستنباطي والاستقرائي؟", a: "الاستنباطي: من الكلي للجزئي. الاستقرائي: من الجزئي للكلي." },
-            { q: "اذكر ثلاثة من أهداف البحث العلمي.", a: "التعرف على نتاج السابقين، تعزيز الفهم، إضافة الجديد." }
-        ];
+// ═══════════════ ACCORDION ═══════════════
+function toggleAcc(h){
+  const it=h.closest('.ai'),was=it.classList.contains('open');
+  document.querySelectorAll('.ai.open').forEach(i=>i.classList.remove('open'));
+  if(!was)it.classList.add('open');
+}
 
-        var quizData = [
-            { q: "ما المعنى اللغوي لمادة (بحث)؟", options: ["الجلوس والسكون", "الطلب وإثارة الشيء", "الكتابة والتدوين", "الحفظ والتذكر"], correct: 1 },
-            { q: "من الذي استشهد بقوله: 'بحثت في التراب'؟", options: ["ابن فارس", "الخليل بن أحمد", "سيبويه", "الجاحظ"], correct: 1 },
-            { q: "ما أصل كلمة 'العَلَم' بمعنى الراية؟", options: ["مادة (عرف)", "مادة (علم)", "مادة (رسم)", "مادة (علمة)"], correct: 1 },
-            { q: "كم عدد الأهداف الكبرى للبحث العلمي؟", options: ["أربعة", "خمسة", "ستة", "سبعة"], correct: 2 },
-            { q: "ما المعيار الأهم من شروط المنهج العلمي؟", options: ["المعيارية", "الاطراد", "الموضوعية", "الشمولية"], correct: 2 },
-            { q: "كم عدد أبواب البحوث العامة؟", options: ["ستة", "سبعة", "ثمانية", "تسعة"], correct: 2 },
-            { q: "ما الحجم التقريبي للبحث الصفي؟", options: ["30 صفحة", "50 صفحة", "100 صفحة", "150 صفحة"], correct: 1 },
-            { q: "أي مناهج يُعنى بتتبع النشأة والتطور؟", options: ["الوصفي", "التاريخي", "المقارن", "التطبيقي"], correct: 1 },
-            { q: "ما مثال المنهج الاستقرائي؟", options: ["دراسة الألفاظ", "تحقيق المخطوطات", "تتبع موانع الوعيد", "المقارنة"], correct: 2 },
-            { q: "أي منهج يعتمد على الحوار بين رأيين؟", options: ["الاستنباطي", "الجدلي", "التوثيقي", "التطبيقي"], correct: 1 },
-            { q: "ما المنهج الأكثر ارتباطاً بتحقيق المخطوطات؟", options: ["الوصفي", "التاريخي", "التوثيقي", "الاستقرائي"], correct: 2 },
-            { q: "ما الهدف الرئيسي من البحث المحكم؟", options: ["التخرج", "الترقية فقط", "الارتقاء فكراً", "الحصول على شهادة"], correct: 2 },
-            { q: "أي مما يلي من آفات التحكيم؟", options: ["كثرة المراجع", "تفاوت المحكمين", "وضوح العنوان", "جدة الموضوع"], correct: 1 },
-            { q: "ما شرط 'الاطراد'؟", options: ["قواعد المنطق", "نسق منهجي واحد", "التجرد", "حصر الدراسة"], correct: 1 },
-            { q: "أي مما يلي من معايير القبول؟", options: ["طول البحث", "كثرة الصفحات", "الجدة والابتكار", "قدم المراجع"], correct: 2 }
-        ];
+// ═══════════════ ESSAY ═══════════════
+function toggleE(h){h.closest('.ei').classList.toggle('open')}
 
-        var userAnswers = {};
-        var submitted = false;
-        var startTime;
-        var studentName = '';
-        var timerInterval;
+// ═══════════════ QUIZ DATA ═══════════════
+const QS=[
+  {q:'البحث لغةً يدل على:',o:['التأليف والنشر','إثارة الشيء وطلبه','النقد والتحليل','الحفظ والاستذكار'],a:1},
+  {q:'مادة (علم) في اللغة تدور حول:',o:['الكتابة','القراءة','التمييز','الحفظ'],a:2},
+  {q:'العلم في الاصطلاح هو:',o:['الظن الراجح','الاعتقاد الجازم المطابق للواقع','مجرد الإدراك','الحدس والتخمين'],a:1},
+  {q:'البحث العلمي اصطلاحاً هو:',o:['مجرد الكتابة','جمع معلومات من الإنترنت','عملية فكرية منظمة للتحقق والكشف','حفظ نتائج السابقين'],a:2},
+  {q:'من أهمية البحث العلمي:',o:['يُعقِّد التفكير','يُضيِّق المعرفة','يُعزز الفهم السليم للقضايا الفكرية','لا يُفيد عملياً'],a:2},
+  {q:'المنهج في اللغة يعني:',o:['الكتاب المقرر','الطريق الواضح المستقيم','الجامعة والمعهد','المجلة العلمية'],a:1},
+  {q:'مناهج البحث اصطلاحاً هي:',o:['الكتب الجامعية','الطرق العلمية المعيارية والأدوات الإجرائية','تقارير المختبرات','المحاضرات فقط'],a:1},
+  {q:'أيٌّ مما يلي ليس من شروط مناهج البحث؟',o:['المعيارية','الاطراد','الموضوعية','الطول والتفصيل'],a:3},
+  {q:'الاطراد في مناهج البحث يعني:',o:['التنوع المستمر','الاستمرار والسير على طريق واحد ثابت','الاختصار دائماً','التناقض المقبول'],a:1},
+  {q:'الموضوعية في مناهج البحث تعني:',o:['التحيز للرأي الشخصي','الإطالة في الكتابة','حصر الدراسة والبعد عن الأهواء','جمع أكبر عدد من المصادر'],a:2},
+  {q:'البحوث العامة هي:',o:['رسائل الدكتوراه','ما كان في مجال التأليف كالشرح والتحقيق','البحوث المحكَّمة','التقارير الحكومية'],a:1},
+  {q:'البحث الصفي يهدف أساساً إلى:',o:['نشر بحث في مجلة','نيل الدكتوراه','تنمية مواهب الطالب البحثية وتدريبه','تجميع معلومات'],a:2},
+  {q:'الفرق الجوهري بين الماجستير والدكتوراه:',o:['لا فرق','الماجستير إعداد باحث والدكتوراه أصالة أكبر','الدكتوراه أقل شأناً','الماجستير للعلوم فقط'],a:1},
+  {q:'البحوث المحكَّمة تتميز بأنها:',o:['تُقدَّم للمبتدئين','لا تحتاج مراجعة','تُقدَّم للمجلات وتُحكَّم من متخصصين','قصيرة جداً'],a:2},
+  {q:'المنهج الوصفي يختص بـ:',o:['المقارنة بين شخصيتين','دراسة القضية تاريخياً','بحث ظاهرة في فترة محددة لإثبات حقيقتها','إجراء التجارب'],a:2},
+  {q:'المنهج التاريخي يهتم بـ:',o:['وصف الظاهرة لحظياً','نشأة القضية وتطورها عبر الزمن','المقارنة بين نصين','إجراء الاستبانات'],a:1},
+  {q:'المنهج المقارن يعني:',o:['تلخيص نص','تحقيق مخطوطة','المقارنة بين شخصيتين أو كتابين أو أكثر','جمع الروايات'],a:2},
+  {q:'المنهج الاستقرائي يتميز بـ:',o:['الانطلاق من الكليات','تتبع الجزئيات بالملاحظة والتجربة للوصول لحكم كلي','الجدل والحوار','التوثيق'],a:1},
+  {q:'المنهج التوثيقي يختص بـ:',o:['التجارب المعملية','الجدل الفكري','تحقيق المخطوطات وتقديم حقائق التراث','المقارنات الإحصائية'],a:2},
+  {q:'المنهج الذي يُفيد من جميع المناهج دون التقيد بواحد هو:',o:['الوصفي','التاريخي','الجدلي','المنهج العام'],a:3},
+];
+const AN=['الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر',
+  'الحادي عشر','الثاني عشر','الثالث عشر','الرابع عشر','الخامس عشر',
+  'السادس عشر','السابع عشر','الثامن عشر','التاسع عشر','العشرون'];
+const AD=['١','٢','٣','٤','٥','٦','٧','٨','٩','١٠','١١','١٢','١٣','١٤','١٥','١٦','١٧','١٨','١٩','٢٠'];
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            // Don't start until name entered
-        });
+let cur=0,score=0,sel=new Array(20).fill(null);
 
-        function startLesson() {
-            var nameInput = document.getElementById('studentName');
-            if (nameInput.value.trim() === '') {
-                alert('الرجاء إدخال الاسم');
-                return;
-            }
-            
-            studentName = nameInput.value.trim();
-            document.getElementById('welcomeModal').style.display = 'none';
-            document.getElementById('timerDisplay').style.display = 'block';
-            
-            startTime = new Date();
-            timerInterval = setInterval(updateTimer, 1000);
-            
-            renderQA();
-            renderQuiz();
-            setupScrollObserver();
-        }
+// ═══════════════ QUIZ RENDER ═══════════════
+function renderQ(){
+  const q=QS[cur];
+  document.getElementById('qNum').textContent='السؤال '+AN[cur];
+  document.getElementById('qText').textContent=q.q;
+  const g=document.getElementById('qOpts'); g.innerHTML='';
+  const L=['أ','ب','ج','د'];
+  q.o.forEach((op,i)=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.textContent=L[i]+'. '+op;
+    b.onclick=()=>selectA(i);
+    if(sel[cur]!==null){
+      b.disabled=true;
+      if(i===q.a)b.classList.add('correct');
+      else if(i===sel[cur])b.classList.add('wrong');
+    }
+    g.appendChild(b);
+  });
+  const fb=document.getElementById('qFb');
+  if(sel[cur]!==null){
+    const ok=sel[cur]===q.a;
+    fb.className='fb show '+(ok?'ok':'bad');
+    fb.textContent=ok?'✅ أحسنتَ! الإجابة صحيحة.':'❌ الإجابة الصحيحة: '+L[q.a]+'. '+q.o[q.a];
+  }else{fb.className='fb';fb.textContent=''}
+  document.getElementById('qFill').style.width=((cur+1)/20*100)+'%';
+  document.getElementById('qCtr').textContent=AD[cur]+' / ٢٠';
+  document.getElementById('prevBtn').style.display=cur>0?'block':'none';
+  const nb=document.getElementById('nextBtn');
+  nb.style.display=sel[cur]!==null?'block':'none';
+  nb.textContent=cur<19?'التالي ←':'عرض النتيجة 🏆';
+}
+function selectA(i){
+  if(sel[cur]!==null)return;
+  sel[cur]=i; if(i===QS[cur].a)score++; renderQ();
+}
+function nextQ(){
+  if(cur<19){cur++;renderQ();document.getElementById('qCard').scrollIntoView({behavior:'smooth',block:'nearest'})}
+  else showScore();
+}
+function prevQ(){if(cur>0){cur--;renderQ()}}
 
-        function updateTimer() {
-            var now = new Date();
-            var diff = now - startTime;
-            
-            var hours = Math.floor(diff / 3600000);
-            var minutes = Math.floor((diff % 3600000) / 60000);
-            var seconds = Math.floor((diff % 60000) / 1000);
-            
-            document.getElementById('timer').textContent = 
-                String(hours).padStart(2, '0') + ':' + 
-                String(minutes).padStart(2, '0') + ':' + 
-                String(seconds).padStart(2, '0');
-        }
+// ═══════════════ SCORE ═══════════════
+function showScore(){
+  document.getElementById('qCard').style.display='none';
+  document.querySelector('.qnav').style.display='none';
+  document.querySelector('.qprog-wrap').style.display='none';
+  const ss=document.getElementById('scoreScreen');
+  ss.style.display='block';
+  document.getElementById('scN').textContent=score;
+  const p=score/20*100;
+  let msg,grade,gc;
+  if(p>=90){msg='ممتاز! 🏆';grade='أداء رائع — أنتَ متمكّن من المادة.';gc='A'}
+  else if(p>=75){msg='جيد جداً! 🌟';grade='أداء جيد — راجع بعض النقاط.';gc='B'}
+  else if(p>=60){msg='جيد 👍';grade='يمكن تحسين المستوى بمزيد من المراجعة.';gc='C'}
+  else{msg='تحتاج لمزيد من الدراسة 📚';grade='راجع الدرس جيداً ثم أعد الاختبار.';gc='D'}
+  document.getElementById('scMsg').textContent=msg;
+  document.getElementById('scGrade').textContent=grade;
+  if(!qDone&&sName){
+    qDone=true;
+    const rec={name:sName,section:sSec,score,total:20,grade:gc,
+      studyTime:elapsed(),date:new Date().toLocaleDateString('ar-SA'),ts:Date.now()};
+    const arr=getRec(); arr.push(rec); setRec(arr);
+    sendToSheets(rec);
+  }
+}
+async function sendToSheets(r){
+  const url=getUrl(); if(!url)return;
+  const el=document.getElementById('scSend');
+  el.textContent='⏳ جارٍ إرسال نتيجتك للأستاذ...';
+  try{
+    const p=new URLSearchParams({name:r.name,section:r.section,
+      score:r.score+'/20',grade:r.grade,studyTime:r.studyTime,date:r.date});
+    await fetch(url+'?'+p,{method:'GET',mode:'no-cors'});
+    el.textContent='✅ تم إرسال نتيجتك للأستاذ بنجاح!';
+    el.style.color='#a8e6cc';
+  }catch{el.textContent='📡 تعذّر الإرسال التلقائي — تم الحفظ محلياً.'}
+}
+function restartQuiz(){
+  cur=0;score=0;sel=new Array(20).fill(null);qDone=false;
+  document.getElementById('qCard').style.display='block';
+  document.querySelector('.qnav').style.display='flex';
+  document.querySelector('.qprog-wrap').style.display='flex';
+  document.getElementById('scoreScreen').style.display='none';
+  document.getElementById('revList').innerHTML='';
+  renderQ();
+}
+function reviewAns(){
+  const L=['أ','ب','ج','د'],list=document.getElementById('revList');
+  list.innerHTML='';
+  QS.forEach((q,i)=>{
+    const ok=sel[i]===q.a;
+    const d=document.createElement('div');
+    d.style.cssText=`margin-bottom:.8rem;padding:.75rem 1rem;border-radius:8px;`+
+      `background:${ok?'rgba(74,124,111,.15)':'rgba(196,75,43,.12)'};`+
+      `border:1px solid ${ok?'rgba(74,124,111,.3)':'rgba(196,75,43,.25)'}`;
+    d.innerHTML=`<span style="font-size:.72rem;color:${ok?'#a8e6cc':'#f4a08a'};font-weight:700">${ok?'✅':'❌'} س${AD[i]}</span><br>`+
+      `<span style="font-size:.85rem;color:rgba(255,255,255,.85)">${q.q}</span><br>`+
+      `<span style="font-size:.79rem;color:${ok?'#a8e6cc':'#f4a08a'}">الصحيحة: ${L[q.a]}. ${q.o[q.a]}</span>`;
+    list.appendChild(d);
+  });
+}
 
-        function getElapsedTime() {
-            var now = new Date();
-            var diff = now - startTime;
-            var minutes = Math.floor(diff / 60000);
-            var seconds = Math.floor((diff % 60000) / 1000);
-            return minutes + ' دقيقة و ' + seconds + ' ثانية';
-        }
+// ═══════════════ TEACHER DASHBOARD ═══════════════
+const TPASS='1234'; // ← غيّر كلمة المرور هنا
 
-        function toggleMobileMenu() {
-            document.getElementById('mobileMenu').classList.toggle('active');
-        }
+function openTeacher(){
+  const p=prompt('🔐 أدخل كلمة مرور الأستاذ:');
+  if(p===null)return;
+  if(p!==TPASS){toast('❌ كلمة المرور غير صحيحة');return}
+  document.getElementById('tm').classList.add('open');
+  const saved=getUrl();
+  if(saved)document.getElementById('gsUrl').value=saved;
+  refreshDash();
+}
+function closeTM(){document.getElementById('tm').classList.remove('open')}
 
-        function closeMobileMenu() {
-            document.getElementById('mobileMenu').classList.remove('active');
-        }
+function refreshDash(){renderStats();renderTable()}
 
-        function setupScrollObserver() {
-            var observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1 });
+function renderStats(){
+  const r=getRec();
+  const avg=r.length?Math.round(r.reduce((s,x)=>s+x.score,0)/r.length*10)/10:0;
+  const pass=r.filter(x=>x.score>=12).length;
+  document.getElementById('tmStats').innerHTML=`
+    <div class="tstat"><div class="tstat-n">${r.length}</div><div class="tstat-l">إجمالي الطلاب</div></div>
+    <div class="tstat"><div class="tstat-n">${avg}/20</div><div class="tstat-l">متوسط الدرجات</div></div>
+    <div class="tstat"><div class="tstat-n" style="color:#a8e6cc">${pass}</div><div class="tstat-l">ناجحون ≥60%</div></div>
+    <div class="tstat"><div class="tstat-n" style="color:#f4a08a">${r.length-pass}</div><div class="tstat-l">يحتاجون متابعة</div></div>
+    <div class="tstat"><div class="tstat-n" style="color:#f5d76e">${r.filter(x=>x.grade==='A').length}</div><div class="tstat-l">ممتاز</div></div>
+  `;
+}
 
-            document.querySelectorAll('.fade-in').forEach(function(el) {
-                observer.observe(el);
-            });
-        }
+function renderTable(){
+  const nf=document.getElementById('fName').value.trim().toLowerCase();
+  const sf=document.getElementById('fSec').value.trim().toLowerCase();
+  const gf=document.getElementById('fGrade').value;
+  const r=getRec().filter(x=>
+    x.name.toLowerCase().includes(nf)&&
+    x.section.toLowerCase().includes(sf)&&
+    (!gf||x.grade===gf)
+  ).sort((a,b)=>b.ts-a.ts);
+  const GL={A:'ممتاز',B:'جيد جداً',C:'جيد',D:'ضعيف'};
+  const tbody=document.getElementById('tmBody');
+  tbody.innerHTML='';
+  document.getElementById('tmEmpty').style.display=r.length?'none':'block';
+  r.forEach((x,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="color:rgba(255,255,255,.35)">${i+1}</td>
+      <td style="font-weight:700;color:#fff">${x.name}</td>
+      <td>${x.section}</td>
+      <td style="font-weight:800;color:var(--gold);font-size:.95rem">${x.score}/20</td>
+      <td><span class="gbadge g${x.grade}">${GL[x.grade]}</span></td>
+      <td style="font-variant-numeric:tabular-nums;color:rgba(255,255,255,.65)">${x.studyTime}</td>
+      <td style="font-size:.77rem;color:rgba(255,255,255,.4)">${x.date}</td>`;
+    tbody.appendChild(tr);
+  });
+}
 
-        function renderQA() {
-            var container = document.getElementById('qaContainer');
-            var html = '';
-            
-            for (var i = 0; i < qaData.length; i++) {
-                html += '<div class="qa-card" onclick="toggleAnswer(' + i + ')">' +
-                    '<div class="qa-header">' +
-                    '<div class="qa-number"><span>' + (i + 1) + '</span></div>' +
-                    '<h4 class="qa-question">' + qaData[i].q + '</h4>' +
-                    '<div class="qa-icon" id="icon-' + i + '">' +
-                    '<svg width="24" height="24" fill="none" stroke="#0d4f4f" viewBox="0 0 24 24">' +
-                    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>' +
-                    '</svg></div></div>' +
-                    '<div class="qa-answer" id="answer-' + i + '">' +
-                    '<div class="qa-answer-content">' +
-                    '<span class="qa-answer-label">الجواب:</span>' +
-                    '<p style="margin-top: 0.5rem;">' + qaData[i].a + '</p></div></div></div>';
-            }
-            
-            container.innerHTML = html;
-        }
+function saveGsUrl(){
+  const u=document.getElementById('gsUrl').value.trim();
+  if(!u){toast('⚠️ أدخل الرابط أولاً');return}
+  setUrl(u); toast('✅ تم حفظ رابط Google Sheets');
+}
 
-        function toggleAnswer(index) {
-            var answer = document.getElementById('answer-' + index);
-            var icon = document.getElementById('icon-' + index);
-            
-            if (answer.classList.contains('open')) {
-                answer.classList.remove('open');
-                icon.classList.remove('rotated');
-            } else {
-                answer.classList.add('open');
-                icon.classList.add('rotated');
-            }
-        }
+function exportCSV(){
+  const r=getRec();
+  if(!r.length){toast('لا توجد بيانات للتصدير');return}
+  let csv='الاسم,الشعبة,الدرجة,التقدير,وقت الدراسة,التاريخ\n';
+  r.forEach(x=>{csv+=`"${x.name}","${x.section}","${x.score}/20","${x.grade}","${x.studyTime}","${x.date}"\n`});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download='نتائج_الطلاب.csv'; a.click();
+  toast('✅ تم تصدير الملف');
+}
 
-        function renderQuiz() {
-            var container = document.getElementById('quizContainer');
-            var html = '';
-            var letters = ['أ', 'ب', 'ج', 'د'];
-            
-            for (var q = 0; q < quizData.length; q++) {
-                html += '<div class="quiz-question">' +
-                    '<h4 class="quiz-question-text"><span>' + (q + 1) + '.</span> ' + quizData[q].q + '</h4>' +
-                    '<div class="quiz-options">';
-                
-                for (var o = 0; o < quizData[q].options.length; o++) {
-                    var selectedClass = userAnswers[q] === o ? ' selected' : '';
-                    html += '<div class="quiz-option' + selectedClass + '" onclick="selectAnswer(' + q + ', ' + o + ')" data-q="' + q + '" data-o="' + o + '">' +
-                        '<div class="quiz-option-letter">' + letters[o] + '</div>' +
-                        '<span class="quiz-option-text">' + quizData[q].options[o] + '</span></div>';
-                }
-                
-                html += '</div></div>';
-            }
-            
-            container.innerHTML = html;
-        }
+function clearAll(){
+  if(!confirm('هل تريد مسح جميع البيانات نهائياً؟'))return;
+  setRec([]); refreshDash(); toast('🗑️ تم مسح جميع البيانات');
+}
 
-        function selectAnswer(qIndex, oIndex) {
-            if (submitted) return;
-            
-            userAnswers[qIndex] = oIndex;
-            
-            var options = document.querySelectorAll('[data-q="' + qIndex + '"]');
-            options.forEach(function(opt) {
-                opt.classList.remove('selected');
-            });
-            
-            var selected = document.querySelector('[data-q="' + qIndex + '"][data-o="' + oIndex + '"]');
-            if (selected) {
-                selected.classList.add('selected');
-            }
-            
-            updateProgress();
-        }
+document.getElementById('tm').addEventListener('click',function(e){if(e.target===this)closeTM()});
 
-        function updateProgress() {
-            var answered = Object.keys(userAnswers).length;
-            var total = quizData.length;
-            var percent = (answered / total) * 100;
-            
-            document.getElementById('progressBar').style.width = percent + '%';
-            document.getElementById('progressText').textContent = answered + ' / ' + total;
-            document.getElementById('answeredCount').textContent = 'أجبت على ' + answered + ' من ' + total + ' سؤال';
-            document.getElementById('submitBtn').disabled = answered < total;
-        }
+// ═══════════════ APPS SCRIPT MODAL ═══════════════
+const SCRIPT_CODE=`function doGet(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(['الاسم','الشعبة','الدرجة','التقدير','وقت الدراسة','التاريخ','وقت الإرسال']);
+      sheet.setRightToLeft(true);
+      sheet.getRange(1,1,1,7).setFontWeight('bold')
+           .setBackground('#0f3460').setFontColor('#e2b96f');
+    }
+    var p = e.parameter;
+    sheet.appendRow([
+      p.name||'', p.section||'', p.score||'',
+      p.grade||'', p.studyTime||'', p.date||'',
+      new Date().toLocaleString('ar-SA')
+    ]);
+    return ContentService.createTextOutput(
+      JSON.stringify({status:'ok'})
+    ).setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(
+      JSON.stringify({status:'error',msg:err.toString()})
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}`;
 
-        function submitQuiz() {
-            if (submitted) return;
-            submitted = true;
-            
-            var correct = 0;
-            
-            for (var q = 0; q < quizData.length; q++) {
-                var userAnswer = userAnswers[q];
-                var options = document.querySelectorAll('[data-q="' + q + '"]');
-                
-                options.forEach(function(opt, oIndex) {
-                    opt.classList.remove('selected');
-                    if (oIndex === quizData[q].correct) {
-                        opt.classList.add('correct');
-                    } else if (oIndex === userAnswer) {
-                        opt.classList.add('wrong');
-                    }
-                });
-                
-                if (userAnswer === quizData[q].correct) correct++;
-            }
-            
-            var percent = Math.round((correct / quizData.length) * 100);
-            var timeSpent = getElapsedTime();
-            
-            document.getElementById('submitSection').style.display = 'none';
-            document.getElementById('resultsSection').style.display = 'block';
-            document.getElementById('scorePercent').textContent = percent + '%';
-            document.getElementById('finalScore').textContent = correct + '/' + quizData.length;
-            document.getElementById('finalTime').textContent = timeSpent;
-            
-            // Create Google Form link
-            var submitLink = document.getElementById('submitLink');
-            var formUrl = FORM_BASE_URL + '?' + FIELD_NAME + '=' + encodeURIComponent(studentName) + '&' + FIELD_SCORE + '=' + percent + '&' + FIELD_TIME + '=' + encodeURIComponent(timeSpent);
-            submitLink.href = formUrl;
-            
-            var title, message;
-            if (percent >= 90) {
-                title = "ممتاز!";
-                message = "أداء رائع! لقد أتقنت محتوى الدرس.";
-            } else if (percent >= 70) {
-                title = "جيد جداً!";
-                message = "أداء جيد! راجع بعض النقاط.";
-            } else {
-                title = "يحتاج تحسين";
-                message = "ننصحك بمراجعة الدرس بعناية.";
-            }
-            
-            document.getElementById('resultTitle').textContent = title;
-            document.getElementById('resultMessage').textContent = message;
-            
-            clearInterval(timerInterval);
-        }
+function openScriptModal(){
+  document.getElementById('scode').textContent=SCRIPT_CODE;
+  document.getElementById('sm').classList.add('open');
+}
+function closeSM(){document.getElementById('sm').classList.remove('open')}
+function copyCode(){
+  navigator.clipboard.writeText(SCRIPT_CODE)
+    .then(()=>toast('✅ تم نسخ الكود — الصقه في Apps Script'))
+    .catch(()=>toast('⚠️ انسخ الكود يدوياً من الحقل'));
+}
+document.getElementById('sm').addEventListener('click',function(e){if(e.target===this)closeSM()});
 
-        function resetQuiz() {
-            submitted = false;
-            userAnswers = {};
-            
-            document.getElementById('submitSection').style.display = 'block';
-            document.getElementById('resultsSection').style.display = 'none';
-            
-            renderQuiz();
-            updateProgress();
-        }
-    </script>
+// ═══════════════ TOAST ═══════════════
+let tTimer;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(tTimer); tTimer=setTimeout(()=>t.classList.remove('show'),3200);
+}
+
+// ═══════════════ INIT ═══════════════
+function openTeacherFromOverlay(){
+  const p=prompt('🔐 أدخل كلمة مرور الأستاذ:');
+  if(p===null)return;
+  if(p!==TPASS){toast('❌ كلمة المرور غير صحيحة');return}
+  // Hide overlay first
+  document.getElementById('ov').style.display='none';
+  // Show nav and open dashboard
+  document.getElementById('tm').classList.add('open');
+  const saved=getUrl();
+  if(saved)document.getElementById('gsUrl').value=saved;
+  refreshDash();
+}
+renderQ();
+</script>
 </body>
 </html>
