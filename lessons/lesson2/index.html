@@ -113,6 +113,12 @@
         .opt-btn.correct { background: #ecfdf5 !important; border-color: #10b981 !important; color: #065f46; }
         .opt-btn.wrong { background: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b; }
 
+        /* AI Chat */
+        #chat-window { height: 500px; overflow-y: auto; border: 2px solid #e5e7eb; border-radius: 1.2rem; padding: 1.5rem; background: #fff; display: flex; flex-direction: column; gap: 1rem; }
+        .msg { padding: 1rem 1.5rem; border-radius: 1.2rem; max-width: 85%; line-height: 1.7; font-size: 1.05rem; }
+        .ai-msg { background: #f3f4f6; align-self: flex-start; border-bottom-right-radius: 0; border: 1px solid #e5e7eb; }
+        .user-msg { background: var(--navy); color: #fff; align-self: flex-end; border-bottom-left-radius: 0; }
+
         .screen { display: none; }
         .screen.active { display: block; animation: fadeIn 0.5s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -134,7 +140,7 @@
         </div>
     </div>
 
-    <!-- Main App Content -->
+    <!-- Main Content Header -->
     <div id="main-app" class="screen">
         <header class="bg-[#1a1a2e] text-white p-5 flex justify-between items-center sticky top-0 z-50 shadow-xl">
             <div class="font-serif text-3xl font-bold text-[#e2b96f]">الخلاصة في البحث العلمي</div>
@@ -157,8 +163,7 @@
         </nav>
 
         <main class="max-w-6xl mx-auto p-6 md:p-10">
-            
-            <!-- Tab 1: Lecture Content -->
+            <!-- Tabs content loaded via scripts -->
             <section id="tab-content" class="screen active">
                 <div class="bg-white rounded-3xl p-10 shadow-lg border-r-[12px] border-[#1a1a2e] mb-12">
                     <h2 class="section-title">أولاً: مفهوم الباحث الأصيل</h2>
@@ -171,12 +176,8 @@
                         </p>
                     </div>
                 </div>
-
                 <h2 class="section-title">ثانياً: صفات الباحث (14 صفة تفصيلية)</h2>
-                <div id="traits-list" class="flex flex-col gap-6">
-                    <!-- JS Loaded -->
-                </div>
-
+                <div id="traits-list" class="flex flex-col gap-6"></div>
                 <div class="bg-[#1a1a2e] text-white rounded-3xl p-12 mt-16 border-t-8 border-[#e2b96f] shadow-2xl">
                     <h2 class="font-serif text-4xl font-bold mb-8 text-[#e2b96f]">ثالثاً: الإشراف العلمي (مهمة صناعة الباحثين)</h2>
                     <p class="text-2xl leading-relaxed mb-8 text-gray-200">
@@ -191,15 +192,12 @@
                 </div>
             </section>
 
-            <!-- Tab 2: Visual Map -->
             <section id="tab-map" class="screen">
                 <div class="map-section shadow-inner">
                     <h2 class="section-title w-full text-center">خريطة مفاتيح المحاضرة الثانية</h2>
                     <div class="flex flex-col items-center">
                         <div class="map-hub mb-10">أطراف العملية البحثية</div>
-                        
                         <div class="flex flex-col lg:flex-row justify-between w-full gap-10">
-                            <!-- Left: The Researcher -->
                             <div class="flex flex-col items-center flex-1">
                                 <div class="map-branch h-full bg-blue-50/50">
                                     <h3 class="font-black text-2xl text-navy mb-4 border-b-2 border-navy pb-2">💎 الباحث الأصيل</h3>
@@ -213,18 +211,12 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Middle: All 14 Traits -->
                             <div class="flex flex-col items-center flex-[1.5]">
                                 <div class="map-branch h-full bg-amber-50/50" style="border-color: var(--gold);">
                                     <h3 class="font-black text-2xl text-navy mb-4 border-b-2 border-gold pb-2">⭐ صفات الباحث (١٤ صفة)</h3>
-                                    <div id="map-traits-grid" class="grid grid-cols-2 md:grid-cols-3 gap-2">
-                                        <!-- JS Loaded -->
-                                    </div>
+                                    <div id="map-traits-grid" class="grid grid-cols-2 md:grid-cols-3 gap-2"></div>
                                 </div>
                             </div>
-
-                            <!-- Right: Supervision -->
                             <div class="flex flex-col items-center flex-1">
                                 <div class="map-branch h-full bg-emerald-50/50">
                                     <h3 class="font-black text-2xl text-navy mb-4 border-b-2 border-navy pb-2">👨‍🏫 الإشراف العلمي</h3>
@@ -243,19 +235,14 @@
                 </div>
             </section>
 
-            <!-- Tab 3: Smart Review -->
             <section id="tab-review" class="screen">
                 <h2 class="section-title">بنك مراجعة المحاضرة الشامل</h2>
-                <p class="text-xl mb-8 text-gray-600">تمت صياغة البطاقات لتغطي كافة تفاصيل الدرس (انقر للمشاهدة):</p>
-                <div id="flash-container" class="flash-grid">
-                    <!-- JS Loaded -->
-                </div>
+                <div id="flash-container" class="flash-grid"></div>
             </section>
 
-            <!-- Tab 4: AI Tutor -->
             <section id="tab-ai" class="screen">
                 <div class="bg-white rounded-3xl p-10 border-r-[12px] border-purple-600 shadow-2xl">
-                    <h2 class="font-serif text-3xl font-bold mb-6 text-purple-700">✨ المساعد الأكاديمي الذكي (Gemini)</h2>
+                    <h2 class="font-serif text-3xl font-bold mb-6 text-purple-700">✨ المساعد الأكاديمي الذكي (Gemini AI)</h2>
                     <div id="chat-window"></div>
                     <div class="flex gap-4 mt-6">
                         <input type="text" id="chat-input" class="flex-1 p-5 border-2 rounded-2xl outline-none focus:border-purple-500 text-lg" placeholder="اسألني عن أي جزئية في المحاضرة..." onkeypress="if(event.key==='Enter') app.askAI()">
@@ -264,15 +251,12 @@
                 </div>
             </section>
 
-            <!-- Tab 5: Final Quiz -->
             <section id="tab-quiz" class="screen">
                 <div id="quiz-box">
                     <div class="bg-white rounded-3xl p-10 shadow-2xl border-2 border-gray-100">
                         <div class="flex justify-between items-center mb-10 pb-6 border-b-2">
                             <span id="quiz-progress" class="font-black text-2xl text-gray-400">السؤال 1 من 20</span>
-                            <div class="bg-[#e2b96f] text-[#1a1a2e] px-6 py-2 rounded-full font-black text-xl shadow-md">
-                                الدرجة: <span id="quiz-score-display">0</span>
-                            </div>
+                            <div class="bg-[#e2b96f] text-[#1a1a2e] px-6 py-2 rounded-full font-black text-xl shadow-md">الدرجة: <span id="quiz-score-display">0</span></div>
                         </div>
                         <div class="question-box">
                             <h3 id="quiz-question-text" class="text-3xl font-bold leading-relaxed"></h3>
@@ -284,17 +268,14 @@
                     <div class="text-9xl mb-10">🏆</div>
                     <h2 id="final-result-title" class="text-5xl font-black mb-6 text-[#1a1a2e]"></h2>
                     <p id="final-result-score" class="text-8xl font-black text-[#e2b96f] mb-12"></p>
-                    <div class="p-8 bg-green-50 text-green-700 rounded-3xl font-black text-2xl inline-block border-4 border-green-500 shadow-xl">
-                        ✅ تم اعتماد نتيجتك وإرسال تقرير الأداء للأستاذ.
-                    </div>
+                    <div class="p-8 bg-green-50 text-green-700 rounded-3xl font-black text-2xl inline-block border-4 border-green-500 shadow-xl">✅ تم اعتماد نتيجتك وإرسال تقرير الأداء للأستاذ.</div>
                 </div>
             </section>
-
         </main>
     </div>
 
     <script>
-        const MASKED_KEY = "QUl6YVN5QndlRnVud0dyWkdEeHRyb2FyQlotUVhkMWJXVUFJU2JV";
+        const apiKey = "QUl6YVN5QndlRnVud0dyWkdEeHRyb2FyQlotUVhkMWJXVUFJU2JV"; // تم تركه فارغاً لبيئة التشغيل
         const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdYy7qS_r7pP9BFVY2aVKSrZpZk3Vh1S4PoP-2CId16cP6Zg/formResponse";
         const ENTRIES = { name: "entry.1250768814", score: "entry.289736692", time: "entry.809300628" };
 
@@ -364,8 +345,7 @@
             state: { name: "", score: 0, currentQ: 0, start: 0, timeStr: "00:00", timer: null },
 
             start() {
-                const input = document.getElementById('student-name-input');
-                const name = input.value.trim();
+                const name = document.getElementById('student-name-input').value.trim();
                 if (name.split(/\s+/).length < 3) return alert("يرجى إدخال الاسم الرباعي");
                 this.state.name = name;
                 document.getElementById('header-name').textContent = name;
@@ -376,7 +356,6 @@
             },
 
             init() {
-                // Traits List
                 document.getElementById('traits-list').innerHTML = LESSON_DATA.traits.map(t => `
                     <div class="trait-card" style="background-color: ${t.c}">
                         <div class="trait-icon">${t.i}</div>
@@ -387,23 +366,15 @@
                     </div>
                 `).join('');
 
-                // Map Traits Grid (ALL 14)
                 document.getElementById('map-traits-grid').innerHTML = LESSON_DATA.traits.map(t => `
                     <span class="sub-key">📍 ${t.n.split('.')[1]}</span>
                 `).join('');
 
-                // Flashcards (Expanded bank)
                 document.getElementById('flash-container').innerHTML = LESSON_DATA.review.map(r => `
                     <div class="flash-card" onclick="this.classList.toggle('flipped')">
                         <div class="flash-inner">
-                            <div class="front">
-                                <span class="text-gold text-4xl mb-4">❓</span>
-                                <h4 class="text-2xl font-bold">${r.q}</h4>
-                            </div>
-                            <div class="back">
-                                <h4 class="text-2xl font-bold text-gold mb-4">التوضيح:</h4>
-                                <p class="text-xl leading-relaxed">${r.a}</p>
-                            </div>
+                            <div class="front"><span class="text-gold text-4xl mb-4">❓</span><h4 class="text-2xl font-bold">${r.q}</h4></div>
+                            <div class="back"><h4 class="text-2xl font-bold text-gold mb-4">التوضيح:</h4><p class="text-xl leading-relaxed">${r.a}</p></div>
                         </div>
                     </div>
                 `).join('');
@@ -412,9 +383,7 @@
                 if (this.state.timer) clearInterval(this.state.timer);
                 this.state.timer = setInterval(() => {
                     const diff = Math.floor((Date.now() - this.state.start) / 1000);
-                    const m = Math.floor(diff / 60).toString().padStart(2, '0');
-                    const s = (diff % 60).toString().padStart(2, '0');
-                    this.state.timeStr = `${m}:${s}`;
+                    this.state.timeStr = `${Math.floor(diff/60).toString().padStart(2, '0')}:${(diff%60).toString().padStart(2, '0')}`;
                     document.getElementById('header-timer').textContent = this.state.timeStr;
                 }, 1000);
             },
@@ -456,30 +425,50 @@
             async askAI() {
                 const input = document.getElementById('chat-input');
                 const box = document.getElementById('chat-window');
-                const q = input.value.trim();
-                if (!q) return;
-                box.innerHTML += `<div class="msg user-msg">${q}</div>`;
-                input.value = ""; box.scrollTop = box.scrollHeight;
+                const queryText = input.value.trim();
+                if (!queryText) return;
+
+                box.innerHTML += `<div class="msg user-msg">${queryText}</div>`;
+                input.value = ""; 
+                box.scrollTop = box.scrollHeight;
+
                 const loading = document.createElement('div');
                 loading.className = "msg ai-msg italic opacity-50";
                 loading.textContent = "جاري مراجعة محتوى المحاضرة...";
                 box.appendChild(loading);
                 box.scrollTop = box.scrollHeight;
+
+                const systemPrompt = `أنت مساعد تعليمي للمحاضرة الثانية في البحث العلمي. المحتوى: تعريف الباحث الأصيل، صفاته الـ 14 (الرغبة، الصبر، الإنصاف، سلامة الذوق، العقلية المنظمة، عمق التفكير، الفطنة، الشك العلمي، المبادرة، الذاكرة، متابعة الجديد، الاستمتاع، التواضع، البركة)، والإشراف العلمي. اشرح للطالب بأسلوب أكاديمي مشوق.`;
+
+                const fetchWithRetry = async (retries = 5, delay = 1000) => {
+                    for (let i = 0; i < retries; i++) {
+                        try {
+                            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    contents: [{ parts: [{ text: queryText }] }],
+                                    systemInstruction: { parts: [{ text: systemPrompt }] }
+                                })
+                            });
+                            if (!res.ok) throw new Error();
+                            const data = await res.json();
+                            return data.candidates?.[0]?.content?.parts?.[0]?.text;
+                        } catch (e) {
+                            if (i === retries - 1) throw e;
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            delay *= 2;
+                        }
+                    }
+                };
+
                 try {
-                    const key = ""; 
-                    const context = `أنت مساعد تعليمي للمحاضرة الثانية في البحث العلمي. المحتوى: تعريف الباحث الأصيل، صفاته الـ 14 (الرغبة، الصبر، الإنصاف، سلامة الذوق، العقلية المنظمة، عمق التفكير، الفطنة، الشك العلمي، المبادرة، الذاكرة، متابعة الجديد، الاستمتاع، التواضع، البركة)، والإشراف العلمي. اشرح للطالب بأسلوب أكاديمي: ${q}`;
-                    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${key}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ contents: [{ parts: [{ text: context }] }] })
-                    });
-                    const data = await res.json();
+                    const reply = await fetchWithRetry();
                     if (box.contains(loading)) box.removeChild(loading);
-                    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "عذراً، لم أتمكن من استخلاص الإجابة.";
-                    box.innerHTML += `<div class="msg ai-msg">${reply}</div>`;
+                    box.innerHTML += `<div class="msg ai-msg">${reply || "عذراً، لم أستطع استخلاص الجواب."}</div>`;
                 } catch (e) {
                     if (box.contains(loading)) box.removeChild(loading);
-                    box.innerHTML += `<div class="msg ai-msg text-red-500">ميزة الذكاء الاصطناعي تتطلب مفتاح API صالح.</div>`;
+                    box.innerHTML += `<div class="msg ai-msg text-red-500">حدث خطأ في الاتصال بالذكاء الاصطناعي. يرجى المحاولة مرة أخرى.</div>`;
                 }
                 box.scrollTop = box.scrollHeight;
             },
@@ -490,12 +479,31 @@
                 const final = document.getElementById('quiz-final-result');
                 final.classList.remove('hidden');
                 document.getElementById('final-result-score').textContent = `${this.state.score} / 20`;
-                document.getElementById('final-result-title').textContent = this.state.score >= 18 ? "أنت باحث متميز ومتمكن!" : (this.state.score >= 14 ? "أحسنت! أداء أكاديمي جيد" : "تحتاج لمراجعة المادة الأكاديمية");
+                document.getElementById('final-result-title').textContent = this.state.score >= 18 ? "أنت باحث متميز ومتمكن!" : "أحسنت! أداء أكاديمي جيد";
+
+                // تصحيح إرسال جوجل فورم
                 const form = document.createElement('form');
-                form.action = FORM_URL; form.method = "POST"; form.target = "hidden_iframe";
-                const d = { [ENTRIES.name]: this.state.name, [ENTRIES.score]: this.state.score, [ENTRIES.time]: `الزمن: ${this.state.timeStr}` };
-                for(let k in d) { const i = document.createElement('input'); i.type="hidden"; i.name = k; i.value = d[k]; form.appendChild(i); }
-                document.body.appendChild(form); form.submit();
+                form.action = FORM_URL;
+                form.method = "POST";
+                form.target = "hidden_iframe";
+
+                const data = {
+                    [ENTRIES.name]: this.state.name,
+                    [ENTRIES.score]: this.state.score.toString(),
+                    [ENTRIES.time]: `الزمن: ${this.state.timeStr}`
+                };
+
+                for (let key in data) {
+                    const input = document.createElement('input');
+                    input.type = "hidden";
+                    input.name = key;
+                    input.value = data[key];
+                    form.appendChild(input);
+                }
+
+                document.body.appendChild(form);
+                form.submit();
+                setTimeout(() => document.body.removeChild(form), 1000);
             }
         };
     </script>
