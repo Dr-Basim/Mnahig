@@ -5,39 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الباحث العلمي والإشراف | منصة تفاعلية</title>
     
-    <!-- خطوط جوجل (تعمل عند وجود إنترنت، ولها بدائل محلية) -->
+    <!-- تحميل مكتبة Tailwind للتنسيق السريع وخطوط جوجل -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     
     <style>
-        /* ================= CSS مخصص بالكامل لضمان العمل المحلي ================= */
         :root {
             --deep: #16213e;
             --gold: #e2b96f;
             --cream: #faf8f3;
-            --white: #ffffff;
-            --gray: #f3f4f6;
-            --text-dark: #1f2937;
-            --text-light: #6b7280;
             --success: #10b981;
             --danger: #ef4444;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
         body { 
             font-family: 'Tajawal', Arial, sans-serif; 
             background-color: var(--cream); 
-            color: var(--text-dark); 
+            color: #111827; /* لون نص داكن لزيادة الوضوح */
             line-height: 1.8;
             font-size: 18px;
         }
         
         .font-serif { font-family: 'Amiri', serif; }
 
-        /* الشاشات وحركتها */
+        /* الانتقال بين الشاشات */
         .screen { display: none; opacity: 0; transition: opacity 0.5s ease; }
         .screen.active { display: block; opacity: 1; animation: fadeIn 0.6s ease forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         /* شاشة الترحيب */
         #welcome-screen {
@@ -54,144 +48,85 @@
         }
         .welcome-box input {
             width: 100%; padding: 15px; margin: 20px 0;
-            border: 2px solid #ccc; border-radius: 10px;
-            font-size: 18px; text-align: center; font-family: inherit;
+            border: 2px solid #cbd5e1; border-radius: 10px;
+            font-size: 20px; text-align: center; font-family: inherit; outline: none;
         }
+        .welcome-box input:focus { border-color: var(--gold); }
         .welcome-box button {
             width: 100%; padding: 15px; background: var(--gold); color: var(--deep);
-            border: none; border-radius: 10px; font-size: 20px; font-weight: bold;
+            border: none; border-radius: 10px; font-size: 22px; font-weight: bold;
             cursor: pointer; transition: 0.3s;
         }
-        .welcome-box button:hover { background: #cda256; transform: translateY(-2px); }
-        .error-msg { color: var(--danger); font-size: 14px; display: none; margin-bottom: 10px; }
+        .welcome-box button:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(226,185,111,0.4); }
+        .error-msg { color: var(--danger); font-size: 16px; display: none; margin-bottom: 10px; font-weight: bold; }
 
-        /* الهيكل الأساسي (الرأس والقوائم) */
-        header {
-            background: var(--deep); color: var(--white); padding: 15px 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            position: sticky; top: 0; z-index: 100;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .header-title { font-size: 24px; font-weight: bold; color: var(--gold); }
-        .header-info { display: flex; gap: 20px; align-items: center; font-size: 16px; }
-        .info-badge { background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; }
-
-        /* قائمة التنقل العلوية */
+        /* القائمة العلوية */
         nav {
-            background: var(--white); border-bottom: 2px solid #e5e7eb;
-            display: flex; justify-content: center; gap: 10px; padding: 0 20px;
-            overflow-x: auto;
+            background: #ffffff; border-bottom: 2px solid #e5e7eb;
+            display: flex; justify-content: center; gap: 5px; padding: 0 20px;
+            overflow-x: auto; white-space: nowrap;
         }
         .nav-btn {
-            background: none; border: none; padding: 20px 20px;
-            font-size: 17px; font-weight: bold; color: var(--text-light);
+            background: none; border: none; padding: 20px 25px;
+            font-size: 19px; font-weight: bold; color: #6b7280;
             cursor: pointer; border-bottom: 4px solid transparent;
-            transition: 0.3s; font-family: inherit; white-space: nowrap;
+            transition: 0.3s; font-family: inherit;
         }
         .nav-btn:hover { color: var(--deep); }
         .nav-btn.active { color: var(--deep); border-bottom-color: var(--gold); }
-        .nav-btn.ai-btn { color: #8b5cf6; } /* تمييز زر الذكاء الاصطناعي */
+        .nav-btn.ai-btn { color: #8b5cf6; }
         .nav-btn.ai-btn.active { border-bottom-color: #8b5cf6; }
 
-        /* منطقة المحتوى */
-        main { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-
-        /* تنسيق النصوص والبطاقات */
-        .card {
-            background: var(--white); border-radius: 15px; padding: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 30px;
-            border-right: 5px solid var(--deep);
-        }
-        .card.gold-border { border-right-color: var(--gold); }
-        h2.section-title { font-size: 32px; color: var(--deep); margin-bottom: 20px; border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 10px;}
-        h3.sub-title { font-size: 24px; color: var(--deep); margin-bottom: 15px; }
+        main { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
         
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
-
-        /* الخريطة الشجرية */
-        .tree-container { overflow-x: auto; text-align: center; padding: 20px 0; direction: rtl;}
-        .tree ul { padding-top: 20px; position: relative; display: flex; justify-content: center; padding-right: 0;}
-        .tree li { float: right; text-align: center; list-style-type: none; position: relative; padding: 20px 10px 0 10px; }
-        .tree li::before, .tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 2px solid var(--gold); width: 50%; height: 20px; }
-        .tree li::after { right: auto; left: 50%; border-left: 2px solid var(--gold); }
-        .tree li:only-child::after, .tree li:only-child::before { display: none; }
-        .tree li:only-child { padding-top: 0; }
-        .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
-        .tree li:last-child::before { border-right: 2px solid var(--gold); border-radius: 0 5px 0 0; }
-        .tree li:first-child::after { border-radius: 5px 0 0 0; }
-        .tree ul ul::before { content: ''; position: absolute; top: 0; right: 50%; border-left: 2px solid var(--gold); width: 0; height: 20px; }
-        .tree-node { 
-            border: 2px solid var(--deep); padding: 15px 25px; border-radius: 12px; 
-            background: var(--white); display: inline-block; font-size: 18px; 
-            font-weight: bold; color: var(--deep); font-family: 'Amiri', serif;
-            transition: 0.3s;
-        }
-        .tree-node:hover { background: var(--deep); color: var(--gold); }
-        .tree-root { background: var(--deep); color: var(--gold); font-size: 22px; }
-
-        /* بطاقات المراجعة (القلب) */
-        .flashcards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .flip-card { background-color: transparent; perspective: 1000px; height: 200px; cursor: pointer; }
+        /* التنسيقات العامة */
+        .section-title { font-size: 34px; color: var(--deep); margin-bottom: 25px; border-bottom: 3px solid var(--gold); display: inline-block; padding-bottom: 10px; font-weight: bold;}
+        .card { background: #ffffff; border-radius: 15px; padding: 35px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); margin-bottom: 30px; border-right: 6px solid var(--deep); }
+        
+        /* البطاقات القلابة للمراجعة */
+        .flashcards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .flip-card { background-color: transparent; perspective: 1000px; height: 240px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .flip-card-front { background-color: var(--white); border: 2px solid var(--gold); }
-        .flip-card-back { background-color: var(--deep); color: var(--cream); transform: rotateY(180deg); border: 2px solid var(--gold); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); }
+        .flip-card-front { background-color: #ffffff; border: 3px solid var(--gold); }
+        .flip-card-back { background-color: var(--deep); color: var(--cream); transform: rotateY(180deg); border: 3px solid var(--gold); }
 
-        /* المساعد الذكي (AI Chat) */
-        .chat-container { display: flex; flex-direction: column; height: 500px; background: #faf8f3; border-radius: 10px; border: 1px solid #e5e7eb; padding: 15px; margin-bottom: 15px; overflow-y: auto; }
-        .chat-msg { margin-bottom: 15px; padding: 12px 18px; border-radius: 15px; max-width: 85%; font-size: 16px; line-height: 1.6; }
-        .ai-msg { background: var(--deep); color: var(--white); align-self: flex-start; border-bottom-right-radius: 0; }
-        .user-msg { background: var(--gold); color: var(--deep); font-weight: bold; align-self: flex-end; margin-right: auto; border-bottom-left-radius: 0; }
-        .loading-msg { align-self: flex-start; color: var(--text-light); font-style: italic; font-size: 14px; margin-bottom: 15px;}
-        .ai-input-area { display: flex; gap: 10px; }
-        .ai-input-area input { flex: 1; padding: 15px; border: 2px solid #e5e7eb; border-radius: 10px; font-size: 16px; font-family: inherit; outline: none; transition: border 0.3s; }
-        .ai-input-area input:focus { border-color: #8b5cf6; }
-        .ai-input-area button { background: #8b5cf6; color: white; border: none; padding: 0 25px; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
-        .ai-input-area button:hover { background: #7c3aed; }
-        .ai-input-area button:disabled { background: #c4b5fd; cursor: not-allowed; }
-
-        /* الاختبار */
-        .quiz-header { display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: bold; }
-        .quiz-question { font-size: 24px; color: var(--deep); margin-bottom: 30px; font-family: 'Amiri', serif;}
-        .quiz-options { display: flex; flex-direction: column; gap: 15px; }
-        .quiz-btn { 
-            background: var(--white); border: 2px solid #e5e7eb; padding: 20px; 
-            border-radius: 10px; font-size: 18px; text-align: right; cursor: pointer; 
-            transition: 0.3s; font-family: inherit; color: var(--text-dark);
-        }
-        .quiz-btn:hover:not(:disabled) { border-color: var(--gold); background: #fdfaf3; }
+        /* أزرار الاختبار */
+        .quiz-btn { background: #ffffff; border: 2px solid #e5e7eb; padding: 20px; border-radius: 12px; font-size: 20px; text-align: right; cursor: pointer; transition: 0.3s; font-family: inherit; color: #1f2937; width: 100%; margin-bottom: 15px; font-weight: bold;}
+        .quiz-btn:hover:not(:disabled) { border-color: var(--gold); background: #fdfaf3; transform: translateX(-5px); }
         .quiz-btn:disabled { cursor: not-allowed; }
-        .quiz-btn.correct { border-color: var(--success); background: #ecfdf5; color: #065f46; font-weight: bold;}
+        .quiz-btn.correct { border-color: var(--success); background: #ecfdf5; color: #065f46; }
         .quiz-btn.wrong { border-color: var(--danger); background: #fef2f2; color: #991b1b; }
 
-        /* النتيجة */
-        .result-box { text-align: center; padding: 50px 20px; }
-        .result-icon { font-size: 80px; margin-bottom: 20px; }
-        .result-score { font-size: 60px; font-weight: bold; color: var(--deep); margin: 20px 0; }
-        .result-message { font-size: 24px; font-weight: bold; margin-bottom: 30px; }
-        .result-message.excellent { color: var(--success); }
-        .result-message.good { color: var(--gold); }
-        .result-message.poor { color: var(--danger); }
-        
-        .sending-msg { color: var(--text-light); font-size: 16px; margin-top: 20px; font-weight: bold;}
+        /* واجهة دردشة الذكاء الاصطناعي */
+        .chat-container { display: flex; flex-direction: column; height: 500px; background: #ffffff; border-radius: 12px; border: 2px solid #e5e7eb; padding: 25px; margin-bottom: 20px; overflow-y: auto; }
+        .chat-msg { margin-bottom: 20px; padding: 15px 25px; border-radius: 15px; max-width: 85%; font-size: 18px; line-height: 1.7; }
+        .ai-msg { background: var(--deep); color: #ffffff; align-self: flex-start; border-bottom-right-radius: 0; }
+        .user-msg { background: var(--gold); color: var(--deep); font-weight: bold; align-self: flex-end; border-bottom-left-radius: 0; }
+        .loading-msg { align-self: flex-start; color: #6b7280; font-style: italic; font-size: 16px; margin-bottom: 20px; }
+        .ai-input-area { display: flex; gap: 15px; }
+        .ai-input-area input { flex: 1; padding: 18px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 18px; font-family: inherit; outline: none; }
+        .ai-input-area input:focus { border-color: #8b5cf6; }
+        .ai-input-area button { background: #8b5cf6; color: white; border: none; padding: 0 35px; border-radius: 12px; font-weight: bold; font-size: 20px; cursor: pointer; transition: 0.3s; }
+        .ai-input-area button:hover { background: #7c3aed; }
+        .ai-input-area button:disabled { background: #c4b5fd; cursor: not-allowed; }
     </style>
 </head>
 <body>
 
-    <!-- إطار مخفي لإرسال البيانات دون تحديث الصفحة (منع الغش) -->
+    <!-- إطار مخفي لمنع الغش عند الإرسال -->
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
-    <!-- 1. شاشة الترحيب وتسجيل الدخول -->
-    <div id="welcome-screen">
+    <!-- 1. شاشة الترحيب -->
+    <div id="welcome-screen" class="screen active">
         <div class="welcome-box">
-            <h1 class="font-serif" style="color:var(--deep); font-size: 32px; margin-bottom: 10px;">المحاضرة الثانية</h1>
-            <h2 style="color:var(--gold); font-size: 22px; margin-bottom: 30px;">الباحث، وصفاته، والإشراف العلمي</h2>
-            <p style="color:var(--text-light); margin-bottom: 20px;">مرحباً بك، يرجى إدخال اسمك الرباعي للبدء</p>
+            <h1 class="font-serif" style="color:var(--deep); font-size: 38px; margin-bottom: 10px; font-weight: bold;">المحاضرة الثانية</h1>
+            <h2 style="color:var(--gold); font-size: 26px; margin-bottom: 30px;">الباحث، وصفاته، والإشراف العلمي</h2>
+            <p style="color:#6b7280; margin-bottom: 20px; font-size: 18px;">مرحباً بك، يرجى إدخال اسمك الرباعي للبدء</p>
             
             <p id="name-error" class="error-msg">يرجى إدخال اسمك الحقيقي (3 كلمات على الأقل)</p>
-            <input type="text" id="studentNameInput" placeholder="اكتب اسمك هنا...">
+            <input type="text" id="studentNameInput" placeholder="اكتب اسمك هنا..." onkeypress="if(event.key === 'Enter') startLesson()">
             
             <button onclick="startLesson()">بدء الدرس والتوقيت</button>
         </div>
@@ -200,220 +135,154 @@
     <!-- 2. الهيكل الرئيسي للتطبيق -->
     <div id="main-app" class="screen">
         
-        <!-- الشريط العلوي -->
-        <header>
-            <div class="header-title font-serif">الخلاصة في البحث العلمي</div>
-            <div class="header-info">
-                <div class="info-badge">الطالب: <span id="display-name" style="color:var(--gold); font-weight:bold;"></span></div>
-                <div class="info-badge">الزمن: <span id="display-time" style="color:var(--gold); font-weight:bold;">00:00</span></div>
+        <!-- الشريط العلوي والتوقيت -->
+        <header style="background: var(--deep); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <div class="font-serif" style="font-size: 26px; font-weight: bold; color: var(--gold);">الخلاصة في البحث العلمي</div>
+            <div style="display: flex; gap: 20px; align-items: center; font-size: 18px;">
+                <div style="background: rgba(255,255,255,0.1); padding: 6px 20px; border-radius: 20px;">الطالب: <span id="display-name" style="color:var(--gold); font-weight:bold;"></span></div>
+                <div style="background: rgba(255,255,255,0.1); padding: 6px 20px; border-radius: 20px;">الزمن: <span id="display-time" style="color:var(--gold); font-weight:bold;">00:00</span></div>
             </div>
         </header>
 
-        <!-- قائمة التنقل العلوية -->
+        <!-- قائمة التنقل -->
         <nav>
             <button class="nav-btn active" onclick="switchTab('content', this)">المادة العلمية</button>
             <button class="nav-btn" onclick="switchTab('map', this)">الخريطة البصرية</button>
-            <button class="nav-btn" onclick="switchTab('review', this)">المراجعة الذكية</button>
+            <button class="nav-btn" onclick="switchTab('review', this)">المراجعة الشاملة</button>
             <button class="nav-btn ai-btn" onclick="switchTab('ai-tutor', this)">✨ المساعد الذكي</button>
-            <button class="nav-btn" onclick="switchTab('quiz', this)">التقييم الشامل</button>
+            <button class="nav-btn" onclick="switchTab('quiz', this)">التقييم والاعتماد</button>
         </nav>
 
-        <!-- منطقة العرض -->
         <main>
-            
-            <!-- قسم 1: المادة العلمية -->
+            <!-- قسم 1: المادة العلمية وتلوين الصفات -->
             <section id="tab-content" class="screen active">
-                <h2 class="section-title font-serif">من هو الباحث؟</h2>
-                <div class="card">
-                    <p style="text-align: justify; margin-bottom: 15px;">هو شخص توافرت فيه الاستعدادات الفطرية والنفسية والعلمية التي تؤهله للقيام ببحث علمي؛ فالتأهيل العلمي المسبق، والتزود من المعارف العامة مطلب أساس لإيجاد الباحث.</p>
-                    <p style="text-align: justify; font-weight: bold; color: var(--deep);">الباحث الأصيل: هو الذي يتطلع إلى المجهول، ويبحث عن الجديد، ويتميز بالمرونة الفكرية، ويمتلك القدرة على تنظيم المعلومات.</p>
+                <h2 class="section-title font-serif">مفهوم الباحث الأصيل</h2>
+                <div class="card" style="border-right-color: var(--gold);">
+                    <p style="text-align: justify; margin-bottom: 15px; font-size: 22px;">هو شخص توافرت فيه الاستعدادات الفطرية والنفسية والعلمية التي تؤهله للقيام ببحث علمي. التزود من المعارف مطلب أساس لتكوين شخصيته.</p>
+                    <p style="text-align: justify; font-weight: bold; color: var(--deep); font-size: 24px;">الباحث الأصيل: هو الذي يتطلع إلى المجهول، ويبحث عن الجديد، ويتميز بالمرونة الفكرية، ويمتلك القدرة على تنظيم المعلومات.</p>
                 </div>
 
-                <h2 class="section-title font-serif mt-5">صفات الباحث (14 صفة)</h2>
-                <div class="grid-2">
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">1. الرغبة</h3>
-                        <p>إن لم تكن لديه رغبة قوية فليتكلفها ويشعر نفسه بثمرة البحث، أما إن كان منصرفاً فلا يكلف الله نفساً إلا وسعها.</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">2. الصبر</h3>
-                        <p>عدة الباحث ووقوده الذي لا ينضب؛ للصبر على المراجع، الأسفار، المراجعات النظامية، والصبر على المشرف.</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">3. الإنصاف والموضوعية</h3>
-                        <p>الأمانة في النقل، وترك الاستسلام للعوارض النفسية كالغضب والرضا، والحب والبغض.</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">4. سلامة الذوق</h3>
-                        <p>إحسان المأخذ والنقد بعيداً عن الاستفزاز ولغة الانهزام أو العبارات الجافية.</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">5. العقلية المنظمة</h3>
-                        <p>لا مجال للفوضى والاضطراب، بل تنظيم وحسن تبويب لعمل متناسق.</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">6. عمق التفكير والتأمل</h3>
-                        <p>التخفف من الأعمال وحمل قلم وورقة لتدوين الملحوظات والغوص في أعماق البحث.</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">7. الفطنة ودقة الملاحظة</h3>
-                        <p>التنبه لكل صغيرة وكبيرة لترابط البحث.</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">8. التثبت (الشك العلمي)</h3>
-                        <p>عدم قبول كل شيء كمسلمة، بل وزنه بميزان دقيق، وهو ضرورة بخلاف الشك المرضي.</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">9. المبادرة</h3>
-                        <p>انتهاز الفرص، والسرعة التي تعني عدم التباطؤ وليس العجلة المذمومة.</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">10. الحافظة الواعية</h3>
-                        <p>جمع ما قُرأ سابقاً وحديثاً لمنع التشتت.</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">11. متابعة الجديد</h3>
-                        <p>الاطلاع المستمر في التخصص.</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">12. الاستمتاع بالبحث</h3>
-                        <p>لذة عقلية عظيمة، قال الشافعي: "سهري لتنقيح العلوم ألذ لي من وصل غانية...".</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">13. لزوم التواضع</h3>
-                        <p>مجانبة الغرور وإكبار العلماء (كلما زدت علماً زادني علماً بجهلي).</p>
-                    </div>
-                    <div class="card gold-border">
-                        <h3 class="sub-title font-serif">14. التماس البركة</h3>
-                        <p>بسلامة النية وإعانة الزملاء.</p>
-                    </div>
-                </div>
+                <h2 class="section-title font-serif mt-10">صفات الباحث (14 صفة)</h2>
+                
+                <!-- سيتم حقن الصفات هنا برمجياً بألوان فاتحة وخطوط واضحة -->
+                <div id="traits-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
 
-                <h2 class="section-title font-serif mt-5">الإشراف العلمي</h2>
-                <div class="card" style="background: var(--deep); color: var(--cream); border: none;">
-                    <p style="margin-bottom: 15px;">هو توجيه أستاذ متخصص طالب البحث إلى المنهج العلمي السليم. <strong>وليس عملاً إدارياً بحتاً</strong>، بل هو مهمة صعبة <strong>تصنع الباحثين</strong>.</p>
-                    <p>المشرف الناجح يتحلى بالتواضع والمبادرة، لأن كثرة اعتذارات المشرف وتأخره <strong>يضيع وقت الطالب</strong> ويقطعه عن بحثه.</p>
+                <h2 class="section-title font-serif mt-12">الإشراف العلمي</h2>
+                <div class="card" style="background: var(--deep); color: white; border: none; padding: 45px;">
+                    <p style="margin-bottom: 25px; font-size: 24px;">هو توجيه أستاذ متخصص لطالب البحث نحو المنهج العلمي السليم. <strong style="color: var(--gold);">وليس الإشراف عملاً إدارياً بحتاً</strong>، بل هو مهمة صعبة <strong style="color: var(--gold);">تصنع الباحثين</strong>.</p>
+                    <p style="font-size: 22px; color: #e5e7eb;">يجب على المشرف التحلي بالتواضع والمبادرة، لأن كثرة اعتذاراته وتأخره <strong style="color: white; border-bottom: 2px solid var(--danger);">يضيع وقت الطالب ويقطعه عن بحثه</strong>.</p>
                 </div>
             </section>
 
-            <!-- قسم 2: الخريطة البصرية -->
+            <!-- قسم 2: الخريطة البصرية (بتصميم انسيابي جديد مترابط تماماً) -->
             <section id="tab-map" class="screen">
                 <h2 class="section-title font-serif">الهيكل المفاهيمي</h2>
-                <div class="card tree-container">
-                    <div class="tree">
-                        <ul>
-                            <li>
-                                <div class="tree-node tree-root">أركان البحث الرئيسية</div>
-                                <ul>
-                                    <li>
-                                        <div class="tree-node">الباحث الأصيل</div>
-                                        <ul>
-                                            <li><div class="tree-node">تأهيل علمي</div></li>
-                                            <li><div class="tree-node">مرونة فكرية</div></li>
-                                            <li><div class="tree-node">قدرة على التنظيم</div></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <div class="tree-node">صفات أساسية (أمثلة)</div>
-                                        <ul>
-                                            <li><div class="tree-node">الصبر (الوقود)</div></li>
-                                            <li><div class="tree-node">الموضوعية (الإنصاف)</div></li>
-                                            <li><div class="tree-node">الشك العلمي (التثبت)</div></li>
-                                            <li><div class="tree-node">التواضع (احترام العلماء)</div></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <div class="tree-node">الإشراف العلمي</div>
-                                        <ul>
-                                            <li><div class="tree-node">صناعة الباحث</div></li>
-                                            <li><div class="tree-node">توجيه منهجي</div></li>
-                                            <li><div class="tree-node">تواصل فعال</div></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- قسم 3: المراجعة الذكية -->
-            <section id="tab-review" class="screen">
-                <h2 class="section-title font-serif">اختبر ذاكرتك (انقر للقلب)</h2>
-                <div class="flashcards-grid">
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <h3 class="font-serif" style="color:var(--deep); font-size:22px;">ما هو وقود الباحث الذي لا ينضب؟</h3>
-                                <p style="font-size: 14px; color: var(--text-light); margin-top: 10px;">انقر لرؤية الإجابة</p>
-                            </div>
-                            <div class="flip-card-back">
-                                <p style="font-size:20px; font-weight:bold;">الصبر</p>
-                                <p style="font-size:16px; margin-top:10px;">يعينه على مشاق المراجع والأسفار والمشرف.</p>
-                            </div>
-                        </div>
+                
+                <div class="flex flex-col items-center mt-10">
+                    <!-- الصندوق الرئيسي -->
+                    <div class="bg-deep text-gold px-10 py-5 rounded-2xl text-3xl font-bold font-serif shadow-xl border-4 border-gold z-10">
+                        أطراف البحث العلمي
                     </div>
                     
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <h3 class="font-serif" style="color:var(--deep); font-size:22px;">ما الفرق بين الشك العلمي والشك المرضي؟</h3>
-                                <p style="font-size: 14px; color: var(--text-light); margin-top: 10px;">انقر لرؤية الإجابة</p>
-                            </div>
-                            <div class="flip-card-back">
-                                <p style="font-size:18px;">الشك العلمي هو <strong>التثبت ووزن الأمور</strong> (وهو ضرورة)، أما المرضي فيدفع إليه الهوى لمخالفة المألوف.</p>
+                    <!-- السهم النازل -->
+                    <div class="w-1.5 h-12 bg-deep"></div>
+                    <svg class="w-10 h-10 text-deep -mt-3 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    
+                    <!-- خط أفقي يربط الأعمدة -->
+                    <div class="w-4/5 md:w-2/3 h-1.5 bg-deep rounded-full -mt-2"></div>
+                    
+                    <!-- الأعمدة الثلاثة -->
+                    <div class="flex flex-col md:flex-row justify-between w-full md:w-5/6 mt-0 gap-6">
+                        
+                        <!-- العمود 1 -->
+                        <div class="flex flex-col items-center w-full">
+                            <div class="w-1.5 h-8 bg-deep"></div>
+                            <svg class="w-8 h-8 text-deep -mt-3 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            <div class="bg-white border-t-8 border-deep shadow-lg rounded-2xl p-6 w-full text-center">
+                                <h3 class="text-2xl font-bold text-deep mb-4 border-b-2 pb-3 font-serif">الباحث الأصيل</h3>
+                                <ul class="text-right space-y-3 font-medium text-lg text-gray-800">
+                                    <li>✔ تأهيل علمي مسبق</li>
+                                    <li>✔ تطلع للمجهول</li>
+                                    <li>✔ مرونة فكرية</li>
+                                    <li>✔ تنظيم المعلومات</li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">
-                                <h3 class="font-serif" style="color:var(--deep); font-size:22px;">ما هي حقيقة الإشراف العلمي؟</h3>
-                                <p style="font-size: 14px; color: var(--text-light); margin-top: 10px;">انقر لرؤية الإجابة</p>
-                            </div>
-                            <div class="flip-card-back">
-                                <p style="font-size:18px;">ليس عملاً إدارياً، بل هو <strong>توجيه منهجي ومهمة صعبة تصنع الباحثين</strong>.</p>
+                        <!-- العمود 2 -->
+                        <div class="flex flex-col items-center w-full">
+                            <div class="w-1.5 h-8 bg-deep"></div>
+                            <svg class="w-8 h-8 text-deep -mt-3 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            <div class="bg-white border-t-8 border-gold shadow-lg rounded-2xl p-6 w-full text-center">
+                                <h3 class="text-2xl font-bold text-deep mb-4 border-b-2 pb-3 font-serif">صفات الباحث (14)</h3>
+                                <ul class="text-right space-y-3 font-medium text-lg text-gray-800">
+                                    <li>✔ الصبر (وقود الباحث)</li>
+                                    <li>✔ الإنصاف والموضوعية</li>
+                                    <li>✔ التثبت (الشك العلمي)</li>
+                                    <li>✔ التواضع واهتضام النفس</li>
+                                </ul>
                             </div>
                         </div>
+
+                        <!-- العمود 3 -->
+                        <div class="flex flex-col items-center w-full">
+                            <div class="w-1.5 h-8 bg-deep"></div>
+                            <svg class="w-8 h-8 text-deep -mt-3 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            <div class="bg-white border-t-8 border-deep shadow-lg rounded-2xl p-6 w-full text-center">
+                                <h3 class="text-2xl font-bold text-deep mb-4 border-b-2 pb-3 font-serif">الإشراف العلمي</h3>
+                                <ul class="text-right space-y-3 font-medium text-lg text-gray-800">
+                                    <li>✔ توجيه منهجي وعلمي</li>
+                                    <li>✔ مهمة تصنع الباحثين</li>
+                                    <li>✔ التواضع والمبادرة</li>
+                                    <li>✔ عدم إضاعة وقت الطالب</li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
 
-            <!-- قسم 4: المساعد الذكي (الذكاء الاصطناعي) -->
+            <!-- قسم 3: المراجعة الشاملة بالبطاقات -->
+            <section id="tab-review" class="screen">
+                <h2 class="section-title font-serif">المراجعة الشاملة (14 بطاقة)</h2>
+                <div id="flashcards-container" class="flashcards-grid mt-6"></div>
+            </section>
+
+            <!-- قسم 4: المساعد الذكي -->
             <section id="tab-ai-tutor" class="screen">
                 <h2 class="section-title font-serif" style="color:#8b5cf6; border-color:#8b5cf6;">✨ المساعد الأكاديمي الذكي</h2>
-                <p style="margin-bottom: 20px; color: var(--text-light);">هل واجهت صعوبة في فهم نقطة معينة في الدرس؟ يمكنك سؤال المساعد الذكي ليقوم بتبسيطها لك.</p>
-                <div class="card" style="border-right-color: #8b5cf6;">
+                
+                <div class="card" style="border-right-color: #8b5cf6; padding: 30px;">
                     <div class="chat-container" id="chat-history">
-                        <div class="chat-msg ai-msg">مرحباً! أنا المساعد الأكاديمي الذكي المدعوم بتقنية Gemini. اسألني عن أي صفة من صفات الباحث أو عن الإشراف العلمي وسأقوم بشرحها لك ببساطة.</div>
+                        <div class="chat-msg ai-msg">أهلاً بك! أنا المساعد الذكي. هل توجد صفة من صفات الباحث الـ 14 تود أن أشرحها لك بتفصيل أكثر، أو لديك استفسار حول الإشراف العلمي؟</div>
                     </div>
                     <div class="ai-input-area">
                         <input type="text" id="ai-input" placeholder="اكتب سؤالك هنا (مثال: اشرح لي ما هو الشك العلمي؟)..." onkeypress="if(event.key === 'Enter') askAI()">
-                        <button id="ai-btn" onclick="askAI()">✨ اسأل</button>
+                        <button id="ai-btn" onclick="askAI()">✨ إرسال</button>
                     </div>
                 </div>
             </section>
 
-            <!-- قسم 5: الاختبار الشامل -->
+            <!-- قسم 5: التقييم -->
             <section id="tab-quiz" class="screen">
-                <div id="quiz-area" class="card">
-                    <div class="quiz-header">
-                        <span id="quiz-progress" style="color:var(--text-light);">السؤال 1 من 20</span>
+                <div id="quiz-area" class="card" style="padding: 45px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 35px; font-weight: bold; font-size: 22px;">
+                        <span id="quiz-progress" style="color:#6b7280;">السؤال 1 من 20</span>
                         <span style="color:var(--gold);">الدرجة: <span id="quiz-score">0</span></span>
                     </div>
-                    <div id="question-text" class="quiz-question"></div>
-                    <div id="options-area" class="quiz-options"></div>
+                    <div id="question-text" style="font-size: 28px; color: var(--deep); margin-bottom: 45px; font-family: 'Amiri', serif; font-weight: bold; line-height: 1.6;"></div>
+                    <div id="options-area" style="display: flex; flex-direction: column; gap: 20px;"></div>
                 </div>
 
-                <div id="result-area" class="card result-box screen">
-                    <div id="result-icon" class="result-icon">🎓</div>
-                    <div id="result-title" class="result-message"></div>
-                    <div id="result-desc" style="color:var(--text-light);">لقد أتممت الدرس والاختبار. درجتك هي:</div>
-                    <div class="result-score"><span id="final-score"></span> / 20</div>
+                <div id="result-area" class="card screen" style="text-align: center; padding: 70px 20px;">
+                    <div id="result-icon" style="font-size: 100px; margin-bottom: 25px;">🎓</div>
+                    <div id="result-title" style="font-size: 36px; font-weight: bold; margin-bottom: 25px;"></div>
+                    <div style="font-size: 24px; color: #6b7280;">لقد أتممت الدرس والاختبار. درجتك النهائية هي:</div>
+                    <div style="font-size: 80px; font-weight: bold; color: var(--deep); margin: 35px 0;"><span id="final-score"></span> <span style="font-size: 45px; color: #9ca3af;">/ 20</span></div>
                     
-                    <div class="sending-msg">
-                        ✅ تم إرسال نتيجتك والوقت المستغرق للأستاذ بنجاح.
+                    <div style="background: #ecfdf5; color: #065f46; padding: 25px; border-radius: 15px; font-weight: bold; font-size: 22px; display: inline-block; border: 2px solid #10b981; margin-top: 20px;">
+                        ✅ تم اعتماد نتيجتك والوقت المستغرق وإرسالها للأستاذ.
                     </div>
                 </div>
             </section>
@@ -421,43 +290,61 @@
         </main>
     </div>
 
-    <!-- السكريبت (المنطق البرمجي) -->
     <script>
         // ==========================================
-        // إعدادات واجهة برمجة تطبيقات Gemini
+        // 1. إعدادات المعلم (الذكاء الاصطناعي وجوجل فورم)
         // ==========================================
-        const apiKey = ""; // المفتاح سيتم توفيره تلقائياً بواسطة بيئة التشغيل
-        const aiModel = "gemini-2.5-flash-preview-09-2025";
         
-        // تعليمات النظام الصارمة للمساعد ليلتزم بحدود الدرس
-        const systemInstruction = `
-        أنت مساعد أكاديمي ذكي مدمج في منصة تعليمية.
-        مهمتك: الإجابة على أسئلة الطالب حول موضوع "الباحث العلمي والإشراف العلمي" بناءً على هذا النص فقط:
-        - الباحث هو شخص توافرت فيه الاستعدادات الفطرية والنفسية والعلمية. الباحث الأصيل يتطلع للمجهول ويبحث عن الجديد ولديه مرونة فكرية وقدرة على التنظيم.
-        - صفات الباحث (14 صفة): 1. الرغبة 2. الصبر (وقود الباحث) 3. الإنصاف والموضوعية 4. سلامة الذوق 5. العقلية المنظمة 6. عمق التفكير 7. الفطنة 8. التثبت والشك العلمي 9. المبادرة 10. الحافظة الواعية 11. متابعة الجديد 12. الاستمتاع بالبحث 13. التواضع 14. التماس البركة.
-        - الإشراف العلمي: توجيه منهجي ومهمة صعبة تصنع الباحثين وليس عملا إداريا. المشرف يجب أن يكون متواضعا ومبادرا لأن تأخره يضيع وقت الطالب.
+        // أستاذي الكريم: ضع مفتاح API الخاص بك هنا بين علامتي التنصيص
+        // ليتمكن الطلاب من استخدام المساعد الذكي بمجرد فتحهم للرابط من GitHub
+        const TEACHER_API_KEY = "AIzaSyDGt_0CHKjZ4PC2j6vxMDptbSLI7OorxjM"; 
         
-        إذا سألك الطالب سؤالاً خارج هذا السياق، اعتذر بلباقة وأخبره أنك مخصص فقط للإجابة عن أسئلة درس "الباحث العلمي".
-        أجب بلغة عربية فصحى وبأسلوب مبسط ومشجع ومختصر.
-        `;
-
-        // ==========================================
-        // إعدادات الإرسال لنموذج جوجل (Silent Submit)
-        // ==========================================
         const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdYy7qS_r7pP9BFVY2aVKSrZpZk3Vh1S4PoP-2CId16cP6Zg/formResponse";
         const ENTRY_NAME = "entry.1250768814";
         const ENTRY_RAW_SCORE = "entry.289736692"; 
         const ENTRY_PERCENT_AND_TIME = "entry.809300628"; 
 
-        // المتغيرات العامة
-        let studentName = "";
-        let startTime = 0;
-        let timerInterval;
-        let timeString = "00:00";
-        let currentQuestion = 0;
-        let score = 0;
+        // ==========================================
+        // 2. البيانات والمحتوى الديناميكي
+        // ==========================================
+        
+        // مصفوفة صفات الباحث مع ألوان فاتحة جداً لراحة العين
+        const TRAITS = [
+            { title: "1. الرغبة", desc: "أن يتكلفها ويشعر نفسه بثمرة البحث إن لم تكن قوية من البداية.", color: "#fffbeb" },
+            { title: "2. الصبر", desc: "عدة الباحث ووقوده الذي لا ينضب؛ للصبر على المراجع والأسفار والمشرف.", color: "#eff6ff" },
+            { title: "3. الإنصاف والموضوعية", desc: "الأمانة في النقل، وترك الاستسلام للعوارض النفسية (كالغضب والرضا).", color: "#fdf2f8" },
+            { title: "4. سلامة الذوق", desc: "إحسان النقد والمأخذ بعيداً عن الاستفزاز والعبارات الجافية.", color: "#ecfdf5" },
+            { title: "5. العقلية المنظمة", desc: "لا مجال للفوضى، بل يجب حسن التبويب لعمل متناسق.", color: "#f5f3ff" },
+            { title: "6. عمق التفكير", desc: "التخفف من الأعمال وحمل قلم دائماً لتدوين الملحوظات فجأة.", color: "#fff7ed" },
+            { title: "7. الفطنة ودقة الملاحظة", desc: "التنبه لكل تفصيل وكل صغيرة وكبيرة لترابط البحث.", color: "#f0f9ff" },
+            { title: "8. التثبت (الشك العلمي)", desc: "ضرورة لوزن الأمور بميزان دقيق قبل قبولها، بخلاف الشك المرضي.", color: "#fefce8" },
+            { title: "9. المبادرة", desc: "انتهاز الفرص، والسرعة التي تعني عدم التباطؤ وليس العجلة المذمومة.", color: "#f7fee7" },
+            { title: "10. الحافظة الواعية", desc: "جمع ما قُرأ قديماً بحديثه لمنع تشتت البحث وتكراره.", color: "#fdf4ff" },
+            { title: "11. متابعة الجديد", desc: "الاطلاع المستمر الدائم في ميدان التخصص.", color: "#f0fdfa" },
+            { title: "12. الاستمتاع بالبحث", desc: "لذة عقلية تفوق اللذات الحسية، قال الشافعي: سهري لتنقيح العلوم ألذ لي...", color: "#fef2f2" },
+            { title: "13. لزوم التواضع", desc: "إكبار العلماء واهتضام النفس (كلما زدت علماً زادني علماً بجهلي).", color: "#f8fafc" },
+            { title: "14. التماس البركة", desc: "بسلامة النية، وإعانة الزملاء ومساعدتهم دون بخل.", color: "#faf5ff" }
+        ];
 
-        // بنك الأسئلة
+        // البطاقات الـ 14 الشاملة للمراجعة
+        const FLASHCARDS_DATA = [
+            { q: "من هو الباحث الأصيل؟", a: "الذي يتطلع للمجهول، ويبحث عن الجديد، ويتميز بالمرونة الفكرية." },
+            { q: "ما هو 'وقود الباحث' الذي لا ينضب؟", a: "الصبر، يعينه على مشاق الأسفار والمراجع ومراجعات المشرف." },
+            { q: "كيف يحقق الباحث 'الموضوعية والإنصاف'؟", a: "بالأمانة في النقل، وتجنب العوارض النفسية (كالحب، البغض، الرضا، الغضب)." },
+            { q: "ما المقصود بـ 'سلامة الذوق' في البحث؟", a: "إحسان النقد وتجنب العبارات الجافية الموحشة ولغة الاستفزاز." },
+            { q: "لماذا يُنصح الباحث بحمل 'قلم وورقة' دائماً؟", a: "ليعينانه على عمق التفكير وتدوين الملحوظات الطارئة لئلا تضيع." },
+            { q: "ما الفرق الجوهري بين الشك العلمي والشك المرضي؟", a: "العلمي هو (التثبت) ووزن الأمور قبل التسليم بها، أما المرضي فيدفعه الهوى." },
+            { q: "ما معنى 'المبادرة' للباحث العلمي؟", a: "انتهاز الفرص والسرعة وعدم التباطؤ (ولكن بدون عجلة مذمومة)." },
+            { q: "ما أهمية 'الحافظة الواعية'؟", a: "تساعده في ربط ما قرأه قديماً بما يقرؤه حديثاً لتجنب التشتت." },
+            { q: "كيف وصف الإمام الشافعي 'لذة البحث'؟", a: "قال: (سهري لتنقيح العلوم ألذ لي من وصل غانية وطيب عناقِ)." },
+            { q: "ما أثر 'التواضع' على علم الباحث؟", a: "كلما زاد علماً زاد علماً بجهله، فيكبر العلماء ويهتضم نفسه." },
+            { q: "كيف يلتمس الباحث 'البركة' في وقته وعمله؟", a: "بسلامة النية، وأن يحب لزملائه ما يحب لنفسه ويعينهم دون بخل." },
+            { q: "ما هو 'الإشراف العلمي' حقاً؟", a: "توجيه منهجي، ومهمة صعبة تصنع الباحثين، وليس عملاً إدارياً بحتاً." },
+            { q: "ما خطورة كثرة تأخر المشرف واعتذاراته؟", a: "يضيع وقت الطالب ويقطعه عن بحثه ويفقده حماسه." },
+            { q: "ما الحل إذا انعدمت رغبة الطالب في البحث كلياً؟", a: "إذا لم تستطع شيئاً فدعه وجاوزه.. لا يكلف الله نفساً إلا وسعها." }
+        ];
+
+        // أسئلة التقييم الـ 20
         const QUESTIONS = [
             { q: "من هو الباحث الأصيل وفقاً للمادة؟", options: ["الذي ينقل كلام السابقين حرفياً", "الذي يتطلع إلى المجهول ويبحث عن الجديد", "الذي يتجنب القراءة المطولة", "الذي يحفظ الكتب عن ظهر قلب"], answer: 1 },
             { q: "ما هي أول صفة من صفات الباحث المذكورة؟", options: ["الصبر", "الموضوعية", "الرغبة", "المبادرة"], answer: 2 },
@@ -481,12 +368,51 @@
             { q: "الفطنة ودقة الملاحظة تعني التنبه لـ:", options: ["الأخطاء الإملائية فقط", "كل صغيرة وكبيرة لترابط البحث وقوته", "تنسيق الغلاف الخارجي", "عدد صفحات البحث"], answer: 1 }
         ];
 
-        // الدوال الأساسية
+        let studentName = "";
+        let startTime = 0;
+        let timerInterval;
+        let timeString = "00:00";
+        let currentQuestion = 0;
+        let score = 0;
+
+        // ==========================================
+        // 3. التهيئة وبدء التطبيق
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // رسم بطاقات الصفات الملونة
+            const traitsGrid = document.getElementById('traits-grid');
+            TRAITS.forEach(t => {
+                const div = document.createElement('div');
+                div.className = "p-6 rounded-2xl shadow-sm border border-gray-100 transition transform hover:-translate-y-1 hover:shadow-md";
+                div.style.backgroundColor = t.color;
+                div.innerHTML = `<h3 class="font-bold text-2xl mb-3" style="color:var(--deep);">${t.title}</h3><p style="color:#111827; font-size:20px; font-weight: 500;">${t.desc}</p>`;
+                traitsGrid.appendChild(div);
+            });
+
+            // رسم بطاقات المراجعة الـ 14
+            const flashCardsContainer = document.getElementById('flashcards-container');
+            FLASHCARDS_DATA.forEach(fc => {
+                const card = document.createElement('div');
+                card.className = "flip-card";
+                card.onclick = function() { this.classList.toggle('flipped'); };
+                card.innerHTML = `
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="font-serif" style="color:var(--deep); font-size:24px; font-weight:bold; line-height: 1.5;">${fc.q}</h3>
+                            <p style="font-size: 16px; color: #6b7280; margin-top: 15px; font-weight:bold;">👆 انقر لرؤية الإجابة</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p style="font-size:22px; font-weight:bold; line-height:1.7;">${fc.a}</p>
+                        </div>
+                    </div>
+                `;
+                flashCardsContainer.appendChild(card);
+            });
+        });
+
         function startLesson() {
             const input = document.getElementById('studentNameInput').value.trim();
-            const wordCount = input.split(/\s+/).length;
-            
-            if (wordCount >= 3) {
+            if (input.split(/\s+/).length >= 3) {
                 studentName = input;
                 document.getElementById('display-name').textContent = studentName;
                 document.getElementById('welcome-screen').classList.remove('active');
@@ -514,41 +440,15 @@
         function switchTab(tabId, btnElement) {
             document.querySelectorAll('main > section').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            
             document.getElementById('tab-' + tabId).classList.add('active');
             btnElement.classList.add('active');
         }
 
         // ==========================================
-        // دوال المساعد الذكي (Gemini Integration)
+        // 4. الذكاء الاصطناعي (Gemini API)
         // ==========================================
-        async function fetchGeminiAPI(promptText, retries = 5) {
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/${aiModel}:generateContent?key=${apiKey}`;
-            const payload = {
-                contents: [{ parts: [{ text: promptText }] }],
-                systemInstruction: { parts: [{ text: systemInstruction }] }
-            };
-
-            const delays = [1000, 2000, 4000, 8000, 16000];
-            
-            for (let i = 0; i < retries; i++) {
-                try {
-                    const response = await fetch(url, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    
-                    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
-                    
-                    const data = await response.json();
-                    return data.candidates[0].content.parts[0].text;
-                } catch (error) {
-                    if (i === retries - 1) throw error;
-                    await new Promise(res => setTimeout(res, delays[i]));
-                }
-            }
-        }
+        const aiModel = "gemini-2.5-flash-preview-09-2025";
+        const systemInstruction = `أنت مساعد أكاديمي ذكي مدمج في منصة تعليمية. تجيب حصرياً وبشكل مبسط وباللغة العربية الفصحى عن درس: "الباحث العلمي وصفاته الـ 14 والإشراف العلمي" بناءً على محتوى الدرس المقدم لك مسبقاً.`;
 
         async function askAI() {
             const inputEl = document.getElementById('ai-input');
@@ -558,53 +458,66 @@
             const chatHistory = document.getElementById('chat-history');
             const btnEl = document.getElementById('ai-btn');
 
-            // إضافة رسالة الطالب
+            if (!TEACHER_API_KEY || TEACHER_API_KEY.trim() === "") {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'chat-msg ai-msg';
+                alertDiv.style.background = "var(--danger)";
+                alertDiv.innerHTML = "عذراً، هذه الميزة مغلقة حالياً. <b>يرجى من الأستاذ إضافة مفتاح (API Key) الخاص به في الكود لكي تعمل هذه الخاصية على جميع الأجهزة.</b>";
+                chatHistory.appendChild(alertDiv);
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+                inputEl.value = '';
+                return;
+            }
+
             const userDiv = document.createElement('div');
             userDiv.className = 'chat-msg user-msg';
             userDiv.textContent = question;
             chatHistory.appendChild(userDiv);
 
-            // تصفير الحقل وإيقاف الزر
-            inputEl.value = '';
-            inputEl.disabled = true;
-            btnEl.disabled = true;
+            inputEl.value = ''; inputEl.disabled = true; btnEl.disabled = true;
 
-            // إضافة رسالة انتظار
             const loadingDiv = document.createElement('div');
             loadingDiv.className = 'loading-msg';
-            loadingDiv.textContent = "✨ جاري التفكير ومراجعة الدرس...";
+            loadingDiv.textContent = "✨ جاري التفكير...";
             chatHistory.appendChild(loadingDiv);
             chatHistory.scrollTop = chatHistory.scrollHeight;
 
             try {
-                // الاتصال بـ Gemini API
-                const answer = await fetchGeminiAPI(question);
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/${aiModel}:generateContent?key=${TEACHER_API_KEY}`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        contents: [{ parts: [{ text: question }] }],
+                        systemInstruction: { parts: [{ text: systemInstruction }] }
+                    })
+                });
                 
                 chatHistory.removeChild(loadingDiv);
+                
+                if (!response.ok) throw new Error("API Fails");
+                const data = await response.json();
+                const answer = data.candidates[0].content.parts[0].text;
 
-                // إضافة إجابة الذكاء الاصطناعي
                 const aiDiv = document.createElement('div');
                 aiDiv.className = 'chat-msg ai-msg';
                 aiDiv.textContent = answer;
                 chatHistory.appendChild(aiDiv);
             } catch (error) {
-                chatHistory.removeChild(loadingDiv);
+                if(document.body.contains(loadingDiv)) chatHistory.removeChild(loadingDiv);
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'chat-msg ai-msg';
                 errorDiv.style.background = "var(--danger)";
-                errorDiv.textContent = "عذراً، حدث خطأ في الاتصال بالمساعد الذكي. يرجى المحاولة مرة أخرى لاحقاً.";
+                errorDiv.textContent = "عذراً، لا يمكن الاتصال بالذكاء الاصطناعي حالياً. تأكد من صحة مفتاح API.";
                 chatHistory.appendChild(errorDiv);
             }
 
-            // إعادة تفعيل الحقل والزر
-            inputEl.disabled = false;
-            btnEl.disabled = false;
-            inputEl.focus();
+            inputEl.disabled = false; btnEl.disabled = false; inputEl.focus();
             chatHistory.scrollTop = chatHistory.scrollHeight;
         }
 
         // ==========================================
-        // دوال الاختبار
+        // 5. الاختبار الشامل والنتيجة
         // ==========================================
         function loadQuestion() {
             const q = QUESTIONS[currentQuestion];
@@ -626,13 +539,11 @@
         function handleAnswer(selectedIndex, btnElement) {
             const buttons = document.getElementById('options-area').querySelectorAll('button');
             buttons.forEach(b => b.disabled = true);
-
             const correctAnswer = QUESTIONS[currentQuestion].answer;
 
             if (selectedIndex === correctAnswer) {
                 btnElement.classList.add('correct');
-                score++;
-                document.getElementById('quiz-score').textContent = score;
+                score++; document.getElementById('quiz-score').textContent = score;
             } else {
                 btnElement.classList.add('wrong');
                 buttons[correctAnswer].classList.add('correct');
@@ -640,50 +551,28 @@
 
             setTimeout(() => {
                 currentQuestion++;
-                if (currentQuestion < QUESTIONS.length) {
-                    loadQuestion();
-                } else {
-                    finishQuiz();
-                }
+                if (currentQuestion < QUESTIONS.length) loadQuestion();
+                else finishQuiz();
             }, 1500); 
         }
 
         function finishQuiz() {
             clearInterval(timerInterval);
-            
             document.getElementById('quiz-area').style.display = 'none';
             document.getElementById('result-area').classList.add('active');
             document.getElementById('final-score').textContent = score;
 
             const titleEl = document.getElementById('result-title');
-            const iconEl = document.getElementById('result-icon');
-            
-            if (score >= 18) {
-                titleEl.textContent = "ممتاز جداً! أداء أكاديمي راقٍ.";
-                titleEl.className = "result-message excellent";
-                iconEl.textContent = "🏆";
-            } else if (score >= 14) {
-                titleEl.textContent = "جيد جداً! استيعاب جيد للمادة.";
-                titleEl.className = "result-message good";
-                iconEl.textContent = "🌟";
-            } else {
-                titleEl.textContent = "تحتاج إلى مراجعة الدرس بتركيز أكبر.";
-                titleEl.className = "result-message poor";
-                iconEl.textContent = "📚";
-            }
+            if (score >= 18) { titleEl.textContent = "ممتاز جداً! أداء أكاديمي راقٍ."; titleEl.style.color = "var(--success)"; }
+            else if (score >= 14) { titleEl.textContent = "جيد جداً! استيعاب جيد للمادة."; titleEl.style.color = "var(--gold)"; }
+            else { titleEl.textContent = "يجب عليك التركيز ومراجعة الدرس بعناية أكثر."; titleEl.style.color = "var(--danger)"; }
 
-            sendToGoogleForm();
-        }
-
-        function sendToGoogleForm() {
             const percentage = Math.round((score / QUESTIONS.length) * 100) + "%";
-            const combinedData = `النسبة: ${percentage} | الزمن المستغرق: ${timeString} دقيقة`;
-
+            const combinedData = `النسبة: ${percentage} | الزمن: ${timeString} دقيقة`;
+            
             const form = document.createElement('form');
-            form.action = GOOGLE_FORM_URL;
-            form.method = "POST";
-            form.target = "hidden_iframe"; 
-
+            form.action = GOOGLE_FORM_URL; form.method = "POST"; form.target = "hidden_iframe"; 
+            
             const dataFields = {};
             dataFields[ENTRY_NAME] = studentName;
             dataFields[ENTRY_RAW_SCORE] = score;
@@ -691,12 +580,9 @@
 
             for (let key in dataFields) {
                 const input = document.createElement('input');
-                input.type = "hidden";
-                input.name = key;
-                input.value = dataFields[key];
+                input.type = "hidden"; input.name = key; input.value = dataFields[key];
                 form.appendChild(input);
             }
-
             document.body.appendChild(form);
             form.submit(); 
         }
