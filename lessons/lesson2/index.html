@@ -297,10 +297,11 @@
         // 1. إعدادات المعلم (الذكاء الاصطناعي وجوجل فورم)
         // ==========================================
         
-        // --- ضع نصفي المفتاح هنا ---
-        // مثال: إذا كان مفتاحك هو: AIzaSy1234567890abcdefghijklmnopqrstuvw
-        const KEY_PART_1 = "AIzaSyCLYLtBD52MxMlH"; // ضع هنا النصف الأول (مثلاً أول 15 حرف)
-        const KEY_PART_2 = "dRWx6hzqhgbqaGUwxhs"; // ضع هنا باقي المفتاح
+        // --- قم بإنشاء مفتاح جديد كلياً من جوجل، ثم ضع نصفه هنا ونصفه هنا ---
+        // مثال للتوضيح فقط: 
+        // المفتاح كامل: AIzaSy1234567890abcdefghijklmnopqrstuvw
+        const KEY_PART_1 = "AIzaSyAizIFQPdoxioeN"; 
+        const KEY_PART_2 = "-3Js2vLrFf5M4YDfxGg"; 
 
         const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdYy7qS_r7pP9BFVY2aVKSrZpZk3Vh1S4PoP-2CId16cP6Zg/formResponse";
         const ENTRY_NAME = "entry.1250768814";
@@ -450,7 +451,7 @@
         }
 
         // ==========================================
-        // 4. الذكاء الاصطناعي (Gemini 1.5-flash الحصري والأكثر استقراراً)
+        // 4. الذكاء الاصطناعي (Gemini 1.5-flash)
         // ==========================================
         const systemInstruction = `أنت مساعد أكاديمي ذكي مدمج في منصة تعليمية. تجيب حصرياً وبشكل مبسط وباللغة العربية الفصحى عن درس: "الباحث العلمي وصفاته الـ 14 والإشراف العلمي" بناءً على محتوى الدرس المقدم لك مسبقاً.`;
 
@@ -462,14 +463,14 @@
             const chatHistory = document.getElementById('chat-history');
             const btnEl = document.getElementById('ai-btn');
 
-            // دمج المفتاح المقسم
+            // دمج المفتاح هنا أثناء الطلب فقط
             const FINAL_API_KEY = KEY_PART_1 + KEY_PART_2;
 
-            if (!FINAL_API_KEY || FINAL_API_KEY.length < 30) {
+            if (FINAL_API_KEY.includes("ضع_النصف") || FINAL_API_KEY.length < 30) {
                 const alertDiv = document.createElement('div');
                 alertDiv.className = 'chat-msg ai-msg';
                 alertDiv.style.background = "var(--danger)";
-                alertDiv.innerHTML = "عذراً، الميزة مغلقة حالياً. <b>يرجى وضع المفتاح الخاص بك (KEY_PART_1 و KEY_PART_2) بشكل صحيح في الكود.</b>";
+                alertDiv.innerHTML = "عذراً، يرجى وضع نصفي المفتاح الجديد في الأسطر 312 و 313 لكي يعمل المساعد الذكي.";
                 chatHistory.appendChild(alertDiv);
                 chatHistory.scrollTop = chatHistory.scrollHeight;
                 inputEl.value = '';
@@ -490,7 +491,7 @@
             chatHistory.scrollTop = chatHistory.scrollHeight;
 
             try {
-                // الاعتماد حصرياً على 1.5-flash الأكثر استقراراً للمفاتيح المجانية
+                // استخدام النموذج الأكثر استقراراً 1.5-flash
                 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${FINAL_API_KEY}`;
                 
                 const response = await fetch(url, {
@@ -521,7 +522,7 @@
                 const errorDiv = document.createElement('div');
                 errorDiv.className = 'chat-msg ai-msg';
                 errorDiv.style.background = "var(--danger)";
-                errorDiv.innerHTML = `حدث خطأ: ${error.message}<br><small>تأكد من صلاحية المفتاح أو أن حسابك غير محظور.</small>`;
+                errorDiv.innerHTML = `حدث خطأ: ${error.message}<br><small>هذا يعني أن المفتاح المستخدم ملغي أو غير صحيح. يرجى إنشاء مفتاح جديد كلياً.</small>`;
                 chatHistory.appendChild(errorDiv);
             }
 
