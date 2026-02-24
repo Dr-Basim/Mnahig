@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الباحث العلمي والإشراف | منصة تفاعلية ذكية</title>
+    <title>الباحث العلمي والإشراف | منصة تفاعلية</title>
     
+    <!-- تحميل مكتبة Tailwind للتنسيق السريع وخطوط جوجل -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     
@@ -15,7 +16,7 @@
             --cream: #faf8f3;
             --success: #10b981;
             --danger: #ef4444;
-            --highlight: #6d28d9; /* أرجواني غامق للمفاهيم */
+            --highlight: #6d28d9; /* اللون الأرجواني للمفاهيم */
         }
 
         body { 
@@ -28,6 +29,7 @@
         
         .font-serif { font-family: 'Amiri', serif; }
 
+        /* الانتقال بين الشاشات */
         .screen { display: none; opacity: 0; transition: opacity 0.5s ease; }
         .screen.active { display: block; opacity: 1; animation: fadeIn 0.6s ease forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -45,6 +47,19 @@
             border-top: 8px solid var(--gold);
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
+        .welcome-box input {
+            width: 100%; padding: 15px; margin: 20px 0;
+            border: 2px solid #cbd5e1; border-radius: 10px;
+            font-size: 20px; text-align: center; font-family: inherit; outline: none;
+        }
+        .welcome-box input:focus { border-color: var(--gold); }
+        .welcome-box button {
+            width: 100%; padding: 15px; background: var(--gold); color: var(--deep);
+            border: none; border-radius: 10px; font-size: 22px; font-weight: bold;
+            cursor: pointer; transition: 0.3s;
+        }
+        .welcome-box button:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(226,185,111,0.4); }
+        .error-msg { color: var(--danger); font-size: 16px; display: none; margin-bottom: 10px; font-weight: bold; }
 
         /* القائمة العلوية */
         nav {
@@ -58,380 +73,521 @@
             cursor: pointer; border-bottom: 4px solid transparent;
             transition: 0.3s; font-family: inherit;
         }
+        .nav-btn:hover { color: var(--deep); }
         .nav-btn.active { color: var(--deep); border-bottom-color: var(--gold); }
         .nav-btn.ai-btn { color: #8b5cf6; }
+        .nav-btn.ai-btn.active { border-bottom-color: #8b5cf6; }
 
         main { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
         
+        /* التنسيقات العامة */
         .section-title { font-size: 34px; color: var(--deep); margin-bottom: 25px; border-bottom: 3px solid var(--gold); display: inline-block; padding-bottom: 10px; font-weight: bold;}
         .card { background: #ffffff; border-radius: 15px; padding: 35px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); margin-bottom: 30px; border-right: 6px solid var(--deep); }
         
+        /* تنسيق الكلمات المفتاحية بين الأقواس */
         .keyword-highlight { color: var(--highlight); font-weight: 900; font-size: 0.85em; margin-right: 8px;}
 
-        /* الخريطة البصرية (Solid Tree) */
-        .tree ul { padding-top: 20px; position: relative; display: flex; justify-content: center; padding-right: 0;}
-        .tree li { float: right; text-align: center; list-style-type: none; position: relative; padding: 20px 15px 0 15px; }
-        .tree li::before, .tree li::after { content: ''; position: absolute; top: 0; right: 50%; border-top: 3px solid var(--deep); width: 50%; height: 20px; }
-        .tree li::after { right: auto; left: 50%; border-left: 3px solid var(--deep); }
-        .tree li:only-child::after, .tree li:only-child::before { display: none; }
-        .tree li:only-child { padding-top: 0; }
-        .tree li:first-child::before, .tree li:last-child::after { border: 0 none; }
-        .tree li:last-child::before { border-right: 3px solid var(--deep); border-radius: 0 8px 0 0; }
-        .tree li:first-child::after { border-radius: 8px 0 0 0; }
-        .tree ul ul::before { content: ''; position: absolute; top: 0; right: 50%; border-left: 3px solid var(--deep); width: 0; height: 20px; }
-        .tree-node { border: 3px solid var(--deep); padding: 15px 25px; border-radius: 12px; background: #ffffff; display: inline-block; font-size: 20px; font-weight: bold; color: var(--deep); font-family: 'Amiri', serif; z-index: 10; position: relative; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .tree-root { background: var(--deep); color: var(--gold); border-color: var(--gold); font-size: 24px; }
-
-        /* البطاقات القلابة */
+        /* البطاقات القلابة للمراجعة */
         .flashcards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
-        .flip-card { height: 240px; perspective: 1000px; cursor: pointer; }
+        .flip-card { background-color: transparent; perspective: 1000px; height: 240px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; display: flex; align-items: center; justify-content: center; padding: 25px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); }
-        .flip-card-front { background: white; border: 3px solid var(--gold); }
-        .flip-card-back { background: var(--deep); color: white; transform: rotateY(180deg); border: 3px solid var(--gold); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 15px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px; box-shadow: 0 6px 12px rgba(0,0,0,0.08); }
+        .flip-card-front { background-color: #ffffff; border: 3px solid var(--gold); }
+        .flip-card-back { background-color: var(--deep); color: var(--cream); transform: rotateY(180deg); border: 3px solid var(--gold); }
 
         /* أزرار الاختبار */
-        .quiz-btn { background: #ffffff; border: 2px solid #e5e7eb; padding: 20px; border-radius: 12px; font-size: 20px; text-align: right; cursor: pointer; transition: 0.3s; width: 100%; margin-bottom: 15px; font-weight: bold;}
+        .quiz-btn { background: #ffffff; border: 2px solid #e5e7eb; padding: 20px; border-radius: 12px; font-size: 20px; text-align: right; cursor: pointer; transition: 0.3s; font-family: inherit; color: #1f2937; width: 100%; margin-bottom: 15px; font-weight: bold;}
+        .quiz-btn:hover:not(:disabled) { border-color: var(--gold); background: #fdfaf3; transform: translateX(-5px); }
+        .quiz-btn:disabled { cursor: not-allowed; }
         .quiz-btn.correct { border-color: var(--success); background: #ecfdf5; color: #065f46; }
         .quiz-btn.wrong { border-color: var(--danger); background: #fef2f2; color: #991b1b; }
 
-        /* الدردشة */
-        .chat-container { display: flex; flex-direction: column; height: 500px; background: #ffffff; border-radius: 12px; border: 2px solid #e5e7eb; padding: 25px; overflow-y: auto; margin-bottom: 15px; }
-        .chat-msg { margin-bottom: 15px; padding: 12px 20px; border-radius: 15px; max-width: 85%; font-size: 18px; }
-        .ai-msg { background: #f3f4f6; color: var(--deep); align-self: flex-start; border-bottom-right-radius: 0; border: 1px solid #e5e7eb; }
-        .user-msg { background: var(--deep); color: white; align-self: flex-end; border-bottom-left-radius: 0; }
+        /* واجهة دردشة الذكاء الاصطناعي */
+        .chat-container { display: flex; flex-direction: column; height: 500px; background: #ffffff; border-radius: 12px; border: 2px solid #e5e7eb; padding: 25px; margin-bottom: 20px; overflow-y: auto; }
+        .chat-msg { margin-bottom: 20px; padding: 15px 25px; border-radius: 15px; max-width: 85%; font-size: 18px; line-height: 1.7; }
+        .ai-msg { background: var(--deep); color: #ffffff; align-self: flex-start; border-bottom-right-radius: 0; }
+        .user-msg { background: var(--gold); color: var(--deep); font-weight: bold; align-self: flex-end; border-bottom-left-radius: 0; }
+        .loading-msg { align-self: flex-start; color: #6b7280; font-style: italic; font-size: 16px; margin-bottom: 20px; }
+        .ai-input-area { display: flex; gap: 15px; }
+        .ai-input-area input { flex: 1; padding: 18px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 18px; font-family: inherit; outline: none; }
+        .ai-input-area input:focus { border-color: #8b5cf6; }
+        .ai-input-area button { background: #8b5cf6; color: white; border: none; padding: 0 35px; border-radius: 12px; font-weight: bold; font-size: 20px; cursor: pointer; transition: 0.3s; }
+        .ai-input-area button:hover { background: #7c3aed; }
+        .ai-input-area button:disabled { background: #c4b5fd; cursor: not-allowed; }
     </style>
 </head>
 <body>
 
+    <!-- إطار مخفي لمنع الغش عند الإرسال -->
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
     <!-- 1. شاشة الترحيب -->
     <div id="welcome-screen" class="screen active">
         <div class="welcome-box">
-            <h1 class="font-serif text-4xl font-bold mb-4" style="color:var(--deep)">المحاضرة الثانية</h1>
-            <h2 class="text-2xl mb-8" style="color:var(--gold)">الباحث، وصفاته، والإشراف العلمي</h2>
-            <input type="text" id="studentNameInput" class="w-full p-4 border-2 rounded-xl text-center text-xl mb-6 outline-none focus:border-gold" placeholder="أدخل اسمك الرباعي للبدء...">
-            <button onclick="startLesson()" class="w-full bg-gold p-4 rounded-xl text-2xl font-bold text-deep hover:opacity-90 transition">بدء الدرس والتوقيت</button>
+            <h1 class="font-serif" style="color:var(--deep); font-size: 38px; margin-bottom: 10px; font-weight: bold;">المحاضرة الثانية</h1>
+            <h2 style="color:var(--gold); font-size: 26px; margin-bottom: 30px;">الباحث، وصفاته، والإشراف العلمي</h2>
+            <p style="color:#6b7280; margin-bottom: 20px; font-size: 18px;">مرحباً بك، يرجى إدخال اسمك الرباعي للبدء</p>
+            
+            <p id="name-error" class="error-msg">يرجى إدخال اسمك الحقيقي (3 كلمات على الأقل)</p>
+            <input type="text" id="studentNameInput" placeholder="اكتب اسمك هنا..." onkeypress="if(event.key === 'Enter') startLesson()">
+            
+            <button onclick="startLesson()">بدء الدرس والتوقيت</button>
         </div>
     </div>
 
-    <!-- 2. الهيكل الرئيسي -->
+    <!-- 2. الهيكل الرئيسي للتطبيق -->
     <div id="main-app" class="screen">
-        <header class="bg-[#16213e] text-white p-4 flex justify-between items-center sticky top-0 z-50">
-            <div class="font-serif text-2xl font-bold text-[#e2b96f]">الخلاصة في البحث العلمي</div>
-            <div class="flex gap-4">
-                <span class="bg-white/10 px-4 py-1 rounded-full text-sm">الطالب: <span id="display-name" class="text-gold"></span></span>
-                <span class="bg-white/10 px-4 py-1 rounded-full text-sm">الزمن: <span id="display-time" class="text-gold">00:00</span></span>
+        
+        <!-- الشريط العلوي والتوقيت -->
+        <header style="background: var(--deep); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <div class="font-serif" style="font-size: 26px; font-weight: bold; color: var(--gold);">الخلاصة في البحث العلمي</div>
+            <div style="display: flex; gap: 20px; align-items: center; font-size: 18px;">
+                <div style="background: rgba(255,255,255,0.1); padding: 6px 20px; border-radius: 20px;">الطالب: <span id="display-name" style="color:var(--gold); font-weight:bold;"></span></div>
+                <div style="background: rgba(255,255,255,0.1); padding: 6px 20px; border-radius: 20px;">الزمن: <span id="display-time" style="color:var(--gold); font-weight:bold;">00:00</span></div>
             </div>
         </header>
 
+        <!-- قائمة التنقل -->
         <nav>
             <button class="nav-btn active" onclick="switchTab('content', this)">المادة العلمية</button>
             <button class="nav-btn" onclick="switchTab('map', this)">الخريطة البصرية</button>
-            <button class="nav-btn" onclick="switchTab('review', this)">المراجعة</button>
+            <button class="nav-btn" onclick="switchTab('review', this)">المراجعة الشاملة</button>
             <button class="nav-btn ai-btn" onclick="switchTab('ai-tutor', this)">✨ المساعد الذكي</button>
-            <button class="nav-btn" onclick="switchTab('quiz', this)">الاختبار النهائي</button>
+            <button class="nav-btn" onclick="switchTab('quiz', this)">التقييم والاعتماد</button>
         </nav>
 
         <main>
-            <!-- القسم 1: المادة العلمية -->
+            <!-- قسم 1: المادة العلمية وتلوين الصفات -->
             <section id="tab-content" class="screen active">
-                <h2 class="section-title font-serif">الباحث الأصيل</h2>
-                <div class="card border-r-8 border-gold">
-                    <p class="text-2xl font-medium mb-4">هو شخص توافرت فيه الاستعدادات الفطرية والنفسية والعلمية التي تؤهله للقيام ببحث علمي.</p>
-                    <p class="text-2xl font-bold text-deep">الباحث الأصيل: هو الذي يتطلع إلى المجهول، ويبحث عن الجديد، ويتميز بالمرونة الفكرية، ويمتلك القدرة على تنظيم المعلومات.</p>
+                <h2 class="section-title font-serif">مفهوم الباحث الأصيل</h2>
+                <div class="card" style="border-right-color: var(--gold);">
+                    <p style="text-align: justify; margin-bottom: 15px; font-size: 22px;">هو شخص توافرت فيه الاستعدادات الفطرية والنفسية والعلمية التي تؤهله للقيام ببحث علمي. التزود من المعارف مطلب أساس لتكوين شخصيته.</p>
+                    <p style="text-align: justify; font-weight: bold; color: var(--deep); font-size: 24px;">الباحث الأصيل: هو الذي يتطلع إلى المجهول، ويبحث عن الجديد، ويتميز بالمرونة الفكرية، ويمتلك القدرة على تنظيم المعلومات.</p>
                 </div>
 
                 <h2 class="section-title font-serif mt-10">صفات الباحث (14 صفة)</h2>
+                
                 <div id="traits-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+
+                <h2 class="section-title font-serif mt-12">الإشراف العلمي</h2>
+                <div class="card" style="background: var(--deep); color: white; border: none; padding: 45px;">
+                    <p style="margin-bottom: 25px; font-size: 24px;">هو توجيه أستاذ متخصص لطالب البحث نحو المنهج العلمي السليم. <strong style="color: var(--gold);">وليس الإشراف عملاً إدارياً بحتاً</strong>، بل هو مهمة صعبة <strong style="color: var(--gold);">تصنع الباحثين</strong>.</p>
+                    <p style="font-size: 22px; color: #e5e7eb;">يجب على المشرف التحلي بالتواضع والمبادرة، لأن كثرة اعتذاراته وتأخره <strong style="color: white; border-bottom: 2px solid var(--danger);">يضيع وقت الطالب ويقطعه عن بحثه</strong>.</p>
+                </div>
             </section>
 
-            <!-- القسم 2: الخريطة البصرية (Solid Tree) -->
+            <!-- قسم 2: الخريطة البصرية -->
             <section id="tab-map" class="screen">
                 <h2 class="section-title font-serif">الهيكل المفاهيمي</h2>
-                <div class="card overflow-x-auto py-10">
-                    <div class="tree">
-                        <ul>
-                            <li>
-                                <div class="tree-node tree-root">أركان البحث العلمي الأساسية</div>
-                                <ul>
-                                    <li>
-                                        <div class="tree-node">الباحث الأصيل</div>
-                                        <ul>
-                                            <li><div class="tree-node text-base font-sans">تأهيل علمي مسبق</div></li>
-                                            <li><div class="tree-node text-base font-sans">تطلع للمجهول</div></li>
-                                            <li><div class="tree-node text-base font-sans">مرونة وتنظيم</div></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <div class="tree-node" style="border-color: var(--gold);">صفات الباحث (14)</div>
-                                        <ul>
-                                            <li><div class="tree-node text-base font-sans" style="border-color: var(--gold);">الصبر (الوقود)</div></li>
-                                            <li><div class="tree-node text-base font-sans" style="border-color: var(--gold);">التثبت والموضوعية</div></li>
-                                            <li><div class="tree-node text-base font-sans" style="border-color: var(--gold);">التواضع واهتضام النفس</div></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <div class="tree-node">الإشراف العلمي</div>
-                                        <ul>
-                                            <li><div class="tree-node text-base font-sans">توجيه منهجي</div></li>
-                                            <li><div class="tree-node text-base font-sans">مهمة تصنع الباحثين</div></li>
-                                            <li><div class="tree-node text-base font-sans">تواصل فعّال ومبادرة</div></li>
-                                        </ul>
-                                    </li>
+                
+                <div class="flex flex-col items-center mt-10">
+                    <div class="bg-deep text-gold px-10 py-5 rounded-2xl text-3xl font-bold font-serif shadow-xl border-4 border-gold z-10">
+                        أطراف البحث العلمي
+                    </div>
+                    
+                    <div class="w-1.5 h-12 bg-deep"></div>
+                    <svg class="w-10 h-10 text-deep -mt-3 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                    
+                    <div class="w-4/5 md:w-2/3 h-1.5 bg-deep rounded-full -mt-2"></div>
+                    
+                    <div class="flex flex-col md:flex-row justify-between w-full md:w-5/6 mt-0 gap-6">
+                        
+                        <div class="flex flex-col items-center w-full">
+                            <div class="w-1.5 h-8 bg-deep"></div>
+                            <svg class="w-8 h-8 text-deep -mt-3 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            <div class="bg-white border-t-8 border-deep shadow-lg rounded-2xl p-6 w-full text-center">
+                                <h3 class="text-2xl font-bold text-deep mb-4 border-b-2 pb-3 font-serif">الباحث الأصيل</h3>
+                                <ul class="text-right space-y-3 font-medium text-lg text-gray-800">
+                                    <li>✔ تأهيل علمي مسبق</li>
+                                    <li>✔ تطلع للمجهول</li>
+                                    <li>✔ مرونة فكرية</li>
+                                    <li>✔ تنظيم المعلومات</li>
                                 </ul>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center w-full">
+                            <div class="w-1.5 h-8 bg-deep"></div>
+                            <svg class="w-8 h-8 text-deep -mt-3 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            <div class="bg-white border-t-8 border-gold shadow-lg rounded-2xl p-6 w-full text-center">
+                                <h3 class="text-2xl font-bold text-deep mb-4 border-b-2 pb-3 font-serif">صفات الباحث (14)</h3>
+                                <ul class="text-right space-y-3 font-medium text-lg text-gray-800">
+                                    <li>✔ الصبر (وقود الباحث)</li>
+                                    <li>✔ الإنصاف والموضوعية</li>
+                                    <li>✔ التثبت (الشك العلمي)</li>
+                                    <li>✔ التواضع واهتضام النفس</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col items-center w-full">
+                            <div class="w-1.5 h-8 bg-deep"></div>
+                            <svg class="w-8 h-8 text-deep -mt-3 z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                            <div class="bg-white border-t-8 border-deep shadow-lg rounded-2xl p-6 w-full text-center">
+                                <h3 class="text-2xl font-bold text-deep mb-4 border-b-2 pb-3 font-serif">الإشراف العلمي</h3>
+                                <ul class="text-right space-y-3 font-medium text-lg text-gray-800">
+                                    <li>✔ توجيه منهجي وعلمي</li>
+                                    <li>✔ مهمة تصنع الباحثين</li>
+                                    <li>✔ التواضع والمبادرة</li>
+                                    <li>✔ عدم إضاعة وقت الطالب</li>
+                                </ul>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
 
-            <!-- القسم 3: المراجعة -->
+            <!-- قسم 3: المراجعة الشاملة بالبطاقات -->
             <section id="tab-review" class="screen">
-                <h2 class="section-title font-serif">مراجعة سريعة (14 بطاقة)</h2>
-                <div id="flashcards-container" class="flashcards-grid"></div>
+                <h2 class="section-title font-serif">المراجعة الشاملة (14 بطاقة)</h2>
+                <div id="flashcards-container" class="flashcards-grid mt-6"></div>
             </section>
 
-            <!-- القسم 4: المساعد الذكي (ذكاء Gemini الحقيقي) -->
+            <!-- قسم 4: المساعد الذكي -->
             <section id="tab-ai-tutor" class="screen">
-                <h2 class="section-title font-serif text-purple-600 border-purple-600">✨ المساعد الأكاديمي الذكي</h2>
-                <div class="card border-purple-500">
+                <h2 class="section-title font-serif" style="color:#8b5cf6; border-color:#8b5cf6;">✨ المساعد الأكاديمي الذكي</h2>
+                
+                <div class="card" style="border-right-color: #8b5cf6; padding: 30px;">
                     <div class="chat-container" id="chat-history">
-                        <div class="chat-msg ai-msg">مرحباً! أنا مدعوم بـ Gemini AI. لقد قرأت مادتك العلمية بالكامل ومستعد لشرح أي نقطة، تعداد الصفات، أو توضيح مفاهيم الإشراف. كيف أساعدك اليوم؟</div>
+                        <div class="chat-msg ai-msg">أهلاً بك! أنا المساعد الذكي. هل توجد صفة من صفات الباحث الـ 14 تود أن أشرحها لك بتفصيل أكثر، أو لديك استفسار حول الإشراف العلمي؟</div>
                     </div>
-                    <div class="flex gap-2">
-                        <input type="text" id="ai-input" class="flex-1 p-4 border-2 rounded-xl outline-none focus:border-purple-500" placeholder="اسألني أي شيء (مثلاً: عدد لي أهم صفات الباحث؟)..." onkeypress="if(event.key === 'Enter') askAI()">
-                        <button onclick="askAI()" id="send-btn" class="bg-purple-600 text-white px-8 rounded-xl font-bold transition hover:bg-purple-700">إرسال</button>
+                    <div class="ai-input-area">
+                        <input type="text" id="ai-input" placeholder="اكتب سؤالك هنا (مثال: اشرح لي ما هو الشك العلمي؟)..." onkeypress="if(event.key === 'Enter') askAI()">
+                        <button id="ai-btn" onclick="askAI()">✨ إرسال</button>
                     </div>
                 </div>
             </section>
 
-            <!-- القسم 5: الاختبار -->
+            <!-- قسم 5: التقييم -->
             <section id="tab-quiz" class="screen">
-                <div id="quiz-area" class="card">
-                    <div class="flex justify-between font-bold mb-8 text-xl">
-                        <span id="quiz-progress" class="text-gray-500">السؤال 1 من 20</span>
-                        <span class="text-gold">الدرجة: <span id="quiz-score">0</span></span>
+                <div id="quiz-area" class="card" style="padding: 45px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 35px; font-weight: bold; font-size: 22px;">
+                        <span id="quiz-progress" style="color:#6b7280;">السؤال 1 من 20</span>
+                        <span style="color:var(--gold);">الدرجة: <span id="quiz-score">0</span></span>
                     </div>
-                    <div class="flex items-start gap-4 mb-10">
-                        <span class="text-3xl text-gold">❓</span>
-                        <div id="question-text" class="text-2xl font-bold text-deep leading-relaxed"></div>
+                    
+                    <!-- أيقونة السؤال الملونة بجانب النص -->
+                    <div style="font-size: 28px; color: var(--deep); margin-bottom: 45px; font-family: 'Amiri', serif; font-weight: bold; line-height: 1.6; display: flex; align-items: flex-start; gap: 15px;">
+                        <span style="color: #e2b96f; font-size: 32px;">❓</span>
+                        <span id="question-text"></span>
                     </div>
-                    <div id="options-area" class="grid grid-cols-1 gap-4"></div>
+
+                    <div id="options-area" style="display: flex; flex-direction: column; gap: 20px;"></div>
                 </div>
-                <div id="result-area" class="card screen text-center py-20">
-                    <div class="text-8xl mb-6">🎓</div>
-                    <h2 id="result-title" class="text-4xl font-bold mb-4"></h2>
-                    <p class="text-xl text-gray-500 mb-8">درجتك النهائية هي:</p>
-                    <div class="text-7xl font-bold text-deep mb-10"><span id="final-score"></span> / 20</div>
-                    <div class="bg-green-100 text-green-800 p-4 rounded-xl inline-block border-2 border-green-500 font-bold">✅ تم اعتماد النتيجة وإرسالها للأستاذ.</div>
+
+                <div id="result-area" class="card screen" style="text-align: center; padding: 70px 20px;">
+                    <div id="result-icon" style="font-size: 100px; margin-bottom: 25px;">🎓</div>
+                    <div id="result-title" style="font-size: 36px; font-weight: bold; margin-bottom: 25px;"></div>
+                    <div style="font-size: 24px; color: #6b7280;">لقد أتممت الدرس والاختبار. درجتك النهائية هي:</div>
+                    <div style="font-size: 80px; font-weight: bold; color: var(--deep); margin: 35px 0;"><span id="final-score"></span> <span style="font-size: 45px; color: #9ca3af;">/ 20</span></div>
+                    
+                    <div style="background: #ecfdf5; color: #065f46; padding: 25px; border-radius: 15px; font-weight: bold; font-size: 22px; display: inline-block; border: 2px solid #10b981; margin-top: 20px;">
+                        ✅ تم اعتماد نتيجتك والوقت المستغرق وإرسالها للأستاذ.
+                    </div>
                 </div>
             </section>
+
         </main>
     </div>
 
     <script>
-        // --- إعدادات الأمان (Base64) ---
-        // ضع النص "المشفر" الناتج من الموقع هنا بين علامتي التنصيص
-        const ENCODED_KEY = "QUl6YVN5QndlRnVud0dyWkdEeHRyb2FyQlotUVhkMWJXVUFJU2JV"; 
+        // ==========================================
+        // 1. إعدادات الاتصال الآمن (بدون مفتاح API ظاهر)
+        // ==========================================
+        
+        // ضع رابط الـ Google Apps Script الذي قمت بنشره هنا
+        const BACKEND_URL = "https://script.google.com/macros/s/AKfycbxrJ9HKjv0FipykohsfJ9avcELqfnZuYzcxCluFnkle6dlDlLYUIcqMbrra7Iakm_QTng/exec"; 
 
         const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdYy7qS_r7pP9BFVY2aVKSrZpZk3Vh1S4PoP-2CId16cP6Zg/formResponse";
-        const ENTRIES = { name: "entry.1250768814", score: "entry.289736692", extra: "entry.809300628" };
+        const ENTRY_NAME = "entry.1250768814";
+        const ENTRY_RAW_SCORE = "entry.289736692"; 
+        const ENTRY_PERCENT_AND_TIME = "entry.809300628"; 
 
-        const TRAITS_DATA = [
-            { t: "1. الرغبة", k: "(الدافع الداخلي)", d: "أن يتكلفها ويشعر نفسه بثمرة البحث إن لم تكن قوية من البداية.", c: "#fffbeb" },
-            { t: "2. الصبر", k: "(وقود الباحث)", d: "عدة الباحث ووقوده الذي لا ينضب؛ للصبر على المراجع والأسفار والمشرف.", c: "#eff6ff" },
-            { t: "3. الإنصاف", k: "(الأمانة والتجرد)", d: "الأمانة في النقل، وترك الاستسلام للعوارض النفسية (كالغضب والرضا).", c: "#fdf2f8" },
-            { t: "4. سلامة الذوق", k: "(أدب النقد)", d: "إحسان النقد والمأخذ بعيداً عن الاستفزاز والعبارات الجافية.", c: "#ecfdf5" },
-            { t: "5. العقلية المنظمة", k: "(التنسيق والتبويب)", d: "لا مجال للفوضى، بل يجب حسن التبويب لعمل متناسق.", c: "#f5f3ff" },
-            { t: "6. عمق التفكير", k: "(الغوص في الأعماق)", d: "التخفف من الأعمال وحمل قلم دائماً لتدوين الملحوظات فجأة.", c: "#fff7ed" },
-            { t: "7. الفطنة", k: "(التنبه للتفاصيل)", d: "التنبه لكل تفصيل وكل صغيرة وكبيرة لترابط البحث.", c: "#f0f9ff" },
-            { t: "8. التثبت", k: "(الميزان الدقيق)", d: "وزن الأمور بميزان دقيق قبل قبولها، بخلاف الشك المرضي.", c: "#fefce8" },
-            { t: "9. المبادرة", k: "(انتهاز الفرص)", d: "انتهاز الفرص، والسرعة التي تعني عدم التباطؤ وليس العجلة المذمومة.", c: "#f7fee7" },
-            { t: "10. الحافظة الواعية", k: "(ربط الماضي بالحاضر)", d: "جمع ما قُرأ قديماً بحديثه لمنع تشتت البحث وتكراره.", c: "#fdf4ff" },
-            { t: "11. متابعة الجديد", k: "(الاطلاع المستمر)", d: "الاطلاع المستمر الدائم في ميدان التخصص.", c: "#f0fdfa" },
-            { t: "12. الاستمتاع بالبحث", k: "(اللذة العقلية)", d: "لذة عقلية تفوق اللذات الحسية (كما قال الشافعي في سهره للعلوم).", c: "#fef2f2" },
-            { t: "13. لزوم التواضع", k: "(إكبار العلماء)", d: "إكبار العلماء واهتضام النفس (كلما زدت علماً زادني علماً بجهلي).", c: "#f8fafc" },
-            { t: "14. التماس البركة", k: "(سلامة النية)", d: "بسلامة النية، وإعانة الزملاء ومساعدتهم دون بخل بالمعلومات.", c: "#faf5ff" }
+        // ==========================================
+        // 2. البيانات والمحتوى الديناميكي
+        // ==========================================
+        
+        const TRAITS = [
+            { title: "1. الرغبة", keyword: "(الدافع الداخلي)", desc: "أن يتكلفها ويشعر نفسه بثمرة البحث إن لم تكن قوية من البداية.", color: "#fffbeb" },
+            { title: "2. الصبر", keyword: "(وقود الباحث)", desc: "عدة الباحث ووقوده الذي لا ينضب؛ للصبر على المراجع والأسفار والمشرف.", color: "#eff6ff" },
+            { title: "3. الإنصاف والموضوعية", keyword: "(الأمانة والتجرد)", desc: "الأمانة في النقل، وترك الاستسلام للعوارض النفسية (كالغضب والرضا).", color: "#fdf2f8" },
+            { title: "4. سلامة الذوق", keyword: "(أدب النقد)", desc: "إحسان النقد والمأخذ بعيداً عن الاستفزاز والعبارات الجافية.", color: "#ecfdf5" },
+            { title: "5. العقلية المنظمة", keyword: "(التنسيق والتبويب)", desc: "لا مجال للفوضى، بل يجب حسن التبويب لعمل متناسق.", color: "#f5f3ff" },
+            { title: "6. عمق التفكير", keyword: "(الغوص في الأعماق)", desc: "التخفف من الأعمال وحمل قلم دائماً لتدوين الملحوظات فجأة.", color: "#fff7ed" },
+            { title: "7. الفطنة ودقة الملاحظة", keyword: "(التنبه للتفاصيل)", desc: "التنبه لكل تفصيل وكل صغيرة وكبيرة لترابط البحث.", color: "#f0f9ff" },
+            { title: "8. التثبت والشك العلمي", keyword: "(الميزان الدقيق)", desc: "ضرورة لوزن الأمور بميزان دقيق قبل قبولها، بخلاف الشك المرضي.", color: "#fefce8" },
+            { title: "9. المبادرة", keyword: "(انتهاز الفرص)", desc: "انتهاز الفرص، والسرعة التي تعني عدم التباطؤ وليس العجلة المذمومة.", color: "#f7fee7" },
+            { title: "10. الحافظة الواعية", keyword: "(ربط الماضي بالحاضر)", desc: "جمع ما قُرأ قديماً بحديثه لمنع تشتت البحث وتكراره.", color: "#fdf4ff" },
+            { title: "11. متابعة الجديد", keyword: "(الاطلاع المستمر)", desc: "الاطلاع المستمر الدائم في ميدان التخصص.", color: "#f0fdfa" },
+            { title: "12. الاستمتاع بالبحث", keyword: "(اللذة العقلية)", desc: "لذة عقلية تفوق اللذات الحسية، قال الشافعي: سهري لتنقيح العلوم ألذ لي...", color: "#fef2f2" },
+            { title: "13. لزوم التواضع", keyword: "(إكبار العلماء)", desc: "إكبار العلماء واهتضام النفس (كلما زدت علماً زادني علماً بجهلي).", color: "#f8fafc" },
+            { title: "14. التماس البركة", keyword: "(سلامة النية)", desc: "بسلامة النية، وإعانة الزملاء ومساعدتهم دون بخل.", color: "#faf5ff" }
+        ];
+
+        const FLASHCARDS_DATA = [
+            { q: "من هو الباحث الأصيل؟", a: "الذي يتطلع للمجهول، ويبحث عن الجديد، ويتميز بالمرونة الفكرية." },
+            { q: "ما هو 'وقود الباحث' الذي لا ينضب؟", a: "الصبر، يعينه على مشاق الأسفار والمراجع ومراجعات المشرف." },
+            { q: "كيف يحقق الباحث 'الموضوعية والإنصاف'؟", a: "بالأمانة في النقل، وتجنب العوارض النفسية (كالحب، البغض، الرضا، الغضب)." },
+            { q: "ما المقصود بـ 'سلامة الذوق' في البحث؟", a: "إحسان النقد وتجنب العبارات الجافية الموحشة ولغة الاستفزاز." },
+            { q: "لماذا يُنصح الباحث بحمل 'قلم وورقة' دائماً؟", a: "ليعينانه على عمق التفكير وتدوين الملحوظات الطارئة لئلا تضيع." },
+            { q: "ما الفرق الجوهري بين الشك العلمي والشك المرضي؟", a: "العلمي هو (التثبت) ووزن الأمور قبل التسليم بها، أما المرضي فيدفعه الهوى." },
+            { q: "ما معنى 'المبادرة' للباحث العلمي؟", a: "انتهاز الفرص والسرعة وعدم التباطؤ (ولكن بدون عجلة مذمومة)." },
+            { q: "ما أهمية 'الحافظة الواعية'؟", a: "تساعده في ربط ما قرأه قديماً بما يقرؤه حديثاً لتجنب التشتت." },
+            { q: "كيف وصف الإمام الشافعي 'لذة البحث'؟", a: "قال: (سهري لتنقيح العلوم ألذ لي من وصل غانية وطيب عناقِ)." },
+            { q: "ما أثر 'التواضع' على علم الباحث؟", a: "كلما زاد علماً زاد علماً بجهله، فيكبر العلماء ويهتضم نفسه." },
+            { q: "كيف يلتمس الباحث 'البركة' في وقته وعمله؟", a: "بسلامة النية، وأن يحب لزملائه ما يحب لنفسه ويعينهم دون بخل." },
+            { q: "ما هو 'الإشراف العلمي' حقاً؟", a: "توجيه منهجي، ومهمة صعبة تصنع الباحثين، وليس عملاً إدارياً بحتاً." },
+            { q: "ما خطورة كثرة تأخر المشرف واعتذاراته؟", a: "يضيع وقت الطالب ويقطعه عن بحثه ويفقده حماسه." },
+            { q: "ما الحل إذا انعدمت رغبة الطالب في البحث كلياً؟", a: "إذا لم تستطع شيئاً فدعه وجاوزه.. لا يكلف الله نفساً إلا وسعها." }
         ];
 
         const QUESTIONS = [
-            { q: "من هو الباحث الأصيل وفقاً للمادة؟", opts: ["الذي ينقل كلام السابقين حرفياً", "الذي يتطلع إلى المجهول ويبحث عن الجديد", "الذي يتجنب القراءة المطولة", "الذي يحفظ الكتب عن ظهر قلب"], ans: 1 },
-            { q: "ما الذي وُصف بأنه 'عدة الباحث ووقوده الذي لا ينضب'؟", opts: ["المال", "الصبر", "المراجع", "المشرف العلمي"], ans: 1 },
-            { q: "سلامة الذوق في البحث تعني:", opts: ["المجاملة المفرطة", "النقد بعيداً عن الاستفزاز والعبارات الجافية", "استخدام العبارات المعقدة", "الرد القاسي والحاد"], ans: 1 },
-            { q: "الشك العلمي (التثبت) في البحث يعتبر:", opts: ["مرضاً نفسياً", "إضاعة للوقت", "ضرورة لوزن الأمور بميزان دقيق", "تشكيكاً في المسلمات"], ans: 2 },
-            { q: "لزوم التواضع يورث الباحث:", opts: ["الضعف", "إكبار العلماء واهتضام النفس", "الخوف من النشر", "التكاسل"], ans: 1 },
-            { q: "الإشراف العلمي يُعرّف بأنه:", opts: ["عمل إداري بحت", "توجيه منهجي ومهمة صعبة تصنع الباحثين", "مراجعة لغوية فقط", "تنسيق الغلاف"], ans: 1 },
-            { q: "ما فائدة 'الحافظة الواعية'؟", opts: ["للاستغناء عن المراجع", "للتفاخر بالمعلومات", "لربط الماضي بالحاضر ومنع التشتت", "لتسريع الطباعة"], ans: 2 },
-            { q: "كيف يحقق الباحث 'الموضوعية والإنصاف'؟", opts: ["بنقد الجميع بحدة", "بالأمانة في النقل وترك العوارض النفسية", "بالاعتماد على الرأي الشخصي", "بتجنب المصادر"], ans: 1 },
-            { q: "من صفات المشرف العلمي الناجح:", opts: ["التعالي", "التواضع والمبادرة وحسن التواصل", "تأخير الردود", "رفض الأفكار الجديدة"], ans: 1 },
-            { q: "صفة 'الرغبة' تعني:", opts: ["الدافع الداخلي للبحث", "رغبة المشرف في الطالب", "رغبة الجامعة في البحث", "الرغبة في المال"], ans: 0 },
-            { q: "متابعة الجديد في ميدان التخصص تحمي الباحث من:", opts: ["التعب", "تكرار موضوع قد تم بحثه", "الأسئلة الصعبة", "الانتقاد اللغوي"], ans: 1 },
-            { q: "وصف الشافعي لذة البحث بأنها ألذ من:", opts: ["المال", "النوم", "وصل غانية وطيب عناق", "السفر"], ans: 2 },
-            { q: "المبادرة في البحث العلمي تعني:", opts: ["العجلة", "عدم التباطؤ وانتهاز الفرص", "البدء بعدة أبحاث", "تأجيل العمل"], ans: 1 },
-            { q: "البركة في البحث تلتمس بـ:", opts: ["العزلة", "سلامة النية وإعانة الزملاء", "تغيير الخط", "ترك المشرف"], ans: 1 },
-            { q: "خطورة تأخر المشرف تكمن في:", opts: ["ضياع وقت الطالب وقطعه عن بحثه", "زيادة جودة البحث", "تمرين الطالب", "لا يوجد خطورة"], ans: 0 },
-            { q: "التأهيل العلمي المسبق للباحث هو:", opts: ["مطلب ثانوي", "مطلب أساس لتكوين شخصيته", "مضيعة للوقت", "للعباقرة فقط"], ans: 1 },
-            { q: "الفطنة ودقة الملاحظة تعني:", opts: ["التنبه لكل تفصيل لترابط البحث", "تصحيح الإملاء", "تنسيق الخط", "عدد الصفحات"], ans: 0 },
-            { q: "العقلية المنظمة تهدف إلى:", opts: ["تطويل البحث", "عمل متناسق بعيد عن الفوضى", "إرضاء المشرف", "تقليل المراجع"], ans: 1 },
-            { q: "تكرار اعتذارات المشرف تؤدي لـ:", opts: ["فقدان حماس الطالب", "تحسين البحث", "زيادة الثقة", "لا شيء"], ans: 0 },
-            { q: "عمق التفكير يتطلب من الباحث:", opts: ["التخفف من الشواغل وحمل قلم دائماً", "كثرة السهر", "كثرة الأكل", "النقاش الحاد"], ans: 0 }
+            { q: "من هو الباحث الأصيل وفقاً للمادة؟", options: ["الذي ينقل كلام السابقين حرفياً", "الذي يتطلع إلى المجهول ويبحث عن الجديد", "الذي يتجنب القراءة المطولة", "الذي يحفظ الكتب عن ظهر قلب"], answer: 1 },
+            { q: "ما هي أول صفة من صفات الباحث المذكورة؟", options: ["الصبر", "الموضوعية", "الرغبة", "المبادرة"], answer: 2 },
+            { q: "ماذا يجب على الباحث فعله إذا كانت رغبته في البحث ضئيلة؟", options: ["أن يترك البحث فوراً", "أن يغير تخصصه", "أن يستعين بباحث آخر", "أن يتكلف الرغبة ويشعر نفسه بالثمرة"], answer: 3 },
+            { q: "ما الذي وُصف بأنه 'عدة الباحث ووقوده الذي لا ينضب'؟", options: ["المال", "الصبر", "المراجع", "المشرف العلمي"], answer: 1 },
+            { q: "من أنواع الصبر المطلوبة من الباحث:", options: ["الصبر على المراجع والأسفار والمشرف", "الصبر على الجوع والعطش", "الصبر على النقد العام", "الصبر على طول الكتب"], answer: 0 },
+            { q: "الإنصاف والموضوعية تعني:", options: ["نقد الجميع بحدة", "الأمانة في النقل وترك الاستسلام للعوارض النفسية", "الاعتماد التام على الرأي الشخصي", "تجنب ذكر المصادر"], answer: 1 },
+            { q: "سلامة الذوق في البحث تعني:", options: ["المجاملة المفرطة للمخالفين", "استخدام العبارات المعقدة", "النقد بعيداً عن الاستفزاز والعبارات الجافية", "الرد القاسي والحاد"], answer: 2 },
+            { q: "العقلية المنظمة البناءة تقتضي:", options: ["الكتابة العشوائية ثم الترتيب", "تنظيماً وحسن تبويب لعمل متناسق", "عدم استخدام الفهارس", "الاعتماد على الذاكرة فقط"], answer: 1 },
+            { q: "كيف يعين الباحث نفسه على 'عمق التفكير والتأمل'؟", options: ["بحمل قلم وورقة لتدوين الملحوظات والغوص في أعماق البحث", "بالنقاش المستمر مع الزملاء", "بالسفر المتكرر", "بكتابة البحث ليلاً فقط"], answer: 0 },
+            { q: "الشك العلمي (التثبت) في البحث يعتبر:", options: ["مرضاً نفسياً", "تشكيكاً في المسلمات الدينية", "ضرورة لوزن الأمور بميزان دقيق", "إضاعة لوقت الباحث"], answer: 2 },
+            { q: "المبادرة في البحث العلمي تعني:", options: ["العجلة المذمومة لإنهاء البحث", "السرعة بمعنى عدم التباطؤ وانتهاز الفرص", "البدء بعدة أبحاث معاً", "تأجيل العمل لضمان جودته"], answer: 1 },
+            { q: "ما فائدة الحافظة الواعية (قوة الذاكرة) للباحث؟", options: ["للاستغناء عن كتابة المراجع", "للتفاخر بحفظ الأسماء", "لجمع ما قرأه سابقاً وحديثاً لمنع التشتت", "لتسريع عملية الطباعة"], answer: 2 },
+            { q: "وصف الإمام الشافعي لذة الاستمتاع بالبحث بأنها ألذ من:", options: ["جمع المال", "السفر والتجوال", "وصل غانية وطيب عناق", "النوم المريح"], answer: 2 },
+            { q: "لزوم التواضع يورث الباحث:", options: ["الضعف أمام المناقشين", "إكبار العلماء، فكلما زاد علماً زاد علماً بجهله", "الخوف من النشر", "التكاسل عن البحث"], answer: 1 },
+            { q: "كيف يلتمس الباحث البركة في بحثه؟", options: ["بالعزلة التامة عن الناس", "بالكتابة بخط اليد بدلاً من الحاسب", "بسلامة النية وإعانة زملائه", "بعدم الاستعانة بالمشرف"], answer: 2 },
+            { q: "الإشراف العلمي يُعرّف بأنه:", options: ["توجيه منهجي ومهمة صعبة تصنع الباحثين", "عمل إداري روتيني بحت", "مراجعة لغوية إملائية للبحث", "طباعة البحث وتنسيقه"], answer: 0 },
+            { q: "من صفات المشرف العلمي الناجح:", options: ["التعالي لإثبات هيبته", "التواضع والمبادرة وحسن التواصل", "تأخير الردود لتمرين الطالب على الصبر", "رفض كل فكرة جديدة يقدمها الطالب"], answer: 1 },
+            { q: "ما نتيجة كثرة اعتذارات المشرف وتأخره في الرد على الطالب؟", options: ["يضيع وقت الطالب ويقطعه عن بحثه", "يزيد من جودة البحث ودقته", "يعلم الطالب الاعتماد الكلي على النفس", "يعطي الطالب فرصة لجمع مراجع أكثر"], answer: 0 },
+            { q: "توفير التأهيل العلمي المسبق للباحث يعتبر:", options: ["أمراً ثانوياً يمكن تداركه", "مطلباً أساساً لإيجاد الباحث", "خاصاً بطلاب الدراسات العليا فقط", "مضيعة للوقت"], answer: 1 },
+            { q: "الفطنة ودقة الملاحظة تعني التنبه لـ:", options: ["الأخطاء الإملائية فقط", "كل صغيرة وكبيرة لترابط البحث وقوته", "تنسيق الغلاف الخارجي", "عدد صفحات البحث"], answer: 1 }
         ];
 
-        let state = { name: "", start: 0, timer: null, q: 0, score: 0, timeStr: "00:00" };
+        let studentName = "";
+        let startTime = 0;
+        let timerInterval;
+        let timeString = "00:00";
+        let currentQuestion = 0;
+        let score = 0;
+
+        // ==========================================
+        // 3. التهيئة وبدء التطبيق
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const traitsGrid = document.getElementById('traits-grid');
+            TRAITS.forEach(t => {
+                const div = document.createElement('div');
+                div.className = "p-6 rounded-2xl shadow-sm border border-gray-100 transition transform hover:-translate-y-1 hover:shadow-md";
+                div.style.backgroundColor = t.color;
+                
+                div.innerHTML = `
+                    <h3 class="font-bold text-2xl mb-3" style="color:var(--deep);">
+                        ${t.title} 
+                        <span class="keyword-highlight">${t.keyword}</span>
+                    </h3>
+                    <p style="color:#111827; font-size:20px; font-weight: 500;">${t.desc}</p>
+                `;
+                traitsGrid.appendChild(div);
+            });
+
+            const flashCardsContainer = document.getElementById('flashcards-container');
+            FLASHCARDS_DATA.forEach(fc => {
+                const card = document.createElement('div');
+                card.className = "flip-card";
+                card.onclick = function() { this.classList.toggle('flipped'); };
+                card.innerHTML = `
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3 class="font-serif" style="color:var(--deep); font-size:24px; font-weight:bold; line-height: 1.5;">${fc.q}</h3>
+                            <p style="font-size: 16px; color: #6b7280; margin-top: 15px; font-weight:bold;">👆 انقر لرؤية الإجابة</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <p style="font-size:22px; font-weight:bold; line-height:1.7;">${fc.a}</p>
+                        </div>
+                    </div>
+                `;
+                flashCardsContainer.appendChild(card);
+            });
+        });
 
         function startLesson() {
             const input = document.getElementById('studentNameInput').value.trim();
-            if (input.split(/\s+/).length < 3) return;
-            state.name = input;
-            document.getElementById('display-name').textContent = input;
-            document.getElementById('welcome-screen').classList.remove('active');
-            setTimeout(() => {
-                document.getElementById('welcome-screen').style.display = 'none';
-                document.getElementById('main-app').classList.add('active');
-                state.start = Date.now();
-                state.timer = setInterval(updateTimer, 1000);
+            if (input.split(/\s+/).length >= 3) {
+                studentName = input;
+                document.getElementById('display-name').textContent = studentName;
+                document.getElementById('welcome-screen').classList.remove('active');
+                setTimeout(() => {
+                    document.getElementById('welcome-screen').style.display = 'none';
+                    document.getElementById('main-app').classList.add('active');
+                }, 500);
+
+                startTime = Date.now();
+                timerInterval = setInterval(updateTimer, 1000);
                 loadQuestion();
-                initTraits();
-                initReview();
-            }, 500);
+            } else {
+                document.getElementById('name-error').style.display = 'block';
+            }
         }
 
         function updateTimer() {
-            const sec = Math.floor((Date.now() - state.start) / 1000);
-            state.timeStr = `${Math.floor(sec/60).toString().padStart(2,'0')}:${(sec%60).toString().padStart(2,'0')}`;
-            document.getElementById('display-time').textContent = state.timeStr;
+            const diff = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(diff / 60).toString().padStart(2, '0');
+            const seconds = (diff % 60).toString().padStart(2, '0');
+            timeString = `${minutes}:${seconds}`;
+            document.getElementById('display-time').textContent = timeString;
         }
 
-        function switchTab(id, btn) {
-            document.querySelectorAll('main > section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('tab-' + id).classList.add('active');
-            btn.classList.add('active');
+        function switchTab(tabId, btnElement) {
+            document.querySelectorAll('main > section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            btnElement.classList.add('active');
         }
 
-        function initTraits() {
-            const grid = document.getElementById('traits-grid');
-            TRAITS_DATA.forEach(t => {
-                const div = document.createElement('div');
-                div.className = "p-6 rounded-2xl shadow-sm border border-gray-100 transform hover:-translate-y-1 transition";
-                div.style.backgroundColor = t.c;
-                div.innerHTML = `<h3 class="font-bold text-2xl mb-2 text-[#16213e]">${t.t} <span class="keyword-highlight">${t.k}</span></h3><p class="text-xl font-medium">${t.d}</p>`;
-                grid.appendChild(div);
-            });
-        }
-
-        function initReview() {
-            const cont = document.getElementById('flashcards-container');
-            QUESTIONS.slice(0, 14).forEach((q, idx) => {
-                const card = document.createElement('div');
-                card.className = "flip-card";
-                card.onclick = () => card.classList.toggle('flipped');
-                card.innerHTML = `
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front text-xl font-bold px-4">${q.q}</div>
-                        <div class="flip-card-back text-xl font-bold px-4">${q.opts[q.ans]}</div>
-                    </div>`;
-                cont.appendChild(card);
-            });
-        }
-
-        // --- محرك الذكاء الاصطناعي الحقيقي ---
-        const lessonContext = `
-            سياق الدرس: المحاضرة الثانية في البحث العلمي.
-            موضوع الدرس: تعريف الباحث الأصيل، صفات الباحث الـ 14، والإشراف العلمي.
-            الباحث الأصيل: يتطلع للمجهول، يبحث عن الجديد، مرونة فكرية، تنظيم معلومات.
-            الصفات: الرغبة، الصبر (وقود الباحث)، الإنصاف والموضوعية، سلامة الذوق (أدب النقد)، العقلية المنظمة، عمق التفكير، الفطنة، التثبت (الشك العلمي)، المبادرة، الحافظة الواعية، متابعة الجديد، الاستمتاع بالبحث (لذة عقلية)، لزوم التواضع، التماس البركة.
-            الإشراف: توجيه متخصص، مهمة تصنع الباحثين، يتطلب تواضع وحلم المشرف وعدم إضاعة وقت الطالب.
-        `;
-
+        // ==========================================
+        // 4. الذكاء الاصطناعي (الاتصال بالخادم الآمن)
+        // ==========================================
         async function askAI() {
-            const input = document.getElementById('ai-input');
-            const question = input.value.trim();
+            const inputEl = document.getElementById('ai-input');
+            const question = inputEl.value.trim();
             if (!question) return;
 
-            const chat = document.getElementById('chat-history');
-            chat.innerHTML += `<div class="chat-msg user-msg">${question}</div>`;
-            input.value = ""; chat.scrollTop = chat.scrollHeight;
+            const chatHistory = document.getElementById('chat-history');
+            const btnEl = document.getElementById('ai-btn');
 
-            const loading = document.createElement('div');
-            loading.className = "chat-msg ai-msg italic";
-            loading.textContent = "جاري التفكير...";
-            chat.appendChild(loading);
+            if (BACKEND_URL === "ضع_رابط_تطبيق_الويب_الخاص_بك_هنا" || BACKEND_URL.length < 20) {
+                const alertDiv = document.createElement('div');
+                alertDiv.className = 'chat-msg ai-msg';
+                alertDiv.style.background = "var(--danger)";
+                alertDiv.innerHTML = "⚠️ لم يتم إعداد رابط الخادم (BACKEND_URL) في الكود. يرجى مراجعة المطور.";
+                chatHistory.appendChild(alertDiv);
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+                inputEl.value = '';
+                return;
+            }
+
+            const userDiv = document.createElement('div');
+            userDiv.className = 'chat-msg user-msg';
+            userDiv.textContent = question;
+            chatHistory.appendChild(userDiv);
+
+            inputEl.value = ''; inputEl.disabled = true; btnEl.disabled = true;
+
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'loading-msg';
+            loadingDiv.textContent = "✨ جاري التفكير ومراجعة الدرس...";
+            chatHistory.appendChild(loadingDiv);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
 
             try {
-                // فك التشفير برمجياً لحظة الطلب
-                const decodedKey = atob(ENCODED_KEY);
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${decodedKey}`;
-                
-                const response = await fetch(url, {
+                // إرسال السؤال إلى الخادم الوسيط (Apps Script)
+                const response = await fetch(BACKEND_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: `أجب بصفتك مساعد أكاديمي للدرس التالي فقط: ${lessonContext}. السؤال: ${question}` }] }]
-                    })
+                    body: JSON.stringify({ prompt: question }) // نرسل السؤال فقط، التعليمات مخزنة في الخادم
                 });
                 
+                chatHistory.removeChild(loadingDiv);
+                
+                if (!response.ok) {
+                   throw new Error("حدث خطأ في الاتصال بالخادم (الرابط قد يكون غير صحيح).");
+                }
+                
                 const data = await response.json();
-                chat.removeChild(loading);
-                const answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "عذراً، لم أستطع تحليل السؤال.";
-                chat.innerHTML += `<div class="chat-msg ai-msg">${answer}</div>`;
-            } catch (e) {
-                chat.removeChild(loading);
-                chat.innerHTML += `<div class="chat-msg ai-msg text-red-500">حدث خطأ. يرجى التأكد من أن المفتاح المشفر تم وضعه بشكل صحيح في الكود.</div>`;
+                
+                // التحقق من وجود نتيجة أو خطأ من الخادم
+                const answer = data.result || "عذراً، لم أتمكن من صياغة إجابة.";
+
+                const aiDiv = document.createElement('div');
+                aiDiv.className = 'chat-msg ai-msg';
+                aiDiv.textContent = answer;
+                chatHistory.appendChild(aiDiv);
+            } catch (error) {
+                if(document.body.contains(loadingDiv)) chatHistory.removeChild(loadingDiv);
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'chat-msg ai-msg';
+                errorDiv.style.background = "var(--danger)";
+                errorDiv.innerHTML = `⚠️ خطأ: ${error.message}`;
+                chatHistory.appendChild(errorDiv);
             }
-            chat.scrollTop = chat.scrollHeight;
+
+            inputEl.disabled = false; btnEl.disabled = false; inputEl.focus();
+            chatHistory.scrollTop = chatHistory.scrollHeight;
         }
 
-        // --- نظام الاختبار ---
+        // ==========================================
+        // 5. الاختبار الشامل والنتيجة
+        // ==========================================
         function loadQuestion() {
-            const q = QUESTIONS[state.q];
-            document.getElementById('quiz-progress').textContent = `السؤال ${state.q + 1} من ${QUESTIONS.length}`;
+            const q = QUESTIONS[currentQuestion];
+            document.getElementById('quiz-progress').textContent = `السؤال ${currentQuestion + 1} من ${QUESTIONS.length}`;
+            
             document.getElementById('question-text').textContent = q.q;
-            const area = document.getElementById('options-area');
-            area.innerHTML = "";
-            q.opts.forEach((opt, i) => {
-                const b = document.createElement('button');
-                b.className = "quiz-btn";
-                b.textContent = opt;
-                b.onclick = () => checkAns(i, b);
-                area.appendChild(b);
+            
+            const optionsArea = document.getElementById('options-area');
+            optionsArea.innerHTML = '';
+            
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-btn';
+                btn.textContent = opt;
+                btn.onclick = () => handleAnswer(index, btn);
+                optionsArea.appendChild(btn);
             });
         }
 
-        function checkAns(idx, btn) {
-            const btns = document.querySelectorAll('.quiz-btn');
-            btns.forEach(b => b.disabled = true);
-            if (idx === QUESTIONS[state.q].ans) {
-                btn.classList.add('correct');
-                state.score++;
-                document.getElementById('quiz-score').textContent = state.score;
+        function handleAnswer(selectedIndex, btnElement) {
+            const buttons = document.getElementById('options-area').querySelectorAll('button');
+            buttons.forEach(b => b.disabled = true);
+            const correctAnswer = QUESTIONS[currentQuestion].answer;
+
+            if (selectedIndex === correctAnswer) {
+                btnElement.classList.add('correct');
+                score++; document.getElementById('quiz-score').textContent = score;
             } else {
-                btn.classList.add('wrong');
-                btns[QUESTIONS[state.q].ans].classList.add('correct');
+                btnElement.classList.add('wrong');
+                buttons[correctAnswer].classList.add('correct');
             }
+
             setTimeout(() => {
-                state.q++;
-                if (state.q < QUESTIONS.length) loadQuestion();
-                else endQuiz();
-            }, 1200);
+                currentQuestion++;
+                if (currentQuestion < QUESTIONS.length) loadQuestion();
+                else finishQuiz();
+            }, 1500); 
         }
 
-        function endQuiz() {
-            clearInterval(state.timer);
+        function finishQuiz() {
+            clearInterval(timerInterval);
             document.getElementById('quiz-area').style.display = 'none';
             document.getElementById('result-area').classList.add('active');
-            document.getElementById('final-score').textContent = state.score;
-            document.getElementById('result-title').textContent = state.score >= 16 ? "أداء متميز جداً!" : (state.score >= 10 ? "أداء جيد، واصل المراجعة" : "تحتاج لمراجعة الدرس بتركيز أكبر");
+            document.getElementById('final-score').textContent = score;
+
+            const titleEl = document.getElementById('result-title');
+            if (score >= 18) { titleEl.textContent = "ممتاز جداً! أداء أكاديمي راقٍ."; titleEl.style.color = "var(--success)"; }
+            else if (score >= 14) { titleEl.textContent = "جيد جداً! استيعاب جيد للمادة."; titleEl.style.color = "var(--gold)"; }
+            else { titleEl.textContent = "يجب عليك التركيز ومراجعة الدرس بعناية أكثر."; titleEl.style.color = "var(--danger)"; }
+
+            const percentage = Math.round((score / QUESTIONS.length) * 100) + "%";
+            const combinedData = `النسبة: ${percentage} | الزمن: ${timeString} دقيقة`;
             
-            // إرسال البيانات لجوجل فورم
             const form = document.createElement('form');
-            form.action = GOOGLE_FORM_URL; form.method = "POST"; form.target = "hidden_iframe";
-            const data = { [ENTRIES.name]: state.name, [ENTRIES.score]: state.score, [ENTRIES.extra]: `الزمن المستغرق: ${state.timeStr}` };
-            for(let k in data) { const i = document.createElement('input'); i.name = k; i.value = data[k]; form.appendChild(i); }
-            document.body.appendChild(form); form.submit();
+            form.action = GOOGLE_FORM_URL; form.method = "POST"; form.target = "hidden_iframe"; 
+            
+            const dataFields = {};
+            dataFields[ENTRY_NAME] = studentName;
+            dataFields[ENTRY_RAW_SCORE] = score;
+            dataFields[ENTRY_PERCENT_AND_TIME] = combinedData;
+
+            for (let key in dataFields) {
+                const input = document.createElement('input');
+                input.type = "hidden"; input.name = key; input.value = dataFields[key];
+                form.appendChild(input);
+            }
+            document.body.appendChild(form);
+            form.submit(); 
         }
     </script>
 </body>
