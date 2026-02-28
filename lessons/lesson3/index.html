@@ -617,23 +617,43 @@
 
             const topic = courseData[currentIndex];
 
-            // Reset state on topic change
+            // 1. Initial Setup for Shuffled Arrays on first load ONLY
             useEffect(() => {
-                setIsPassed(false);
-                setDropdownAnswers({});
-                setSelectedLeft(null);
-                setMatchedPairs([]);
-                
                 if (topic.qType === 'matching') {
-                    // Shuffle right options
                     const rights = [...topic.questions].map(q => q.right).sort(() => Math.random() - 0.5);
                     setShuffledRights(rights);
                 }
-                
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, [currentIndex]);
+            }, []); // Empty dependency array means it runs once on mount.
 
-            // Validation Effect
+            // 2. Safe Transition Function (Fixing the Crash)
+            const handleNext = () => {
+                // Clear all tracking states synchronously BEFORE changing the page
+                setDropdownAnswers({});
+                setMatchedPairs([]);
+                setSelectedLeft(null);
+                setIsPassed(false);
+                
+                if (currentIndex < courseData.length - 1) {
+                    const nextIndex = currentIndex + 1;
+                    const nextTopic = courseData[nextIndex];
+                    
+                    // Pre-shuffle matching options for the NEXT topic
+                    if (nextTopic.qType === 'matching') {
+                        const rights = [...nextTopic.questions].map(q => q.right).sort(() => Math.random() - 0.5);
+                        setShuffledRights(rights);
+                    } else {
+                        setShuffledRights([]);
+                    }
+                    
+                    setCurrentIndex(nextIndex);
+                } else {
+                    setView('review'); 
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            // 3. Validation Logic
             useEffect(() => {
                 if (topic.qType === 'dropdown') {
                     let correctCount = 0;
@@ -642,20 +662,28 @@
                     });
                     if (correctCount === topic.questions.length && topic.questions.length > 0) {
                         setIsPassed(true);
-                    } else { setIsPassed(false); }
+                    } else { 
+                        setIsPassed(false); 
+                    }
                 } 
                 else if (topic.qType === 'matching') {
-                    // Check if all pairs are correctly matched
-                    if (matchedPairs.length === topic.questions.length) {
+                    if (matchedPairs.length === topic.questions.length && topic.questions.length > 0) {
                         let allCorrect = true;
                         matchedPairs.forEach(pair => {
+                            // Added safety check: if originalQ is undefined (e.g. during rapid state transition), it won't crash
                             const originalQ = topic.questions.find(q => q.left === pair.left);
-                            if (originalQ.right !== pair.right) allCorrect = false;
+                            if (!originalQ || originalQ.right !== pair.right) {
+                                allCorrect = false;
+                            }
                         });
                         setIsPassed(allCorrect);
+                        
                         // If fully matched but wrong, reset to let them try again
                         if (!allCorrect) {
-                            setTimeout(() => { alert('هناك إجابات خاطئة في التوصيل، حاول مرة أخرى!'); setMatchedPairs([]); }, 1000);
+                            setTimeout(() => { 
+                                alert('هناك إجابات خاطئة في التوصيل، حاول مرة أخرى!'); 
+                                setMatchedPairs([]); 
+                            }, 500);
                         }
                     } else {
                         setIsPassed(false);
@@ -675,14 +703,6 @@
                         setMatchedPairs(prev => [...prev, { left: selectedLeft, right: item }]);
                         setSelectedLeft(null);
                     }
-                }
-            };
-
-            const handleNext = () => {
-                if (currentIndex < courseData.length - 1) {
-                    setCurrentIndex(prev => prev + 1);
-                } else {
-                    setView('review'); // Go to Smart Review before Final
                 }
             };
 
@@ -889,7 +909,7 @@
                     </div>
 
                     <div className="text-center">
-                        <button onClick={() => setView('final')} className="bg-gold text-navy px-12 py-5 rounded-2xl font-bold text-2xl hover:bg-navy hover:text-gold transition-all shadow-glow pulse-btn">
+                        <button onClick={() => { setView('final'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="bg-gold text-navy px-12 py-5 rounded-2xl font-bold text-2xl hover:bg-navy hover:text-gold transition-all shadow-glow pulse-btn">
                             الدخول للاختبار التقييمي النهائي 🏆
                         </button>
                     </div>
