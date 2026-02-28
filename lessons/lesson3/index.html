@@ -3,374 +3,1021 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>الخلاصة في البحث العلمي | المحاضرة الثانية</title>
+    <title>المحاضرة الثالثة - الخلاصة في البحث العلمي</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#16213e',
+                        gold: '#e2b96f',
+                        cream: '#faf8f3',
+                        trait1: '#f0fdf4',
+                        trait2: '#eff6ff',
+                        trait3: '#fdf2f8',
+                        trait4: '#fffbeb',
+                        trait5: '#f5f3ff',
+                    },
+                    fontFamily: {
+                        amiri: ['Amiri', 'serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(226, 185, 111, 0.5)',
+                        'glow-navy': '0 0 25px rgba(22, 33, 62, 0.4)',
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
     <style>
-        :root {
-            --navy: #1a1a2e;
-            --gold: #e2b96f;
-            --cream: #faf8f3;
-            --purple: #7c3aed;
+        body { font-family: 'Tajawal', sans-serif; background-color: #faf8f3; color: #16213e; scroll-behavior: smooth; overflow-x: hidden; }
+        h1, h2, h3, h4, .font-amiri { font-family: 'Amiri', serif; }
+        
+        /* Premium Glassmorphism */
+        .glass-panel { 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px); 
+            border: 1px solid rgba(255, 255, 255, 0.5); 
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
         }
 
-        body { 
-            font-family: 'Cairo', sans-serif; 
-            background-color: var(--cream); 
-            color: var(--navy);
-            margin: 0; padding: 0; line-height: 1.8;
+        /* Content Highlights */
+        .hl-red { color: #dc2626; font-weight: 800; }
+        .hl-blue { color: #2563eb; font-weight: 800; }
+        .hl-emerald { color: #059669; font-weight: 800; }
+        .hl-gold { color: #b48600; font-weight: 800; }
+        .hl-mark { background-color: #fef08a; padding: 2px 6px; border-radius: 6px; font-weight: 800; color: #16213e; border-bottom: 2px solid #e2b96f; }
+
+        /* Poetry Verse */
+        .verse {
+            background: linear-gradient(90deg, transparent, rgba(226, 185, 111, 0.15) 50%, transparent);
+            border-right: 4px solid #e2b96f; border-left: 4px solid #e2b96f;
+            padding: 1.5rem; margin: 2rem auto; border-radius: 1rem;
+            font-family: 'Amiri', serif; font-size: 1.5rem; line-height: 2.2; text-align: center;
+            max-width: 85%; font-weight: bold; color: #16213e;
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.5);
         }
 
-        .font-serif { font-family: 'Amiri', serif; }
+        /* Animations */
+        .fade-in { animation: fadeIn 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .pulse-btn { animation: pulseBtn 2s infinite; }
+        @keyframes pulseBtn { 0% { box-shadow: 0 0 0 0 rgba(226, 185, 111, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(226, 185, 111, 0); } 100% { box-shadow: 0 0 0 0 rgba(226, 185, 111, 0); } }
 
-        #welcome-screen {
-            position: fixed; inset: 0; background: var(--navy);
-            display: flex; justify-content: center; align-items: center; z-index: 2000;
-        }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #faf8f3; }
+        ::-webkit-scrollbar-thumb { background: #e2b96f; border-radius: 5px; border: 2px solid #faf8f3; }
 
-        nav {
-            background: white; border-bottom: 2px solid #e5e7eb;
-            display: flex; justify-content: center; position: sticky; top: 0; z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .nav-btn {
-            padding: 1.5rem 2rem; font-weight: bold; color: #6b7280;
-            border-bottom: 4px solid transparent; transition: 0.3s;
-            cursor: pointer; white-space: nowrap; font-size: 1.1rem;
-        }
-        .nav-btn.active { color: var(--navy); border-bottom-color: var(--gold); }
-
-        /* Trait Cards */
-        .trait-card {
-            border-radius: 1.5rem; padding: 2rem; margin-bottom: 1.5rem;
-            display: flex; align-items: center; gap: 1.5rem;
-            transition: 0.3s; border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-        }
-        .trait-icon {
-            width: 70px; height: 70px; border-radius: 1.2rem;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; background: white; flex-shrink: 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        /* Flashcards */
-        .flash-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        @media (min-width: 768px) { .flash-grid { grid-template-columns: repeat(2, 1fr); } }
-        .flash-card { height: 280px; perspective: 1000px; cursor: pointer; }
-        .flash-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
-        .flash-card.flipped .flash-inner { transform: rotateY(180deg); }
-        .front, .back { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 25px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .front { background: white; border: 3px solid var(--gold); color: var(--navy); }
-        .back { background: var(--navy); color: white; transform: rotateY(180deg); border: 3px solid var(--gold); overflow-y: auto; }
-
-        /* Map */
-        .map-branch {
-            background: white; border: 3px solid var(--navy);
-            padding: 1.5rem; border-radius: 1.5rem;
-            width: 100%; min-width: 300px; box-shadow: 0 8px 15px rgba(0,0,0,0.05);
-        }
-        .sub-key {
-            background: #f9fafb; border: 1px solid #e5e7eb;
-            padding: 0.4rem 0.8rem; border-radius: 0.75rem;
-            font-size: 0.85rem; font-weight: 700; color: var(--navy);
-        }
-
-        /* Quiz */
-        .question-box {
-            background: var(--navy); color: white; border-radius: 1.2rem;
-            padding: 2.5rem; margin-bottom: 2rem; border-right: 10px solid var(--gold);
-        }
-        .opt-btn { 
-            width: 100%; text-align: right; padding: 1.25rem; border: 2px solid #e5e7eb; 
-            border-radius: 1rem; margin-bottom: 1rem; transition: 0.3s; 
-            font-weight: bold; background: white; font-size: 1.1rem;
-        }
-        .opt-btn.correct { background: #ecfdf5 !important; border-color: #10b981 !important; color: #065f46; }
-        .opt-btn.wrong { background: #fef2f2 !important; border-color: #ef4444 !important; color: #991b1b; }
-
-        #chat-window { height: 500px; overflow-y: auto; border: 2px solid #e5e7eb; border-radius: 1.2rem; padding: 1.5rem; background: #fff; display: flex; flex-direction: column; gap: 1rem; }
-        .msg { padding: 1rem 1.5rem; border-radius: 1.2rem; max-width: 85%; }
-        .ai-msg { background: #f3f4f6; align-self: flex-start; border-bottom-right-radius: 0; }
-        .user-msg { background: var(--navy); color: #fff; align-self: flex-end; border-bottom-left-radius: 0; }
-
-        .screen { display: none; }
-        .screen.active { display: block; animation: fadeIn 0.5s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        .section-title { font-family: 'Amiri', serif; font-size: 2.5rem; font-weight: bold; border-bottom: 4px solid var(--gold); display: inline-block; margin-bottom: 2rem; }
+        /* Flip Cards */
+        .flip-card { background-color: transparent; perspective: 1000px; height: 240px; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; cursor: pointer; }
+        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 1.5rem; display: flex; align-items: center; justify-content: center; padding: 1.5rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+        .flip-card-front { background: linear-gradient(135deg, #16213e, #1f2f5c); color: #e2b96f; border: 2px solid rgba(226, 185, 111, 0.5); }
+        .flip-card-back { background: #faf8f3; color: #16213e; transform: rotateY(180deg); border: 2px solid #16213e; }
+        
+        /* Interactive Lines for Mindmap */
+        .tree-line-v { position: absolute; width: 2px; background: #e2b96f; z-index: 0; }
+        .tree-line-h { position: absolute; height: 2px; background: #e2b96f; z-index: 0; }
+        .tree-node { position: relative; z-index: 10; }
     </style>
 </head>
 <body>
+    <div id="root"></div>
 
-    <!-- Welcome Screen -->
-    <div id="welcome-screen">
-        <div class="bg-white p-10 rounded-3xl text-center max-w-lg w-11/12 border-t-8 border-[#e2b96f] shadow-2xl">
-            <h1 class="font-serif text-5xl font-bold text-[#1a1a2e] mb-2">المحاضرة الثانية</h1>
-            <h2 class="text-2xl text-[#e2b96f] mb-8 font-bold text-center">الباحث، وصفاته، والإشراف العلمي</h2>
-            <input type="text" id="student-name-input" class="w-full p-5 border-2 rounded-2xl text-center text-2xl mb-6 outline-none focus:border-[#e2b96f]" placeholder="أدخل اسمك الرباعي...">
-            <button onclick="app.start()" class="w-full bg-[#1a1a2e] text-[#e2b96f] p-5 rounded-2xl text-2xl font-black hover:scale-105 transition transform shadow-xl">دخول المحاضرة</button>
-        </div>
-    </div>
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
 
-    <!-- Main Content -->
-    <div id="main-app" class="screen">
-        <header class="bg-[#1a1a2e] text-white p-5 flex justify-between items-center sticky top-0 z-50 shadow-xl">
-            <div class="font-serif text-3xl font-bold text-[#e2b96f]">الخلاصة في البحث العلمي</div>
-            <div class="flex gap-4 items-center">
-                <div class="bg-white/10 px-6 py-2 rounded-full text-sm border border-white/20">
-                    الطالب: <span id="header-name" class="text-[#e2b96f] font-bold"></span>
-                </div>
-                <div class="bg-white/10 px-6 py-2 rounded-full text-sm border border-white/20">
-                    الزمن: <span id="header-timer" class="text-[#e2b96f] font-bold">00:00</span>
-                </div>
-            </div>
-        </header>
-
-        <nav>
-            <button class="nav-btn active" onclick="app.switchTab('content', this)">📄 المادة العلمية</button>
-            <button class="nav-btn" onclick="app.switchTab('map', this)">🌿 الخريطة البصرية</button>
-            <button class="nav-btn" onclick="app.switchTab('review', this)">💡 المراجعة الذكية</button>
-            <button class="nav-btn" style="color:var(--purple)" onclick="app.switchTab('ai', this)">✨ المساعد الذكي</button>
-            <button class="nav-btn" onclick="app.switchTab('quiz', this)">🎓 الاختبار النهائي</button>
-        </nav>
-
-        <main class="max-w-6xl mx-auto p-6 md:p-10">
-            <!-- Content Tab -->
-            <section id="tab-content" class="screen active">
-                <div class="bg-white rounded-3xl p-10 shadow-lg border-r-[12px] border-[#1a1a2e] mb-12">
-                    <h2 class="section-title">أولاً: مفهوم الباحث الأصيل</h2>
-                    <p class="text-2xl leading-relaxed text-justify mb-6">هو الشخص الذي توافرت فيه الاستعدادات الفطرية والنفسية والعلمية التي تؤهله للقيام ببحث علمي.</p>
-                    <div class="bg-[#faf8f3] p-6 rounded-2xl border-2 border-dashed border-[#e2b96f]">
-                        <p class="text-2xl font-bold text-[#1a1a2e]">الباحث الأصيل: هو الذي يتطلع إلى المجهول، ويبحث عن الجديد، ويتميز بالمرونة الفكرية، ويمتلك القدرة على تنظيم المعلومات في أسلوب علمي رصين ومنظم.</p>
-                    </div>
-                </div>
-                <h2 class="section-title">ثانياً: صفات الباحث (14 صفة تفصيلية)</h2>
-                <div id="traits-list" class="flex flex-col gap-6"></div>
-                <div class="bg-[#1a1a2e] text-white rounded-3xl p-12 mt-16 border-t-8 border-[#e2b96f] shadow-2xl">
-                    <h2 class="font-serif text-4xl font-bold mb-8 text-[#e2b96f]">ثالثاً: الإشراف العلمي (مهمة صناعة الباحثين)</h2>
-                    <p class="text-2xl leading-relaxed mb-8">هو توجيه أستاذ متخصص طالب البحث إلى المنهج العلمي السليم. الإشراف <span class="text-[#e2b96f] font-black underline">ليس عملاً إدارياً بحتاً</span>، بل هو مهمة صعبة <span class="text-[#e2b96f] font-black">تصنع الباحثين</span>.</p>
-                </div>
-            </section>
-
-            <!-- Map Tab -->
-            <section id="tab-map" class="screen">
-                <div class="bg-white rounded-3xl p-10 shadow-xl border-2">
-                    <h2 class="section-title w-full text-center">خريطة مفاتيح المحاضرة الثانية</h2>
-                    <div class="flex flex-col items-center">
-                        <div class="bg-[#1a1a2e] text-[#e2b96f] p-8 rounded-2xl font-bold text-3xl shadow-xl border-4 border-[#e2b96f] mb-10">أركان العملية البحثية</div>
-                        <div class="flex flex-col lg:flex-row justify-between w-full gap-10">
-                            <div class="map-branch flex-1 bg-blue-50/50">
-                                <h3 class="font-black text-2xl mb-4 border-b-2 border-navy pb-2">💎 الباحث الأصيل</h3>
-                                <div class="grid grid-cols-1 gap-2"><span class="sub-key">🔹 استعداد فطري</span><span class="sub-key">🔹 تأهيل علمي</span><span class="sub-key">🔹 تطلع للمجهول</span><span class="sub-key">🔹 مرونة فكرية</span></div>
+        // --- Core Data: Course Content ---
+        const courseData = [
+            {
+                id: 1,
+                title: "أولاً: أمور لابد من مراعاتها في اختيار الموضوع",
+                color: "bg-trait1",
+                icon: "💡",
+                content: (
+                    <div className="space-y-6">
+                        <div className="bg-navy text-cream p-4 rounded-xl shadow-lg border-r-4 border-gold">
+                            <h3 className="font-amiri text-xl font-bold mb-2">المسألة السادسة : اختيار موضوع البحث - المشكلة -</h3>
+                            <p>فذلك أول المراحل، وأهمها، والبحث من بدايته إلى نهايته يدور حول موضوعه. بل إن حياة الباحث الأكاديمية العلمية تدور في كثير من الأحيان حول بحثه الذي يختاره لرسالته العلمية.</p>
+                        </div>
+                        <p className="font-bold text-lg hl-blue">هناك أمور لا بد من مراعاتها حال اختيار الموضوع، وأهمها ما يلي:</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="glass-panel p-4 rounded-2xl border-t-4 border-gold hover:-translate-y-1 transition duration-300">
+                                <span className="text-2xl mb-2 block">🆕</span>
+                                <h4 className="font-bold text-navy mb-1">١- الجدة والإضافة</h4>
+                                <p className="text-sm text-gray-700">نابع من إحساس الباحث بوجود موضوع جديد جدير بالدراسة، ومقترن بمشكلة قائمة يراد حلها لتقديم إضافة علمية. فهذه هي البداية المنطقية للقيام ببحث علمي أصيل.</p>
                             </div>
-                            <div class="map-branch flex-[1.5] bg-amber-50/50" style="border-color: var(--gold);">
-                                <h3 class="font-black text-2xl mb-4 border-b-2 border-gold pb-2">⭐ صفات الباحث (١٤)</h3>
-                                <div id="map-traits-grid" class="grid grid-cols-2 md:grid-cols-3 gap-2"></div>
+                            <div className="glass-panel p-4 rounded-2xl border-t-4 border-gold hover:-translate-y-1 transition duration-300">
+                                <span className="text-2xl mb-2 block">🚫</span>
+                                <h4 className="font-bold text-navy mb-1">٢- تجنب التكرار</h4>
+                                <p className="text-sm text-gray-700">حتى لا يكون البحث مبتذلاً، ويكون الوقت والجهد، والمال الذي يصرف فيه ضائعاً.</p>
                             </div>
-                            <div class="map-branch flex-1 bg-emerald-50/50">
-                                <h3 class="font-black text-2xl mb-4 border-b-2 border-navy pb-2">👨‍🏫 الإشراف العلمي</h3>
-                                <div class="flex flex-col gap-2"><span class="sub-key">✅ توجيه متخصص</span><span class="sub-key">✅ صناعة باحثين</span><span class="sub-key">✅ تواضع وحلم</span></div>
+                            <div className="glass-panel p-4 rounded-2xl border-t-4 border-gold hover:-translate-y-1 transition duration-300">
+                                <span className="text-2xl mb-2 block">✨</span>
+                                <h4 className="font-bold text-navy mb-1">٣- الطرافة</h4>
+                                <p className="text-sm text-gray-700">بحيث يكون البحث مستعذباً لائقاً مقبولاً. ويكون ذلك بالغوص في البحث لاستخراج موضوع طريف.</p>
+                            </div>
+                            <div className="glass-panel p-4 rounded-2xl border-t-4 border-emerald-500 hover:-translate-y-1 transition duration-300 shadow-glow">
+                                <span className="text-2xl mb-2 block">❤️</span>
+                                <h4 className="font-bold text-navy mb-1">٤- مراعاة الميول والاستعداد</h4>
+                                <p className="text-sm text-gray-700">أن يكون اختياره نابعاً من ذاته وميوله؛ فالذين يوفقون لذلك هم أكثر نجاحاً وإبداعاً. <span className="hl-emerald">فحسن اختيار الموضوع وملائمته للباحث هو محور العمل العلمي الناجح.</span> ولذا يحذر العلماء من اعتماد الطالب على مقترحات الآخرين دون أن تكون ملائمة لميوله.</p>
+                            </div>
+                            <div className="glass-panel p-4 rounded-2xl border-t-4 border-gold hover:-translate-y-1 transition duration-300">
+                                <span className="text-2xl mb-2 block">⏳</span>
+                                <h4 className="font-bold text-navy mb-1">٥- مراعاة وقت البحث</h4>
+                                <p className="text-sm text-gray-700">الوقت المخصص للبحث؛ من ناحية الطول والقصر، وحجم الموضوع لأن يكون رسالة ماجستير أو دكتوراه.</p>
+                            </div>
+                            <div className="glass-panel p-4 rounded-2xl border-t-4 border-gold hover:-translate-y-1 transition duration-300">
+                                <span className="text-2xl mb-2 block">📚</span>
+                                <h4 className="font-bold text-navy mb-1">٦- توافر المصادر والمادة العلمية</h4>
+                                <p className="text-sm text-gray-700">لا يسوغ اختيار موضوع لا تتوافر مصادره، فذلك يفقده أهميته وقد لا يستطيع كتابة شيء يذكر.</p>
+                            </div>
+                            <div className="glass-panel p-4 rounded-2xl border-t-4 border-gold md:col-span-2 hover:-translate-y-1 transition duration-300">
+                                <span className="text-2xl mb-2 block">🌍</span>
+                                <h4 className="font-bold text-navy mb-1">٧- مراعاة الزمان والمكان</h4>
+                                <p className="text-sm text-gray-700">قد يليق موضوع في وقت/بيئة دون أخرى. وإغفال ذلك يجعل الباحث يفقد حريته وتملي عليه الظروف المحيطة مساره، فيجانب الحقيقة التي هي عماد البحث العلمي.</p>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-
-            <!-- Review Tab -->
-            <section id="tab-review" class="screen">
-                <h2 class="section-title">بنك مراجعة المحاضرة الشامل</h2>
-                <div id="flash-container" class="flash-grid"></div>
-            </section>
-
-            <!-- AI Tab -->
-            <section id="tab-ai" class="screen">
-                <div class="bg-white rounded-3xl p-10 border-r-[12px] border-purple-600 shadow-2xl">
-                    <h2 class="font-serif text-3xl font-bold mb-6 text-purple-700">✨ المساعد الأكاديمي الذكي (Gemini)</h2>
-                    <div id="chat-window"></div>
-                    <div class="flex gap-4 mt-6">
-                        <input type="text" id="chat-input" class="flex-1 p-5 border-2 rounded-2xl outline-none focus:border-purple-500 text-lg" placeholder="اسألني عن أي جزئية في المحاضرة...">
-                        <button onclick="app.askAI()" class="bg-purple-600 text-white px-10 rounded-2xl font-black text-xl hover:bg-purple-700 transition">إرسال</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Quiz Tab -->
-            <section id="tab-quiz" class="screen">
-                <div id="quiz-box">
-                    <div class="bg-white rounded-3xl p-10 shadow-2xl border-2">
-                        <div class="flex justify-between items-center mb-10 pb-6 border-b-2">
-                            <span id="quiz-progress" class="font-black text-2xl text-gray-400">السؤال 1 من 20</span>
-                            <div class="bg-[#e2b96f] text-[#1a1a2e] px-6 py-2 rounded-full font-black text-xl">الدرجة: <span id="quiz-score-display">0</span></div>
+                ),
+                mindmap: (
+                    <div className="relative bg-navy rounded-3xl p-8 flex flex-col items-center justify-center min-h-[400px] overflow-hidden shadow-glow-navy">
+                        <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, #e2b96f 1px, transparent 0)', backgroundSize: '30px 30px'}}></div>
+                        
+                        <div className="tree-node bg-gradient-to-br from-gold to-yellow-500 text-navy font-amiri font-bold text-2xl px-8 py-4 rounded-2xl shadow-glow mb-12 z-10">
+                            أساسيات اختيار الموضوع
                         </div>
-                        <div class="question-box"><h3 id="quiz-question-text" class="text-3xl font-bold"></h3></div>
-                        <div id="quiz-options-grid" class="grid grid-cols-1 gap-4"></div>
-                    </div>
-                </div>
-                <div id="quiz-final-result" class="hidden bg-white rounded-3xl p-20 text-center shadow-2xl border-t-[15px] border-[#1a1a2e]">
-                    <div class="text-9xl mb-10">🏆</div>
-                    <h2 id="final-result-title" class="text-5xl font-black mb-6"></h2>
-                    <p id="final-result-score" class="text-8xl font-black text-[#e2b96f] mb-12"></p>
-                    <div class="p-8 bg-green-50 text-green-700 rounded-3xl font-black text-2xl inline-block border-4 border-green-500 shadow-xl">✅ تم اعتماد نتيجتك وإرسال البيانات بنجاح.</div>
-                </div>
-            </section>
-        </main>
-    </div>
-
-    <script>
-        const apiKey = "QUl6YVN5QndlRnVud0dyWkdEeHRyb2FyQlotUVhkMWJXVUFJU2JV"; // يترك فارغاً كما في الإرشادات
-        const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdYy7qS_r7pP9BFVY2aVKSrZpZk3Vh1S4PoP-2CId16cP6Zg/formResponse";
-        const ENTRIES = { name: "entry.1250768814", score: "entry.289736692", time: "entry.809300628" };
-
-        const LESSON_DATA = {
-            traits: [
-                {n: "١. الرغبة", k: "(الدافع)", d: "يجب تكلفها إذا لم توجد، وشعور الباحث بالثمرة الحاضرة والمستقبلة.", c: "#E0F2F1", i: "🔥"},
-                {n: "٢. الصبر", k: "(الوقود)", d: "وقود الباحث الذي لا ينضب؛ للصبر على المراجع والأسفار والمشرف.", c: "#FFF3E0", i: "⏳"},
-                {n: "٣. الإنصاف", k: "(الأمانة)", d: "الأمانة في النقل وترك الهوى، فلا يغلب عليه غضب أو رضا عند التقييم.", c: "#F3E5F5", i: "⚖️"},
-                {n: "٤. سلامة الذوق", k: "(الأدب)", d: "إحسان النقد بعيداً عن الاستفزاز والعبارات الجافية الموحشة.", c: "#E1F5FE", i: "🖋️"},
-                {n: "٥. العقلية المنظمة", k: "(الترتيب)", d: "البحث لا فوضى فيه، بل تبويب حسن وعمل متناسق ومرتب.", c: "#F1F8E9", i: "📂"},
-                {n: "٦. عمق التفكير", k: "(التأمل)", d: "الغوص في حقائق الأمور؛ ويُنصح بحمل قلم وورقة لتقييد الخواطر.", c: "#FFF8E1", i: "🧠"},
-                {n: "٧. الفطنة", k: "(الدقة)", d: "التنبه لكل صغيرة وكبيرة لضمان ترابط أجزاء البحث وقوته.", c: "#E8EAF6", i: "🔍"},
-                {n: "٨. الشك العلمي", k: "(التثبت)", d: "وزن الأمور بميزان دقيق قبل قبولها، وهو يختلف عن الشك المرضي.", c: "#FCE4EC", i: "💠"},
-                {n: "٩. المبادرة", k: "(الانتهاز)", d: "انتهاز الفرص والسرعة التي تعني عدم التباطؤ، لا العجلة المذمومة.", c: "#EFEBE9", i: "🚀"},
-                {n: "١٠. الحافظة الواعية", k: "(الذاكرة)", d: "القدرة على ربط القديم بالجديد لمنع تشتت البحث وتكراره.", c: "#F9FBE7", i: "💾"},
-                {n: "١١. متابعة الجديد", k: "(الاطلاع)", d: "الاطلاع الدائم في ميدان التخصص؛ لئلا يكتب فيما بُحث سابقاً.", c: "#E0F7FA", i: "📚"},
-                {n: "١٢. الاستمتاع بالبحث", k: "(اللذة)", d: "لذة عقلية تفوق اللذات الحسية؛ قال الشافعي: سهري لتنقيح العلوم ألذ لي.", c: "#FFFDE7", i: "⭐"},
-                {n: "١٣. لزوم التواضع", k: "(السمو)", d: "إكبار العلماء واهتضام النفس؛ فكلما زاد علماً زاد علماً بجهلي.", c: "#F5F5F5", i: "🙌"},
-                {n: "١٤. التماس البركة", k: "(النية)", d: "بسلامة النية وإعانة الزملاء؛ لقوله: الله في عون العبد ما كان العبد في عون أخيه.", c: "#E8F5E9", i: "✨"}
-            ],
-            questions: [
-                {q: "من هو الباحث الأصيل؟", o: ["الحافظ للكتب", "المتطلع للمجهول والجديد", "المكتفي بالمصادر القديمة", "المنهي للبحث بسرعة"], a: 1},
-                {q: "ما هو 'وقود الباحث'؟", o: ["المال", "الرغبة", "الصبر", "المشرف"], a: 2},
-                {q: "كيف يلتمس الباحث البركة؟", o: ["بالعزلة", "بإخفاء المعلومات", "بإعانة الزملاء وسلامة النية", "بالسهر"], a: 2},
-                {q: "الإشراف العلمي يهدف لـ:", o: ["الإدارة", "صناعة الباحثين", "تصحيح الإملاء", "مراقبة الوقت"], a: 1},
-                {q: "سلامة الذوق تعني:", o: ["الموافقة", "تجنب العبارات الجافية", "النقد القاسي", "عدم النقد"], a: 1}
-            ]
-        };
-
-        const app = {
-            state: { name: "", score: 0, currentQ: 0, start: 0, timeStr: "00:00", timer: null },
-
-            start() {
-                const name = document.getElementById('student-name-input').value.trim();
-                if (name.split(/\s+/).length < 3) return alert("يرجى إدخال اسمك الرباعي");
-                this.state.name = name;
-                document.getElementById('header-name').textContent = name;
-                document.getElementById('welcome-screen').style.display = 'none';
-                document.getElementById('main-app').classList.add('active');
-                this.state.start = Date.now();
-                this.init();
-            },
-
-            init() {
-                document.getElementById('traits-list').innerHTML = LESSON_DATA.traits.map(t => `
-                    <div class="trait-card" style="background-color: ${t.c}">
-                        <div class="trait-icon">${t.i}</div>
-                        <div><h4 class="font-black text-2xl mb-1">${t.n}</h4><p class="text-xl text-gray-800">${t.d}</p></div>
-                    </div>`).join('');
-                document.getElementById('map-traits-grid').innerHTML = LESSON_DATA.traits.map(t => `<span class="sub-key">📍 ${t.n.split('.')[1]}</span>`).join('');
-                document.getElementById('flash-container').innerHTML = LESSON_DATA.traits.map(t => `
-                    <div class="flash-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flash-inner">
-                            <div class="front"><h4 class="text-2xl font-bold">ما المقصود بـ ${t.n}؟</h4></div>
-                            <div class="back"><p class="text-xl">${t.d}</p></div>
+                        
+                        {/* Connecting Lines */}
+                        <div className="tree-line-v top-[80px] h-12 left-1/2 -translate-x-1/2"></div>
+                        <div className="tree-line-h top-[128px] w-[80%] left-[10%]"></div>
+                        
+                        <div className="flex flex-wrap justify-center gap-4 w-full relative z-10 mt-4">
+                            {['الجدة والإضافة', 'تجنب التكرار', 'الطرافة', 'الميول والاستعداد', 'وقت البحث', 'توافر المصادر', 'الزمان والمكان'].map((item, i) => (
+                                <div key={i} className="bg-white/10 backdrop-blur-sm border border-gold/40 text-cream px-4 py-2 rounded-xl text-sm font-bold shadow-lg hover:bg-gold hover:text-navy transition cursor-default">
+                                    {item}
+                                </div>
+                            ))}
                         </div>
-                    </div>`).join('');
-                this.loadQuestion();
-                this.state.timer = setInterval(() => {
-                    const diff = Math.floor((Date.now() - this.state.start) / 1000);
-                    this.state.timeStr = `${Math.floor(diff/60).toString().padStart(2, '0')}:${(diff%60).toString().padStart(2, '0')}`;
-                    document.getElementById('header-timer').textContent = this.state.timeStr;
-                }, 1000);
-            },
-
-            switchTab(id, btn) {
-                document.querySelectorAll('main > section').forEach(s => s.classList.remove('active'));
-                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-                document.getElementById('tab-' + id).classList.add('active');
-                btn.classList.add('active');
-            },
-
-            loadQuestion() {
-                const q = LESSON_DATA.questions[this.state.currentQ % LESSON_DATA.questions.length];
-                document.getElementById('quiz-progress').textContent = `السؤال ${this.state.currentQ + 1} من 20`;
-                document.getElementById('quiz-question-text').textContent = q.q;
-                document.getElementById('quiz-options-grid').innerHTML = q.o.map((o, i) => `<button class="opt-btn" onclick="app.checkAnswer(${i}, this)">${o}</button>`).join('');
-            },
-
-            checkAnswer(idx, btn) {
-                const q = LESSON_DATA.questions[this.state.currentQ % LESSON_DATA.questions.length];
-                document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
-                if (idx === q.a) { btn.classList.add('correct'); this.state.score++; document.getElementById('quiz-score-display').textContent = this.state.score; }
-                else { btn.classList.add('wrong'); document.querySelectorAll('.opt-btn')[q.a].classList.add('correct'); }
-                setTimeout(() => { this.state.currentQ++; if (this.state.currentQ < 20) this.loadQuestion(); else this.finishQuiz(); }, 1200);
-            },
-
-            async askAI() {
-                const input = document.getElementById('chat-input');
-                const box = document.getElementById('chat-window');
-                const query = input.value.trim();
-                if (!query) return;
-                box.innerHTML += `<div class="msg user-msg">${query}</div>`;
-                input.value = ""; box.scrollTop = box.scrollHeight;
-                const loading = document.createElement('div');
-                loading.className = "msg ai-msg italic"; loading.textContent = "جاري الاتصال بـ Gemini...";
-                box.appendChild(loading); box.scrollTop = box.scrollHeight;
-
-                const system = "أنت مساعد تعليمي للمحاضرة الثانية في البحث العلمي (الباحث والإشراف). اشرح للطالب بأسلوب أكاديمي.";
-                
-                const fetchAI = async (retries = 5, delay = 1000) => {
-                    for (let i = 0; i < retries; i++) {
-                        try {
-                            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                    contents: [{ parts: [{ text: query }] }],
-                                    systemInstruction: { parts: [{ text: system }] }
-                                })
-                            });
-                            if (!res.ok) throw new Error();
-                            const data = await res.json();
-                            return data.candidates?.[0]?.content?.parts?.[0]?.text;
-                        } catch (e) {
-                            if (i === retries - 1) throw e;
-                            await new Promise(r => setTimeout(r, delay));
-                            delay *= 2;
-                        }
+                    </div>
+                ),
+                qType: "dropdown",
+                questions: [
+                    {
+                        text: "الجدة والإضافة تعني الشعور بوجود مشكلة قائمة يراد حلها لتقديم {{blank}}.",
+                        options: ["تلخيص ممتع", "إضافة علمية", "نقد أدبي", "سرد تاريخي"],
+                        correct: "إضافة علمية"
+                    },
+                    {
+                        text: "يُحذر العلماء من اعتماد الطالب على {{blank}} دون أن يكون الموضوع ملائماً لميوله واستعداده.",
+                        options: ["المراجع القديمة", "مقترحات الآخرين", "شبكة الإنترنت", "الدراسات الميدانية"],
+                        correct: "مقترحات الآخرين"
+                    },
+                    {
+                        text: "إغفال عامل الزمان والمكان يجعل الباحث يفقد حريته، وربما صار بحثه تمليه عليه {{blank}}.",
+                        options: ["الظروف المحيطة", "الجامعة", "الأهواء الشخصية", "المصادر القليلة"],
+                        correct: "الظروف المحيطة"
                     }
-                };
-
-                try {
-                    const reply = await fetchAI();
-                    box.removeChild(loading);
-                    box.innerHTML += `<div class="msg ai-msg">${reply || "لم أستطع معالجة الرد."}</div>`;
-                } catch (e) {
-                    box.removeChild(loading);
-                    box.innerHTML += `<div class="msg ai-msg text-red-500">حدث خطأ في الاتصال. يرجى المحاولة لاحقاً.</div>`;
-                }
-                box.scrollTop = box.scrollHeight;
+                ]
             },
+            {
+                id: 2,
+                title: "ثانياً: أمور يستحسن للباحث أن يتفاداها",
+                color: "bg-trait8",
+                icon: "⚠️",
+                content: (
+                    <div className="space-y-6">
+                        <p className="font-bold text-red-700 text-lg">يستحسن للباحث تفادي الأمور السبعة التالية:</p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div className="bg-white p-4 rounded-xl border-r-4 border-red-500 shadow-sm"><span className="hl-red block mb-1">١- الموضوعات التي يشتد حولها الخلاف</span>إذ ليس البحث مجرد عرض آراء المخالفين والمؤيدين، بل إضافة ذات قيمة تثري المعارف.</div>
+                            <div className="bg-white p-4 rounded-xl border-r-4 border-red-500 shadow-sm"><span className="hl-red block mb-1">٢- الموضوعات العلمية المعقدة</span>التي تحتاج إلى تقنية عالية لأنها صعبة على المبتدئ.</div>
+                            <div className="bg-white p-4 rounded-xl border-r-4 border-red-500 shadow-sm"><span className="hl-red block mb-1">٣- الموضوعات الخاملة</span>التي لا تبدو ممتعة؛ فذلك يبعث على الملل ويعوق التقدم.</div>
+                            <div className="bg-white p-4 rounded-xl border-r-4 border-red-500 shadow-sm"><span className="hl-red block mb-1">٤- الموضوعات التي يصعب العثور على مادتها</span>لندرة المصادر والمراجع.</div>
+                            <div className="bg-white p-4 rounded-xl border-r-4 border-red-500 shadow-sm"><span className="hl-red block mb-1">٥- الموضوعات الواسعة جداً</span>إذ يصعب على الباحث السيطرة عليها.</div>
+                            <div className="bg-white p-4 rounded-xl border-r-4 border-red-500 shadow-sm"><span className="hl-red block mb-1">٦- الموضوعات الضيقة جداً</span>إذ يلحق الباحث الكثير من العنت في معالجتها.</div>
+                            <div className="bg-white p-4 rounded-xl border-r-4 border-red-500 shadow-sm md:col-span-3 text-center"><span className="hl-red block mb-1">٧- الموضوعات الغامضة</span>التي تحير الباحث؛ فلا يدري ما يدخُل تحتها من عدمه.</div>
+                        </div>
+                        <div className="verse mt-8">
+                            خلاف وتعقيد خمول صعوبة<br/>وضيق غموض فاجتنبها جميعها
+                        </div>
+                    </div>
+                ),
+                mindmap: (
+                    <div className="relative bg-[#2d1b1b] rounded-3xl p-8 flex flex-col items-center justify-center overflow-hidden">
+                        <div className="tree-node bg-red-600 text-white font-amiri font-bold text-2xl px-8 py-4 rounded-2xl shadow-lg mb-8 z-10">
+                            محاذير الاختيار (فاجتنبها جميعها)
+                        </div>
+                        <div className="flex flex-wrap justify-center gap-3 z-10">
+                            {['الخلاف', 'التعقيد', 'الخمول', 'الصعوبة (ندرة المادة)', 'الضيق', 'الاتساع (واسعة جداً)', 'الغموض'].map((item, i) => (
+                                <div key={i} className="bg-red-900/50 border border-red-500 text-red-100 px-5 py-3 rounded-full font-bold">
+                                    {item}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ),
+                qType: "matching",
+                questions: [
+                    { left: "الموضوعات الخاملة", right: "تبعث على الملل وتعوق التقدم" },
+                    { left: "موضوعات يشتد حولها الخلاف", right: "البحث ليس مجرد عرض آراء المتخالفين" },
+                    { left: "الموضوعات الواسعة جداً", right: "يصعب على الباحث السيطرة عليها" },
+                    { left: "الموضوعات المعقدة", right: "تحتاج تقنية عالية وصعبة على المبتدئ" }
+                ]
+            },
+            {
+                id: 3,
+                title: "ثالثاً: تحديد المشكلة ومهارات توليد الموضوعات",
+                color: "bg-trait2",
+                icon: "⚙️",
+                content: (
+                    <div className="space-y-6">
+                        <p className="text-lg">تحديد الموضوع ومشكلته بدقة من أعظم العون على ضمان سير البحث، أما إذا لم تحدد المشكلة فإن البحث يأتي متخاذلاً غير مترابط الأجزاء.</p>
+                        <div className="verse text-lg py-4">وإذا كان في الأنابيب خلف<br/>وقع الطيش في صدور الصعاد</div>
+                        
+                        <h4 className="font-bold text-navy text-xl mt-6 mb-4 border-b-2 border-gold inline-block pb-1">أمور تعين على الاختيار:</h4>
+                        <ul className="list-disc list-inside space-y-2 text-gray-800 bg-white p-5 rounded-xl shadow-sm">
+                            <li>قراءة كل ما له صلة بالموضوع (دون تشتت).</li>
+                            <li>الإفادة من خبرات وبحوث الباحث الماضية.</li>
+                            <li>السماع والمناقشة لمن لهم خبرة من الأساتذة.</li>
+                            <li>الاطلاع على المقالات، وعنوانات الرسائل وتوصياتها.</li>
+                            <li>النظر في المواقع الإلكترونية المعنية بالبحث العلمي (كموقع أ.د. عبد الله آل سيف).</li>
+                        </ul>
 
-            async finishQuiz() {
-                if (this.state.timer) clearInterval(this.state.timer);
-                document.getElementById('quiz-box').style.display = 'none';
-                document.getElementById('quiz-final-result').classList.remove('hidden');
-                document.getElementById('final-result-score').textContent = `${this.state.score} / 20`;
-                document.getElementById('final-result-title').textContent = this.state.score >= 15 ? "أنت باحث متمكن!" : "أداء جيد، واصل المراجعة";
+                        <h4 className="font-bold text-gold text-2xl mt-8 mb-4">القدرة على مهارة توليد الموضوعات:</h4>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            <div className="glass-panel p-5 rounded-xl border-t-4 border-navy">
+                                <span className="font-bold text-navy block text-lg mb-2">١- مهارة القلب</span>
+                                يقلب عنواناً مطروقاً ليكون جديداً. <br/><span className="text-sm text-gray-600 font-bold">مثال: حقوق الراعي على الرعية ⬅️ حقوق الرعية على الراعي.</span>
+                            </div>
+                            <div className="glass-panel p-5 rounded-xl border-t-4 border-navy">
+                                <span className="font-bold text-navy block text-lg mb-2">٢- مهارة التعميم والتكبير</span>
+                                تكبير فكرة الموضوع. <br/><span className="text-sm text-gray-600 font-bold">مثال: أحكام الطفل في الصلاة ⬅️ أحكام الطفل في أبواب العبادات.</span>
+                            </div>
+                            <div className="glass-panel p-5 rounded-xl border-t-4 border-navy">
+                                <span className="font-bold text-navy block text-lg mb-2">٣- مهارة التصغير والتخصيص</span>
+                                تصغير وتخصيص الموضوع الكبير. <br/><span className="text-sm text-gray-600 font-bold">مثال: أحكام قراءة القرآن ⬅️ أحكام قراءة القرآن في كتاب المغني.</span>
+                            </div>
+                            <div className="glass-panel p-5 rounded-xl border-t-4 border-navy">
+                                <span className="font-bold text-navy block text-lg mb-2">٤- مهارة القياس</span>
+                                قياس موضوع على آخر. <br/><span className="text-sm text-gray-600 font-bold">مثال: أحكام المُحد عند الحنابلة ⬅️ أحكام المُحد عند المالكية.</span>
+                            </div>
+                            <div className="glass-panel p-5 rounded-xl border-t-4 border-navy md:col-span-2 text-center">
+                                <span className="font-bold text-navy block text-lg mb-2">٥- مهارة استخراج القسيم</span>
+                                <span className="text-sm text-gray-600 font-bold">مثال: أحكام الرجل يُستخرج منه أحكام المرأة.</span>
+                            </div>
+                        </div>
+                        <div className="bg-navy text-gold p-4 rounded-xl text-center font-bold text-lg shadow-glow-navy mt-6">
+                            "الموضوع الجيد هو الذي يمد الباحث بالكثير من الأفكار، ويثير تساؤلات أكثر مما يقدم من إجابات."
+                        </div>
+                    </div>
+                ),
+                mindmap: (
+                    <div className="relative bg-navy rounded-3xl p-8 flex flex-col items-center justify-center overflow-hidden shadow-inner">
+                        <div className="tree-node text-gold font-amiri font-bold text-3xl mb-10 border-b-2 border-dashed border-gold pb-2 z-10">
+                            خريطة: مهارات التوليد
+                        </div>
+                        <div className="flex flex-col md:flex-row gap-6 z-10 w-full justify-center">
+                            {[
+                                {n: '١', t: 'القلب', d: 'عكس الموضوع'},
+                                {n: '٢', t: 'التكبير', d: 'تعميم الفكرة'},
+                                {n: '٣', t: 'التصغير', d: 'تخصيص الفكرة'},
+                                {n: '٤', t: 'القياس', d: 'تطبيق على مذهب آخر'},
+                                {n: '٥', t: 'استخراج القسيم', d: 'الرجل ⬅️ المرأة'}
+                            ].map((s, i) => (
+                                <div key={i} className="bg-white/5 border border-gold rounded-xl p-4 text-center flex-1 hover:bg-gold hover:text-navy transition group cursor-default">
+                                    <div className="w-10 h-10 bg-gold text-navy rounded-full flex items-center justify-center mx-auto mb-3 font-bold text-xl group-hover:bg-white">{s.n}</div>
+                                    <div className="font-bold text-cream group-hover:text-navy mb-1">{s.t}</div>
+                                    <div className="text-xs text-gray-400 group-hover:text-gray-800">{s.d}</div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ),
+                qType: "matching",
+                questions: [
+                    { left: "حقوق الراعي على الرعية ⬅️ الرعية على الراعي", right: "مهارة القلب" },
+                    { left: "أحكام الطفل في الصلاة ⬅️ أبواب العبادات", right: "مهارة التعميم والتكبير" },
+                    { left: "أحكام قراءة القرآن ⬅️ قراءة القرآن في كتاب المغني", right: "مهارة التصغير والتخصيص" },
+                    { left: "الموضوع الجيد في نهايته", right: "يثير تساؤلات أكثر مما يقدم إجابات" }
+                ]
+            },
+            {
+                id: 4,
+                title: "المسألة السابعة : عنوان البحث",
+                color: "bg-trait4",
+                icon: "🏷️",
+                content: (
+                    <div className="space-y-6">
+                        <p className="text-lg">البحث مولود جديد يحتاج لاسم لائق، وعنوانه هو مطلعه الذي يحدد مساره شأن <span className="hl-mark">اللافتة ذات السهم</span>. ينبغي العناية به بمراعاة ١٥ أمراً:</p>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm"><strong className="text-navy">١. التفريق عن كتب التسويق:</strong> العنوان العلمي يُعَرِّف المضمون ولا يعتمد الصدمة والإثارة.</div>
+                            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm"><strong className="text-navy">٢. مبتكراً ولائقاً.</strong></div>
+                            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm"><strong className="text-navy">٣. شاملاً ومفصحاً.</strong> ومطابقاً لأفكاره.</div>
+                            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm"><strong className="text-navy">٤. تتبين منه الحدود والأبعاد.</strong></div>
+                            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm"><strong className="text-navy">٥. ألا يتضمن ما ليس فيه.</strong></div>
+                            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm"><strong className="text-navy">٦. يوحي بالأفكار بذكاء.</strong></div>
+                            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm"><strong className="text-navy">٧. ألا يتكلف السجع.</strong></div>
+                            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm"><strong className="text-navy">٨. ألا يكون موحشاً مُنفراً.</strong></div>
+                            <div className="bg-white p-4 rounded-xl border-l-4 border-gold shadow-sm"><strong className="text-gold">٩. إضاءة العنوان:</strong> أن يشتمل على إضاءة تحته إذا احتيج (مثل: دراسة وتحليل).</div>
+                            <div className="bg-red-50 p-4 rounded-xl border border-red-200 shadow-sm"><strong className="text-red-700">١٠. ألا يكون طويلاً مملاً:</strong> لا يحسن أن يزيد على <span className="font-bold underline">خمس عشرة كلمة</span>.</div>
+                            <div className="bg-red-50 p-4 rounded-xl border border-red-200 shadow-sm"><strong className="text-red-700">١١. ألا يشتمل على حكم مسبق:</strong> (مثل: تحريم كذا) لأنه يُفقد التشويق والموضوعية.</div>
+                            <div className="bg-red-50 p-4 rounded-xl border border-red-200 shadow-sm"><strong className="text-red-700">١٢. ألا يكون غامضاً.</strong></div>
+                            <div className="bg-red-50 p-4 rounded-xl border border-red-200 shadow-sm col-span-1 md:col-span-2"><strong className="text-red-700">١٣. ألا يكون ركيكاً:</strong> بسبب كثرة الإضافات (حمامة جرعى حومة الجندل...) أو كثرة الضمائر كما عابوا على المتنبي (سبوح لها منها عليها شواهد).</div>
+                            <div className="bg-white p-4 rounded-xl border-l-4 border-blue-500 shadow-sm"><strong className="text-blue-700">١٤. التخصص الدقيق:</strong> يُشعر بالتخصص (فقه، عقيدة..) سواء في العنوان أو في الإضاءة. (مثل: منهج ابن حزم في كتابه المحلى ⬅️ فقهية).</div>
+                            <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm"><strong className="text-navy">١٥. ألا يشتمل على تكرار:</strong> (المسائل العقدية... ثم يكتب في الإضاءة: دراسة عقدية).</div>
+                        </div>
+                        <div className="bg-navy text-cream p-4 rounded-xl mt-4 text-center font-bold font-amiri text-xl">
+                            "العنوان العلمي الصحيح هو المعبر عما تحته، والذي تستطيع من خلاله تقسيم البحث إلى أبواب وفصول."
+                        </div>
+                    </div>
+                ),
+                mindmap: (
+                    <div className="relative bg-navy rounded-3xl p-8 flex flex-col items-center justify-center overflow-hidden">
+                        <div className="tree-node bg-gold text-navy font-amiri font-bold text-2xl px-8 py-3 rounded-full mb-8 z-10 shadow-glow">
+                            مواصفات العنوان المميز
+                        </div>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 z-10 w-full text-center">
+                            <div className="bg-emerald-500/20 border border-emerald-400 text-emerald-100 p-3 rounded-xl text-sm font-bold">شامل ومُفصح</div>
+                            <div className="bg-emerald-500/20 border border-emerald-400 text-emerald-100 p-3 rounded-xl text-sm font-bold">يُشعر بالتخصص الدقيق</div>
+                            <div className="bg-red-500/20 border border-red-400 text-red-100 p-3 rounded-xl text-sm font-bold">أقل من 15 كلمة</div>
+                            <div className="bg-red-500/20 border border-red-400 text-red-100 p-3 rounded-xl text-sm font-bold">لا يحمل حكماً مسبقاً</div>
+                            <div className="bg-red-500/20 border border-red-400 text-red-100 p-3 rounded-xl text-sm font-bold">خالٍ من الركاكة والضمائر</div>
+                            <div className="bg-blue-500/20 border border-blue-400 text-blue-100 p-3 rounded-xl text-sm font-bold">لا يعتمد الصدمة كالتسويق</div>
+                            <div className="bg-gold/20 border border-gold text-gold p-3 rounded-xl text-sm font-bold col-span-2">يحتوي "إضاءة" تحت العنوان عند الحاجة لتحديد المسار</div>
+                        </div>
+                    </div>
+                ),
+                qType: "dropdown",
+                questions: [
+                    {
+                        text: "من مواصفات عنوان البحث الجيد ألا يزيد طوله عن {{blank}} كلمة.",
+                        options: ["عشر", "خمس عشرة", "عشرين", "خمس وعشرين"],
+                        correct: "خمس عشرة"
+                    },
+                    {
+                        text: "وضع عنوان مثل (تحريم كذا وكذا) يُعد عيباً لأنه يشتمل على {{blank}}.",
+                        options: ["إضاءة مكررة", "ركاكة لغوية", "حكم مسبق", "سجع متكلف"],
+                        correct: "حكم مسبق"
+                    },
+                    {
+                        text: "العبارة التي تُكتب تحت العنوان الرئيسي لتوضيح مساره (مثل: دراسة وتحليل) تسمى {{blank}}.",
+                        options: ["إضاءة", "خاتمة", "تمهيد", "مشكلة البحث"],
+                        correct: "إضاءة"
+                    }
+                ]
+            },
+            {
+                id: 5,
+                title: "المسألة الثامنة : مشكلة البحث (المفهوم والصياغة)",
+                color: "bg-trait5",
+                icon: "❓",
+                content: (
+                    <div className="space-y-6">
+                        <p className="text-lg">مصطلح (Research Problem) مترجم، ويصدق أكثر على البحوث التجريبية. وهناك خلط شائع بين نوعين من المشكلات:</p>
+                        <div className="flex flex-col md:flex-row gap-6">
+                            <div className="flex-1 glass-panel p-6 rounded-2xl border-t-8 border-red-500 relative overflow-hidden">
+                                <span className="absolute -right-4 -top-4 text-6xl opacity-10">🏥</span>
+                                <h4 className="font-bold text-red-700 text-xl mb-3 font-amiri">المشكلة الاجتماعية</h4>
+                                <p className="text-gray-700 text-sm leading-relaxed">موقف يحتاج معالجة إصلاحية، وينجم عن ظروف المجتمع. وتعد <span className="hl-red">ظاهرة مرضية</span> تصيب نظاماً اجتماعياً (مثل علاقة الأب بابنه).</p>
+                            </div>
+                            <div className="flex-1 glass-panel p-6 rounded-2xl border-t-8 border-blue-500 relative overflow-hidden">
+                                <span className="absolute -right-4 -top-4 text-6xl opacity-10">🔬</span>
+                                <h4 className="font-bold text-blue-700 text-xl mb-3 font-amiri">المشكلة العلمية (البحثية)</h4>
+                                <p className="text-gray-700 text-sm leading-relaxed">موضوع يحيط به الغموض ويحتاج تفسير. وهي <span className="hl-blue">أوسع وأشمل</span> من الاجتماعية؛ فهي تعني دراسة الظاهرة سواء كانت مرضية أو سوية.</p>
+                            </div>
+                        </div>
 
-                // إرسال البيانات باستخدام Fetch و FormData لضمان وصول الاسم والدرجة
+                        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mt-6">
+                            <h4 className="font-bold text-navy text-2xl mb-4 font-amiri border-b-2 border-gold inline-block">صياغة مشكلة البحث (طريقتان):</h4>
+                            
+                            <div className="mb-6">
+                                <h5 className="font-bold text-emerald-700 text-lg mb-2">الطريقة الأولى (وهي الأفضل والمُحبذة):</h5>
+                                <p className="mb-2">أن تصاغ بسؤال كبير عام، ثم يُفرّع عليه أسئلة جزئية من صلب المشكلة (لا تشمل أسئلة عن التمهيد أو حياة المؤلف).</p>
+                                <div className="bg-gray-50 p-3 rounded-lg border-r-4 border-emerald-400 text-sm">
+                                    <span className="font-bold">مثال:</span> ما موقف ابن عاشور من خوارق العادات؟ <br/>
+                                    (أسئلة فرعية): ما موقفه من المعجزات؟ وما موقفه من الكرامات؟
+                                </div>
+                            </div>
+
+                            <div>
+                                <h5 className="font-bold text-blue-700 text-lg mb-2">الطريقة الثانية:</h5>
+                                <p className="mb-2">أن تصاغ بعبارة تقريرية خبرية مباشرة (جامعة مانعة) تحدد الموضوع دون إثارة أسئلة حولها.</p>
+                                <div className="bg-gray-50 p-3 rounded-lg border-r-4 border-blue-400 text-sm">
+                                    <span className="font-bold">مثال:</span> موضوع البحث هو موقف ابن عاشور من خوارق العادات وما يدخل تحتها من معجزات وكرامات...
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="bg-yellow-50 p-4 border border-yellow-300 rounded-xl mt-4 flex items-start gap-3">
+                            <span className="text-2xl">💡</span>
+                            <p className="text-sm font-bold text-navy leading-relaxed">ملاحظة: يرى بعض الباحثين ألا تُصاغ الأسئلة بأداة الاستفهام (هل) لأن جوابها فقط (نعم/لا)، بل يُستحسن استخدام أداة الاستفهام (ما) مثل: ما منهج فلان؟ وما الفائدة؟</p>
+                        </div>
+                    </div>
+                ),
+                mindmap: (
+                    <div className="relative bg-navy rounded-3xl p-8 flex flex-col items-center justify-center overflow-hidden">
+                        <div className="tree-node bg-cream text-navy font-amiri font-bold text-2xl px-6 py-2 rounded-xl mb-8 z-10 border-2 border-gold">
+                            مشكلة البحث
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full z-10">
+                            <div className="border border-white/20 p-5 rounded-2xl bg-white/5 relative">
+                                <div className="absolute -top-3 right-6 bg-gold text-navy px-3 py-1 rounded-full text-xs font-bold">المفهوم</div>
+                                <ul className="text-cream text-sm space-y-2 mt-2 list-disc list-inside">
+                                    <li>المشكلة الاجتماعية: ظاهرة مرضية فقط.</li>
+                                    <li>المشكلة العلمية: أوسع وتشمل دراسة الظاهرة السوية والمرضية معاً.</li>
+                                </ul>
+                            </div>
+                            <div className="border border-white/20 p-5 rounded-2xl bg-white/5 relative">
+                                <div className="absolute -top-3 right-6 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold">الصياغة الأفضل</div>
+                                <ul className="text-cream text-sm space-y-2 mt-2 list-disc list-inside">
+                                    <li>سؤال كبير رئيسي تتفرع منه أسئلة في صلب الموضوع.</li>
+                                    <li>يُفضل استخدام أداة (ما) بدلاً من (هل).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                ),
+                qType: "dropdown",
+                questions: [
+                    {
+                        text: "المشكلة العلمية أوسع وأشمل من المشكلة الاجتماعية لأن الأخيرة مقتصرة على الظواهر {{blank}}.",
+                        options: ["العلمية", "التجريبية", "المرضية", "السوية"],
+                        correct: "المرضية"
+                    },
+                    {
+                        text: "الطريقة المحبذة لصياغة مشكلة البحث هي استخدام {{blank}} تتفرع منه أسئلة جزئية.",
+                        options: ["عبارة تقريرية خبرية", "سؤال كبير عام", "مقدمة طويلة", "تمهيد تاريخي"],
+                        correct: "سؤال كبير عام"
+                    },
+                    {
+                        text: "يُستحسن تجنب صياغة أسئلة البحث بأداة الاستفهام {{blank}} لأن جوابها يكون بنعم أو لا.",
+                        options: ["كيف", "لماذا", "متى", "هل"],
+                        correct: "هل"
+                    }
+                ]
+            }
+        ];
+
+        // --- Data: Flashcards (12) ---
+        const flashcards = [
+            { front: "الجدة والإضافة", back: "وجود موضوع جديد جدير بالدراسة ومقترن بمشكلة قائمة يراد حلها لتقديم إضافة علمية." },
+            { front: "تجنب التكرار", back: "حتى لا يكون البحث مبتذلاً، ويكون الوقت والجهد والمال الذي يصرف فيه ضائعاً." },
+            { front: "مهارة القلب", back: "أن يقلب الباحث عنوان بحث مطروق ليكون بحثاً جديداً (مثل: حقوق الراعي على الرعية -> حقوق الرعية على الراعي)." },
+            { front: "مهارة التعميم والتكبير", back: "تعميم الموضوع وتكبير فكرته (مثل: أحكام الطفل في الصلاة -> أحكام الطفل في العبادات)." },
+            { front: "مهارة التصغير والتخصيص", back: "أن تعمد إلى موضوع كبير فتصغره وتخصصه (مثل: أحكام قراءة القرآن -> أحكام قراءة القرآن في كتاب المغني)." },
+            { front: "المشكلة الاجتماعية", back: "موقف يحتاج إلى معالجة إصلاحية، وينجم عن ظروف المجتمع أو البيئة، وتعد ظاهرة مرضية." },
+            { front: "المشكلة العلمية", back: "دراسة الظاهرة (سواء مرضية أو سوية)، وهي أوسع مدلولاً وأكثر شمولاً من المشكلة الاجتماعية، وموضوع يحيط به الغموض يحتاج لتفسير." },
+            { front: "طول عنوان البحث", back: "من أكبر العيوب؛ لأن الباحث يحتاج لذكره مراراً. يُفضل ألا يزيد على 15 كلمة." },
+            { front: "الحكم المسبق في العنوان", back: "يختزل البحث ويفقده عنصر التشويق والإثارة والموضوعية (مثل: تحريم كذا...)." },
+            { front: "صياغة المشكلة (الطريقة الأولى)", back: "تصاغ بسؤال كبير عام، ثم يفرع عليه عدة أسئلة جزئية، وهي الطريقة الأفضل والمحبذة." },
+            { front: "صياغة المشكلة (الطريقة الثانية)", back: "تصاغ بعبارة تقريرية مباشرة دون إثارة أسئلة حولها." },
+            { front: "أداة الاستفهام المناسبة", back: "يُستحسن استخدام (ما) بدلاً من (هل)؛ لأن (هل) جوابها نعم أو لا فقط." },
+        ];
+
+        // --- Data: Accordions (10) ---
+        const accordions = [
+            { q: "لماذا يحذر العلماء من اعتماد الطالب على مقترحات الآخرين في اختيار الموضوع؟", a: "لأن حسن اختيار الموضوع وملائمته للباحث واستعداده وميوله هو محور العمل العلمي الناجح، فمن يراعي ميوله يكون أكثر نجاحاً وإبداعاً." },
+            { q: "ما هي الأمور الثمانية التي يجب تفاديها في اختيار الموضوع الممثلة في بيت الشعر؟", a: "خلاف، تعقيد، خمول، صعوبة، ضيق، غموض، اتساع (وهي مجموعة في البيت: خلاف وتعقيد خمول صعوبة ... وضيق غموض فاجتنبها جميعها)." },
+            { q: "كيف تساعد مهارة 'القياس' في توليد الموضوعات؟", a: "بأن تقيس موضوعاً على موضوع، مثل قياس (أحكام المُحْد عند الحنابلة) لتستخرج منه (أحكام المُحْد عند المالكية)." },
+            { q: "لماذا يُعد عنوان البحث مثل (اللافتة ذات السهم)؟", a: "لأنه مطلعه وأول ما تقع عليه عين القارئ، يعطي الانطباع الأول ويحدد مسار البحث، ويرشد السائرين كأجلى المعالم البارزة." },
+            { q: "ما الفرق بين عنوان البحث العلمي وعناوين الكتب التسويقية أو الروايات؟", a: "عنوان البحث العلمي يُعَرِّف القارئ بمضمونه بدقة، بينما الروايات قد تعتمد على الإثارة، وتأتي صادمة أو مخالفة لمضمونها أحياناً." },
+            { q: "ما المراد بـ 'إضاءة العنوان'؟", a: "هي العبارة التي تُكتب تحت العنوان الرئيس لتوضيحه وتحديد مساره (مثل: دراسة وتحليل، أو جمعاً ودراسة، أو دراسة فقهية)." },
+            { q: "لماذا عِيبَ على المتنبي قوله: 'وتسعدني في غمرة... سبوح لها منها عليها شواهد' في سياق العناوين؟", a: "يُستشهد به للتحذير من ركاكة كثرة الضمائر المتتابعة (في العنوان)، حيث تكررت الضمائر (لها، منها، عليها) مما يسبب الركاكة." },
+            { q: "لماذا تُعتبر ترجمة (Research Problem) إلى 'مشكلة البحث' غير دقيقة في الدراسات الأكاديمية الإنسانية؟", a: "لأنها تصدق أكثر على البحوث التجريبية كالطب والهندسة، بينما المشكلة العلمية في الدراسات الأكاديمية هي إشكال قائم أو قضية معلقة تحتاج لمن يزيل إشكالها بالبحث." },
+            { q: "هل صياغة المشكلة بأسئلة فرعية تشمل أسئلة عن التمهيد (كحياة المؤلف)؟", a: "لا، الأسئلة الفرعية يجب أن تكون في صلب المشكلة ومحاور البحث الرئيسة، ولا تتعلق بموضوعات ثانوية ليس أجزاء من الموضوع الرئيس." },
+            { q: "ما هو الشرط الأساسي في صياغة المشكلة بالطريقة التقريرية؟", a: "أن تتضمن تحديداً دقيقاً ومباشراً للموضوع الرئيس الذي وقع عليه اختيار الباحث ونقاطه الرئيسة والفرعية، في جمل تقريرية (جامعة مانعة) دون أسئلة." },
+        ];
+
+        // --- Data: Final Assessment (20 MCQs strictly from text) ---
+        const finalQuizData = [
+            { q: "حسب المادة، تدور حياة الباحث الأكاديمية في كثير من الأحيان حول:", options: ["المراجع التي قرأها", "بحثه الذي يختاره لرسالته العلمية", "الجامعة التي تخرج منها", "المقالات التي نشرها"], ans: 1 },
+            { q: "البداية المنطقية للقيام ببحث علمي أصيل نابعة من:", options: ["إحساس الباحث بوجود موضوع جديد ومقترن بمشكلة قائمة (الجدة والإضافة)", "مراعاة الزمان والمكان", "البحث عن الطرافة فقط", "توفير وقت البحث"], ans: 0 },
+            { q: "محور العمل العلمي الناجح يعتمد بالأساس على:", options: ["الاستخارة", "حسن اختيار الموضوع وملائمته للباحث واستعداده وميوله", "القراءة المكثفة للكتب القديمة", "استشارة المشرف الأكاديمي فقط"], ans: 1 },
+            { q: "يحذر العلماء والباحثون من اعتماد طالب الدراسات العليا في اختيار موضوعه على:", options: ["مقترحات الآخرين دون أن يكون ملائماً للطالب", "الكتب الأجنبية المترجمة", "الإنترنت والمجلات العلمية", "مهارة القياس والتصغير"], ans: 0 },
+            { q: "إغفال عامل (الزمان والمكان) في اختيار الموضوع قد يؤدي بالباحث إلى:", options: ["أن يكون بحثه طويلاً جداً", "أن يفقد جزءاً من حريته وتملي عليه الظروف المحيطة طبيعة بحثه", "زيادة التكلفة المادية لطباعة البحث", "أن يكون موضوعه خفيفاً وممتعاً"], ans: 1 },
+            { q: "الموضوعات التي يشتد حولها الخلاف يُستحسن تفاديها لأن البحث:", options: ["مادته نادرة وصعبة", "مجرد عرض لآراء المخالفين والمؤيدين فقط", "إضافة ذات قيمة تثري المعارف وليس مجرد عرض للآراء", "يحتاج لتقنية عالية"], ans: 2 },
+            { q: "يُستحسن تفادي الموضوعات الخاملة التي لا تبدو ممتعة، لأنها:", options: ["صعبة جداً", "تحتاج لتقنية عالية", "تبعث على الملل وتعوق عن التقدم", "مادتها نادرة"], ans: 2 },
+            { q: "الكلمة الناقصة في بيت الشعر (خلاف وتعقيد خمول صعوبة *** وضيق ....... فاجتنبها جميعها) هي:", options: ["وضوح", "غموض", "تكرار", "إطالة"], ans: 1 },
+            { q: "من مهارات توليد الموضوعات: أن يقلب الباحث عنوان بحث مطروق ليكون جديداً (مثل: حقوق الراعي على الرعية -> الرعية على الراعي)، وتُسمى:", options: ["مهارة التكبير", "مهارة القلب", "استخراج القسيم", "مهارة القياس"], ans: 1 },
+            { q: "تحويل موضوع (أحكام الطفل في باب الصلاة) إلى (أحكام الطفل في أبواب العبادات) يُعد تطبيقاً لمهارة:", options: ["التصغير والتخصيص", "القلب", "التعميم والتكبير", "استخراج القسيم"], ans: 2 },
+            { q: "يُشترط في عنوان البحث ألا يكون طويلاً مملاً، فلا يحسن أن تزيد كلماته على:", options: ["عشر كلمات", "خمس عشرة كلمة", "عشرين كلمة", "خمس وعشرين كلمة"], ans: 1 },
+            { q: "وضع عنوان مثل (تحريم كذا وكذا) يُعد من العيوب لأنه:", options: ["طويل", "يشتمل على حكم مسبق ويُفقده التشويق والموضوعية", "ركيك", "غامض"], ans: 1 },
+            { q: "قول الشاعر: (حمامة جرعى حومة الجندل اسجعي) استُشهد به للتحذير من ركاكة العنوان المتمثلة في:", options: ["الغموض", "كثرة الضمائر", "كثرة الإضافات المتتابعة", "السجع المتكلف"], ans: 2 },
+            { q: "كتابة عبارة مثل (دراسة وتحليل) أو (جمعاً ودراسة) تحت العنوان الرئيسي تسمى:", options: ["إضاءة", "حكم مسبق", "تكرار", "مهارة تعميم"], ans: 0 },
+            { q: "المشكلة التي تعد (ظاهرة مرضية تصيب نظاماً اجتماعياً) هي:", options: ["المشكلة العلمية", "المشكلة البحثية", "المشكلة الاجتماعية", "الإشكالية اللغوية"], ans: 2 },
+            { q: "المشكلة العلمية أوسع حدوداً ومدلولاً من المشكلة الاجتماعية، لأنها تدرس الظاهرة:", options: ["المرضية فقط", "سواء كانت مرضية أو سوية", "في العلوم التطبيقية فقط كالطب", "التي لا حل لها"], ans: 1 },
+            { q: "الطريقة الأفضل والمُحبذة لصياغة مشكلة البحث هي:", options: ["العبارة التقريرية الخبرية", "السؤال الكبير العام المتفرع لعدة أسئلة جزئية", "كتابتها في الخاتمة فقط", "الدمج بينها وبين الإهداء"], ans: 1 },
+            { q: "في مثال (موقف ابن عاشور من خوارق العادات)، السؤال: (ما موقفه من المعجزات؟) يُعد:", options: ["سؤالاً فرعياً من صلب المشكلة", "سؤالاً عاماً", "سؤالاً تقريرياً", "سؤالاً عن حياة المؤلف وتمهيد البحث"], ans: 0 },
+            { q: "الأسئلة الفرعية لمشكلة البحث يجب ألا تشمل أسئلة تختص بـ:", options: ["صلب الموضوع", "محاور البحث الرئيسة", "أجزاء من تمهيد البحث (كحياة المؤلف)", "المراجع والمصادر"], ans: 2 },
+            { q: "يُفضل بعض الباحثين ألا تُصاغ أسئلة البحث بأداة الاستفهام (هل) لأن:", options: ["ليست فصحى", "تطيل من العنوان", "لا تعطي إجابة مفصلة بل جوابها (نعم) أو (لا) فقط", "تستخدم في البحوث التجريبية فقط"], ans: 2 },
+        ];
+
+
+        // --- Component: Header ---
+        const Header = () => (
+            <header className="bg-navy text-cream py-3 shadow-md sticky top-0 z-50 border-b-4 border-gold">
+                <div className="container mx-auto px-4 flex justify-between items-center">
+                    <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-white flex items-center justify-center rounded-lg overflow-hidden border-2 border-gold shadow-sm">
+                            <svg className="w-8 h-8 text-navy" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/><path strokeLinecap="round" strokeLinejoin="round" d="M12 14v7"/></svg>
+                        </div>
+                        <div>
+                            <h1 className="font-amiri font-bold text-lg md:text-xl text-gold">الخلاصة في البحث العلمي</h1>
+                            <h2 className="text-xs opacity-80">المحاضرة الثالثة</h2>
+                        </div>
+                    </div>
+                    <div className="text-left bg-white/10 px-3 py-1 rounded-lg border border-white/20">
+                        <p className="text-[10px] md:text-xs font-bold text-gray-300">إشراف الأستاذ الدكتور</p>
+                        <p className="font-amiri font-bold text-sm md:text-lg text-white">باسم القرافي</p>
+                    </div>
+                </div>
+            </header>
+        );
+
+        // --- View 1: Welcome ---
+        const WelcomeScreen = ({ setStudentName, setSection, setStartTime, setView }) => {
+            const [name, setName] = useState('');
+            const [sec, setSec] = useState('');
+            const [err, setErr] = useState('');
+
+            const handleStart = () => {
+                if (name.trim().split(/\s+/).length < 4) {
+                    setErr('عذراً، يجب إدخال الاسم الرباعي كاملاً (4 مقاطع على الأقل).'); return;
+                }
+                if (!sec.trim()) {
+                    setErr('الرجاء إدخال رقم الشعبة.'); return;
+                }
+                setStudentName(name.trim());
+                setSection(sec.trim());
+                setStartTime(new Date());
+                setView('topics');
+            };
+
+            return (
+                <div className="flex items-center justify-center min-h-[90vh] fade-in relative px-4">
+                    <div className="absolute top-10 w-40 h-40 bg-gold rounded-full opacity-20 blur-3xl"></div>
+                    <div className="absolute bottom-10 left-10 w-60 h-60 bg-navy rounded-full opacity-10 blur-3xl"></div>
+                    
+                    <div className="glass-panel p-8 md:p-12 rounded-[2rem] shadow-glow-navy max-w-lg w-full text-center relative z-10">
+                        <div className="mx-auto w-20 h-20 bg-navy text-gold flex items-center justify-center rounded-2xl mb-6 shadow-glow transform rotate-3">
+                            <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        </div>
+                        
+                        <h1 className="text-3xl md:text-4xl font-amiri font-bold text-navy mb-2">الخلاصة في البحث العلمي</h1>
+                        <h2 className="text-xl text-gold mb-6 font-tajawal font-bold bg-navy/5 inline-block px-4 py-1 rounded-full">المحاضرة الثالثة</h2>
+                        
+                        {err && <div className="bg-red-100 text-red-700 p-3 rounded-xl mb-6 text-sm font-bold border-r-4 border-red-500 animate-pulse">{err}</div>}
+                        
+                        <div className="space-y-5 text-right">
+                            <div>
+                                <label className="block text-navy font-bold mb-2 text-sm">الاسم الرباعي</label>
+                                <input type="text" value={name} onChange={e=>setName(e.target.value)} placeholder="أدخل اسمك الرباعي هنا..." className="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-gold focus:ring-4 focus:ring-gold/20 outline-none transition bg-white/80 font-bold" />
+                            </div>
+                            <div>
+                                <label className="block text-navy font-bold mb-2 text-sm">رقم الشعبة</label>
+                                <input type="text" value={sec} onChange={e=>setSec(e.target.value)} placeholder="أدخل رقم الشعبة..." className="w-full px-5 py-4 rounded-xl border-2 border-gray-200 focus:border-gold focus:ring-4 focus:ring-gold/20 outline-none transition bg-white/80 font-bold" />
+                            </div>
+                            <button onClick={handleStart} className="w-full bg-navy text-cream font-bold text-lg py-4 rounded-xl hover:bg-gold hover:text-navy transition-all duration-300 shadow-xl mt-4 transform hover:-translate-y-1">بدء الرحلة التعليمية 🚀</button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- View 2: Topics Flow (Mastery Learning) ---
+        const TopicsFlow = ({ setView }) => {
+            const [currentIndex, setCurrentIndex] = useState(0);
+            const [isPassed, setIsPassed] = useState(false);
+            
+            // Interaction State based on qType
+            const [dropdownAnswers, setDropdownAnswers] = useState({});
+            
+            // Matching State
+            const [selectedLeft, setSelectedLeft] = useState(null);
+            const [matchedPairs, setMatchedPairs] = useState([]); // Array of {left, right}
+            const [shuffledRights, setShuffledRights] = useState([]);
+
+            const topic = courseData[currentIndex];
+
+            // Reset state on topic change
+            useEffect(() => {
+                setIsPassed(false);
+                setDropdownAnswers({});
+                setSelectedLeft(null);
+                setMatchedPairs([]);
+                
+                if (topic.qType === 'matching') {
+                    // Shuffle right options
+                    const rights = [...topic.questions].map(q => q.right).sort(() => Math.random() - 0.5);
+                    setShuffledRights(rights);
+                }
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, [currentIndex]);
+
+            // Validation Effect
+            useEffect(() => {
+                if (topic.qType === 'dropdown') {
+                    let correctCount = 0;
+                    topic.questions.forEach((q, idx) => {
+                        if (dropdownAnswers[idx] === q.correct) correctCount++;
+                    });
+                    if (correctCount === topic.questions.length && topic.questions.length > 0) {
+                        setIsPassed(true);
+                    } else { setIsPassed(false); }
+                } 
+                else if (topic.qType === 'matching') {
+                    // Check if all pairs are correctly matched
+                    if (matchedPairs.length === topic.questions.length) {
+                        let allCorrect = true;
+                        matchedPairs.forEach(pair => {
+                            const originalQ = topic.questions.find(q => q.left === pair.left);
+                            if (originalQ.right !== pair.right) allCorrect = false;
+                        });
+                        setIsPassed(allCorrect);
+                        // If fully matched but wrong, reset to let them try again
+                        if (!allCorrect) {
+                            setTimeout(() => { alert('هناك إجابات خاطئة في التوصيل، حاول مرة أخرى!'); setMatchedPairs([]); }, 1000);
+                        }
+                    } else {
+                        setIsPassed(false);
+                    }
+                }
+            }, [dropdownAnswers, matchedPairs, topic]);
+
+            const handleDropdownChange = (qIdx, value) => {
+                setDropdownAnswers(prev => ({ ...prev, [qIdx]: value }));
+            };
+
+            const handleMatchClick = (side, item) => {
+                if (side === 'left') {
+                    if (!matchedPairs.find(p => p.left === item)) setSelectedLeft(item);
+                } else if (side === 'right' && selectedLeft) {
+                    if (!matchedPairs.find(p => p.right === item)) {
+                        setMatchedPairs(prev => [...prev, { left: selectedLeft, right: item }]);
+                        setSelectedLeft(null);
+                    }
+                }
+            };
+
+            const handleNext = () => {
+                if (currentIndex < courseData.length - 1) {
+                    setCurrentIndex(prev => prev + 1);
+                } else {
+                    setView('review'); // Go to Smart Review before Final
+                }
+            };
+
+            // Render Questions based on Type
+            const renderQuestions = () => {
+                if (topic.qType === 'dropdown') {
+                    return (
+                        <div className="space-y-6">
+                            {topic.questions.map((q, idx) => {
+                                const parts = q.text.split('{{blank}}');
+                                const isCorrect = dropdownAnswers[idx] === q.correct;
+                                const isAnswered = !!dropdownAnswers[idx];
+                                
+                                return (
+                                    <div key={idx} className={`p-5 rounded-2xl border-2 transition-all ${isCorrect ? 'border-green-400 bg-green-50' : (isAnswered ? 'border-red-400 bg-red-50' : 'border-gray-200 bg-white')}`}>
+                                        <p className="font-bold text-navy leading-loose text-lg flex flex-wrap items-center gap-2">
+                                            <span className="bg-navy text-white w-6 h-6 flex items-center justify-center rounded-full text-sm">{idx+1}</span>
+                                            {parts[0]}
+                                            <select 
+                                                value={dropdownAnswers[idx] || ""} 
+                                                onChange={(e) => handleDropdownChange(idx, e.target.value)}
+                                                className={`mx-2 p-2 rounded-lg border font-bold outline-none cursor-pointer ${isCorrect ? 'bg-green-100 border-green-500 text-green-800' : 'bg-gray-100 border-gray-300'}`}
+                                            >
+                                                <option value="" disabled>اختر الإجابة...</option>
+                                                {/* Shuffle options for display */}
+                                                {[...q.options].sort().map((opt, oIdx) => (
+                                                    <option key={oIdx} value={opt}>{opt}</option>
+                                                ))}
+                                            </select>
+                                            {parts[1]}
+                                        </p>
+                                        {isAnswered && !isCorrect && <p className="text-red-600 text-sm mt-2 font-bold animate-pulse">الإجابة غير صحيحة، حاول مجدداً.</p>}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    );
+                } 
+                else if (topic.qType === 'matching') {
+                    return (
+                        <div>
+                            <p className="text-center mb-6 font-bold text-navy">اضغط على العنصر من القائمة اليمنى، ثم اضغط على ما يناسبه من القائمة اليسرى للتوصيل.</p>
+                            <div className="flex flex-col md:flex-row gap-8">
+                                {/* Left Column (Questions) */}
+                                <div className="flex-1 space-y-3">
+                                    <h4 className="font-bold text-center text-gold mb-4">القائمة (أ)</h4>
+                                    {topic.questions.map((q, idx) => {
+                                        const isMatched = matchedPairs.find(p => p.left === q.left);
+                                        const isSelected = selectedLeft === q.left;
+                                        return (
+                                            <button 
+                                                key={idx} 
+                                                onClick={() => handleMatchClick('left', q.left)}
+                                                disabled={!!isMatched}
+                                                className={`w-full text-right p-4 rounded-xl border-2 font-bold transition-all shadow-sm
+                                                    ${isMatched ? 'bg-green-100 border-green-500 text-green-800 opacity-60' : 
+                                                    isSelected ? 'bg-gold border-navy text-navy scale-105 shadow-md' : 
+                                                    'bg-white border-gray-200 hover:border-gold'}`}
+                                            >
+                                                {q.left}
+                                                {isMatched && <span className="float-left">✅</span>}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                                
+                                {/* Right Column (Answers) */}
+                                <div className="flex-1 space-y-3">
+                                    <h4 className="font-bold text-center text-navy mb-4">القائمة (ب)</h4>
+                                    {shuffledRights.map((ans, idx) => {
+                                        const isMatched = matchedPairs.find(p => p.right === ans);
+                                        return (
+                                            <button 
+                                                key={idx} 
+                                                onClick={() => handleMatchClick('right', ans)}
+                                                disabled={!!isMatched || !selectedLeft}
+                                                className={`w-full text-right p-4 rounded-xl border-2 font-bold transition-all shadow-sm
+                                                    ${isMatched ? 'bg-green-100 border-green-500 text-green-800 opacity-60' : 
+                                                    !selectedLeft ? 'bg-gray-50 border-gray-200 cursor-not-allowed opacity-50' :
+                                                    'bg-white border-navy hover:bg-navy hover:text-white cursor-pointer'}`}
+                                            >
+                                                {ans}
+                                                {isMatched && <span className="float-left">✅</span>}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                            <div className="mt-6 text-center">
+                                <button onClick={() => {setMatchedPairs([]); setSelectedLeft(null);}} className="text-sm text-red-500 underline font-bold hover:text-red-700">إعادة التوصيل من جديد 🔄</button>
+                            </div>
+                        </div>
+                    );
+                }
+            };
+
+            return (
+                <div className="fade-in max-w-5xl mx-auto pb-20">
+                    {/* Progress Indicator */}
+                    <div className="flex items-center justify-between mb-8 bg-white p-4 rounded-2xl shadow-sm border border-gray-100">
+                        <div className="font-bold text-navy flex items-center gap-2">
+                            <span className="bg-gold text-navy w-8 h-8 rounded-full flex items-center justify-center text-sm">{currentIndex + 1}</span>
+                            الوحدة الدراسية
+                        </div>
+                        <div className="flex gap-2">
+                            {courseData.map((_, idx) => (
+                                <div key={idx} className={`h-2 w-6 md:w-10 rounded-full transition-all duration-500 ${idx <= currentIndex ? 'bg-gold' : 'bg-gray-200'}`}></div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Content Component */}
+                    <div className={`${topic.color} p-6 md:p-10 rounded-[2rem] shadow-lg border border-white/50 mb-10 relative overflow-hidden`}>
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                        <h2 className="text-3xl md:text-4xl font-amiri font-bold text-navy mb-8 flex items-center gap-3">
+                            <span className="text-4xl drop-shadow-md">{topic.icon}</span>
+                            {topic.title}
+                        </h2>
+                        {topic.content}
+                    </div>
+
+                    {/* Mindmap Section */}
+                    <div className="mb-12 rounded-[2rem] overflow-hidden shadow-2xl">
+                        {topic.mindmap}
+                    </div>
+
+                    {/* Assessment Section */}
+                    <div className="bg-white p-6 md:p-10 rounded-[2rem] shadow-glass border border-gray-100">
+                        <h3 className="text-2xl font-amiri font-bold text-navy mb-2 flex items-center gap-2"><svg className="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd"></path></svg>التقييم التكويني (أسئلة تفاعلية)</h3>
+                        <p className="text-gray-500 mb-8 text-sm font-bold">أجب بشكل صحيح لتفعيل أيقونة الانتقال للوحدة التالية.</p>
+                        
+                        {renderQuestions()}
+
+                        {/* Next Action */}
+                        <div className="mt-10 text-center border-t-2 border-gray-100 pt-8">
+                            {isPassed ? (
+                                <div className="fade-in">
+                                    <p className="text-green-600 font-bold mb-4 text-lg">أحسنت! إجاباتك صحيحة، يمكنك الآن الانتقال.</p>
+                                    <button onClick={handleNext} className="bg-gradient-to-l from-navy to-blue-900 text-cream px-10 py-4 rounded-xl font-bold text-xl hover:shadow-glow-navy transition-all transform hover:scale-105 pulse-btn">
+                                        {currentIndex < courseData.length - 1 ? 'الانتقال إلى الموضوع التالي ⬅️' : 'الانتقال لقسم المراجعة 🧠'}
+                                    </button>
+                                </div>
+                            ) : (
+                                <button disabled className="bg-gray-200 text-gray-400 px-10 py-4 rounded-xl font-bold text-lg cursor-not-allowed">
+                                    أكمل الإجابة بشكل صحيح لتتمكن من المتابعة 🔒
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- View 3: Smart Review (Flashcards & Accordions) ---
+        const SmartReviewScreen = ({ setView }) => {
+            const [openAcc, setOpenAcc] = useState(null);
+            const toggleAcc = (i) => { setOpenAcc(openAcc === i ? null : i); };
+
+            return (
+                <div className="fade-in max-w-6xl mx-auto pb-20">
+                    <div className="text-center mb-12">
+                        <h2 className="text-4xl font-amiri font-bold text-navy mb-4">المراجعة الذكية المزدوجة 🧠</h2>
+                        <p className="text-lg text-gray-600">اقلب البطاقات وتصفح الأسئلة المقالية لتثبيت المعلومات قبل الاختبار النهائي.</p>
+                    </div>
+
+                    {/* Section 1: Flashcards */}
+                    <div className="bg-trait1 p-8 rounded-[2rem] shadow-sm mb-12">
+                        <h3 className="text-2xl font-bold text-navy mb-8 border-r-4 border-gold pr-3">أولاً: بطاقات المفاهيم (Flashcards)</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            {flashcards.map((card, idx) => (
+                                <div key={idx} className="flip-card">
+                                    <div className="flip-card-inner">
+                                        <div className="flip-card-front text-xl font-amiri font-bold text-center">
+                                            {card.front}
+                                        </div>
+                                        <div className="flip-card-back text-sm leading-relaxed overflow-y-auto font-tajawal p-4 font-bold text-center">
+                                            {card.back}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Section 2: Accordions */}
+                    <div className="bg-trait8 p-8 rounded-[2rem] shadow-sm mb-12">
+                        <h3 className="text-2xl font-bold text-navy mb-8 border-r-4 border-red-500 pr-3">ثانياً: الأسئلة المقالية والتحليلية</h3>
+                        <div className="space-y-4 max-w-4xl mx-auto">
+                            {accordions.map((acc, idx) => {
+                                const isOpen = openAcc === idx;
+                                return (
+                                    <div key={idx} className={`bg-white rounded-2xl overflow-hidden shadow-sm transition-all duration-300 border ${isOpen ? 'border-navy' : 'border-gray-200'}`}>
+                                        <button onClick={() => toggleAcc(idx)} className={`w-full text-right px-6 py-5 font-bold flex justify-between items-center focus:outline-none transition-colors ${isOpen ? 'bg-navy text-gold' : 'text-navy hover:bg-gray-50'}`}>
+                                            <span className="text-lg">{idx + 1}. {acc.q}</span>
+                                            <svg className={`w-6 h-6 transition-transform transform ${isOpen ? 'rotate-180 text-gold' : 'text-gray-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        </button>
+                                        <div className={`px-6 overflow-hidden transition-all duration-500 ease-in-out bg-gray-50 ${isOpen ? 'max-h-96 py-5 border-t border-gray-200 opacity-100' : 'max-h-0 py-0 opacity-0'}`}>
+                                            <p className="text-gray-800 leading-relaxed font-bold text-lg border-r-4 border-gold pr-4">{acc.a}</p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+
+                    <div className="text-center">
+                        <button onClick={() => setView('final')} className="bg-gold text-navy px-12 py-5 rounded-2xl font-bold text-2xl hover:bg-navy hover:text-gold transition-all shadow-glow pulse-btn">
+                            الدخول للاختبار التقييمي النهائي 🏆
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- View 4: Final Assessment & Submission (20 MCQs) ---
+        const FinalQuizScreen = ({ studentName, section, startTime }) => {
+            const [answers, setAnswers] = useState({});
+            const [submitted, setSubmitted] = useState(false);
+            const [score, setScore] = useState(0);
+            const [submitStatus, setSubmitStatus] = useState('');
+
+            const handleSelect = (qIdx, oIdx) => {
+                if(!submitted) setAnswers({...answers, [qIdx]: oIdx});
+            };
+
+            const calculateAndSubmit = async () => {
+                if (Object.keys(answers).length < finalQuizData.length) {
+                    alert('الرجاء الإجابة على جميع الأسئلة (20 سؤال) قبل التسليم.'); return;
+                }
+                
+                let s = 0;
+                finalQuizData.forEach((q, i) => { if(answers[i] === q.ans) s++; });
+                setScore(s);
+                setSubmitted(true);
+                setSubmitStatus('sending');
+                
+                const minutes = Math.floor(Math.abs(new Date() - startTime) / 60000);
+
+                // Silent form submission (No-CORS)
+                const formURL = 'https://docs.google.com/forms/d/e/1FAIpQLSfvsMrAKL-c6fdoEvUyz83Mi0Ns4IuNp7VBL1tOrxY14P1-9Q/formResponse';
                 const formData = new FormData();
-                formData.append(ENTRIES.name, this.state.name);
-                formData.append(ENTRIES.score, this.state.score.toString());
-                formData.append(ENTRIES.time, this.state.timeStr);
+                formData.append('entry.1617589291', 'الثالثة'); 
+                formData.append('entry.987608423', studentName); 
+                formData.append('entry.992898656', section); 
+                formData.append('entry.1901145640', s.toString()); 
+                formData.append('entry.1217028614', minutes.toString()); 
 
                 try {
-                    await fetch(FORM_URL, { method: "POST", body: formData, mode: "no-cors" });
-                } catch (e) { console.error("Form Error"); }
-            }
+                    await fetch(formURL, { method: 'POST', mode: 'no-cors', body: formData });
+                    setSubmitStatus('success');
+                } catch (e) {
+                    setSubmitStatus('error');
+                }
+            };
+
+            return (
+                <div className="max-w-4xl mx-auto fade-in pb-20">
+                    <h2 className="text-4xl font-amiri font-bold text-center text-navy mb-8">التقييم الشامل (20 سؤال) 📝</h2>
+                    
+                    {!submitted ? (
+                        <div className="space-y-6">
+                            {finalQuizData.map((q, qIdx) => (
+                                <div key={qIdx} className="bg-white p-6 rounded-[1.5rem] shadow-sm border-2 border-gray-100 hover:border-gold transition-colors">
+                                    <h3 className="font-bold text-navy text-lg mb-4 flex gap-2">
+                                        <span className="bg-navy text-cream w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-full">{qIdx+1}</span>
+                                        {q.q}
+                                    </h3>
+                                    <div className="space-y-3 pr-10">
+                                        {q.options.map((opt, oIdx) => (
+                                            <button key={oIdx} onClick={() => handleSelect(qIdx, oIdx)} className={`w-full text-right p-3 rounded-xl border-2 transition-all font-bold ${answers[qIdx] === oIdx ? 'bg-trait2 border-blue-500 text-blue-900 shadow-md' : 'bg-gray-50 border-gray-200 hover:bg-gray-100 hover:border-gray-300'}`}>
+                                                {opt}
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+                            ))}
+                            
+                            <div className="sticky bottom-4 z-40 bg-white/90 backdrop-blur p-4 rounded-2xl shadow-glow-navy border border-gray-200 mt-10">
+                                <div className="flex justify-between items-center">
+                                    <div className="text-navy font-bold">تمت الإجابة على: {Object.keys(answers).length} / 20</div>
+                                    <button onClick={calculateAndSubmit} className="bg-navy text-gold px-10 py-3 rounded-xl font-bold text-xl hover:bg-gold hover:text-navy transition shadow-lg">إنهاء وإرسال النتيجة للأستاذ 📤</button>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="bg-white p-12 rounded-[3rem] shadow-glow-navy text-center fade-in border-4 border-gold">
+                            <h3 className="text-5xl font-amiri font-bold text-navy mb-6">النتيجة النهائية</h3>
+                            <div className="text-8xl font-bold text-gold mb-8 drop-shadow-md">{score} / 20</div>
+                            <p className="text-2xl mb-4 text-gray-700">بارك الله فيك يا <span className="font-bold text-navy border-b-2 border-gold">{studentName}</span>!</p>
+                            <p className="text-gray-500 mb-8 font-bold">لقد أتممت دراسة المحاضرة الثالثة واجتزت التقييم بنجاح.</p>
+                            
+                            {submitStatus === 'sending' && (
+                                <div className="text-blue-600 font-bold flex justify-center items-center gap-3 bg-blue-50 p-4 rounded-xl inline-flex">
+                                    <svg className="animate-spin h-6 w-6" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                    جاري حفظ تقدمك وإرسال البيانات بصمت إلى الأستاذ...
+                                </div>
+                            )}
+                            {submitStatus === 'success' && (
+                                <div className="text-emerald-700 font-bold text-xl p-6 bg-emerald-50 rounded-2xl border-2 border-emerald-300 fade-in inline-block shadow-sm">
+                                    ✅ تم حفظ نتيجتك ({score} درجة) وإرسالها للأستاذ د. باسم القرافي بنجاح! يمكنك إغلاق هذه الصفحة الآن.
+                                </div>
+                            )}
+                            {submitStatus === 'error' && (
+                                <div className="text-red-600 font-bold text-lg p-4 bg-red-50 rounded-xl">
+                                    حدث خطأ في الاتصال، ولكنك أتممت المحاضرة.
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+            );
         };
+
+        // --- Main App Flow ---
+        const App = () => {
+            const [view, setView] = useState('welcome'); // welcome, topics, review, final
+            const [studentName, setStudentName] = useState('');
+            const [section, setSection] = useState('');
+            const [startTime, setStartTime] = useState(null);
+
+            return (
+                <div className="min-h-screen flex flex-col font-tajawal text-navy">
+                    {view !== 'welcome' && <Header />}
+                    <main className="flex-grow container mx-auto px-4 py-8">
+                        {view === 'welcome' && <WelcomeScreen setStudentName={setStudentName} setSection={setSection} setStartTime={setStartTime} setView={setView} />}
+                        {view === 'topics' && <TopicsFlow setView={setView} />}
+                        {view === 'review' && <SmartReviewScreen setView={setView} />}
+                        {view === 'final' && <FinalQuizScreen studentName={studentName} section={section} startTime={startTime} />}
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
