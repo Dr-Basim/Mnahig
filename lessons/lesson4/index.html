@@ -1,0 +1,1056 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>مقرر مناهج البحث — المحاضرة الرابعة</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ================= المتغيرات والألوان ================= */
+:root {
+  --navy: #0a1628;
+  --navy2: #152238;
+  --gold: #c9973a;
+  --gold-light: #e8c678;
+  --cream: #f9f8f4; 
+  --blue: #1d4ed8;
+  --green: #059669;
+  --red: #dc2626;
+  --text-main: #1e293b;
+  --text-muted: #475569;
+  
+  --font-title: 'Tajawal', sans-serif;
+  --font-body: 'IBM Plex Sans Arabic', sans-serif;
+  --font-quran: 'Amiri', serif;
+  
+  --rad: 12px;
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  --border: #e2e8f0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: var(--font-body); background: var(--cream); color: var(--text-main); overflow: hidden; }
+.app { height: 100%; display: flex; flex-direction: column; }
+
+/* ================= تلوين النصوص العلمي ================= */
+.term-blue { color: var(--blue); font-weight: 700; font-size: 1.05rem; }
+.hl-green { color: var(--green); font-weight: 700; }
+.hl-red { color: var(--red); font-weight: 700; }
+.section-head { color: var(--navy); font-weight: 800; font-size: 1.1rem; margin-top: 15px; margin-bottom: 5px; display: inline-block; border-bottom: 2px solid var(--gold); }
+
+/* ================= الهيدر ================= */
+.hdr { background: var(--navy); padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--gold); z-index: 100; box-shadow: 0 4px 15px rgba(0,0,0,0.15); color: #fff; }
+.hdr-right { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.hdr-dr { color: var(--gold); font-family: var(--font-title); font-weight: 700; font-size: 0.95rem; }
+.logo-box { height: 45px; background: transparent; display: flex; align-items: center; justify-content: center; }
+.logo-box img { max-height: 100%; object-fit: contain; }
+.hdr-center { text-align: center; flex: 1; }
+.hdr-course { font-family: var(--font-quran); font-size: 1.8rem; color: var(--gold-light); font-weight: 700; margin-bottom: 2px; }
+.hdr-lecture { font-size: 0.95rem; color: #cbd5e1; font-family: var(--font-title); }
+.hdr-stu { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 6px 12px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; color: #fff; }
+
+/* ================= التخطيط ================= */
+.main { flex: 1; overflow: hidden; position: relative; }
+.scr { position: absolute; inset: 0; overflow-y: auto; padding: 20px 20px 120px; display: none; opacity: 0; transition: 0.4s ease; max-width: 1000px; margin: 0 auto; width: 100%; scrollbar-width: thin; }
+.scr.on { display: block; opacity: 1; animation: fadeIn 0.4s; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ================= شاشة الدخول ================= */
+.welcome-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: url('https://www.transparenttextures.com/patterns/arabesque.png') repeat, var(--cream); }
+.welcome-box { background: #fff; padding: 40px 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 500px; width: 100%; text-align: center; border-top: 5px solid var(--navy); }
+.welcome-box .logo-box-login { background: transparent; height: 80px; margin-bottom: 15px; display: flex; justify-content: center; }
+.welcome-box .logo-box-login img { max-height: 100%; }
+.w-title { font-family: var(--font-title); color: var(--navy); font-size: 2.2rem; font-weight: 900; margin-bottom: 10px; }
+.w-sub { color: var(--gold); font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+.w-dr { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 30px; }
+.welcome-input { width: 100%; padding: 16px; border-radius: 8px; border: 1px solid var(--border); outline: none; margin-bottom: 15px; font-family: var(--font-body); font-size: 1rem; text-align: center; background: #fdfbf7; transition: 0.3s; }
+.welcome-input:focus { border-color: var(--gold); background: #fff; }
+.w-btn { width: 100%; background: var(--navy); color: #fff; padding: 16px; border-radius: 8px; font-family: var(--font-title); font-weight: 800; font-size: 1.2rem; border: none; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+.w-btn:hover { background: var(--gold); color: var(--navy); }
+
+/* ================= 0. شاشة التمهيد ================= */
+.num-list { list-style: none; padding: 0; margin: 16px 0; counter-reset: item; }
+.num-list li { counter-increment: item; padding: 14px 50px 14px 14px; margin-bottom: 10px; background: linear-gradient(90deg, #f8f6f1, #fff); border-radius: 14px; border: 1px solid rgba(0,0,0,.05); position: relative; line-height: 1.8; font-size:1.05rem; font-weight:600;}
+.num-list li::before { content: counter(item); position: absolute; right: 12px; top: 12px; width: 30px; height: 30px; border-radius: 50%; background: var(--gold); color: #fff; display: grid; place-items: center; font-weight: 900; font-size: .85rem; }
+.gold-text { color: var(--gold); font-weight: 800; }
+
+/* ================= 1. البانر الرئيسي ================= */
+.hero-banner { background: #fcf9f2; border: 1px solid #eaddc4; border-radius: var(--rad); padding: 30px; text-align: center; margin-bottom: 30px; margin-top: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+.hero-icon { font-size: 2.5rem; margin-bottom: 10px; }
+.hero-title { font-family: var(--font-title); font-size: 2.2rem; color: var(--navy); font-weight: 900; margin-bottom: 10px; }
+.hero-sub { color: var(--gold); font-weight: 700; font-size: 1.1rem; margin-bottom: 20px; }
+.hero-line { height: 3px; background: linear-gradient(to left, transparent, var(--gold), transparent); margin: 20px auto; width: 80%; }
+.hero-tags { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.hero-tag { background: #fff; border: 1px solid #eaddc4; padding: 6px 18px; border-radius: 20px; font-size: 0.9rem; font-weight: 700; color: var(--navy); }
+
+/* ================= 2. شبكات المعلومات ================= */
+.block-header { font-family: var(--font-title); font-size: 1.6rem; color: var(--navy); font-weight: 900; margin: 30px 0 15px; }
+.info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 30px; }
+.info-card { background: #fff; border: 1px solid var(--border); border-radius: var(--rad); padding: 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+.info-card-icon { font-size: 2rem; margin-bottom: 10px; }
+.info-card-title { font-family: var(--font-title); font-weight: 900; color: var(--navy); font-size: 1.1rem; margin-bottom: 8px; }
+.info-card-desc { color: var(--text-main); font-size: 0.95rem; line-height: 1.6; font-weight:500;}
+
+/* ================= 3. المدخل والنصوص ================= */
+.intro-text { font-size: 1.1rem; line-height: 1.8; color: var(--text-main); margin-bottom: 15px; border-right: 4px solid var(--gold); padding-right: 15px; background: #fff; padding: 15px; border-radius: 8px; font-weight:500;}
+
+/* ================= 4. النص الشامل (الأكورديون) ================= */
+.accordion { background: #fff; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); overflow: hidden; }
+.accordion-header { padding: 18px 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: var(--font-title); font-weight: 800; font-size: 1.15rem; color: var(--navy); background: linear-gradient(to left, #fff, #fdfbf7); transition: 0.3s; border-right: 4px solid var(--gold); }
+.accordion-header:hover { background: var(--cream); }
+.accordion-icon { color: var(--gold); font-weight: bold; font-size: 1.2rem; transition: 0.3s; }
+.accordion.active .accordion-icon { transform: rotate(45deg); }
+.accordion-body { max-height: 0; overflow: hidden; transition: 0.5s ease; padding: 0 20px; font-size: 1.05rem; line-height: 2.1; color: var(--text-main); font-weight:500;}
+.accordion.active .accordion-body { padding: 25px 20px; max-height: 4000px; border-top: 1px solid var(--border); }
+.accordion-body ul, .accordion-body ol { margin-right: 25px; margin-bottom: 15px; margin-top: 10px; }
+.accordion-body li { margin-bottom: 10px; padding-right: 5px; }
+
+/* ================= 5. الخرائط الذهنية ================= */
+.tree-container { display: flex; flex-direction: column; align-items: center; background: #fff; border: 1px solid var(--border); border-radius: var(--rad); padding: 30px; overflow-x: auto; margin-bottom: 30px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+.tree-root { background: var(--navy); color: #fff; padding: 12px 30px; border-radius: 8px; font-family: var(--font-title); font-weight: 800; font-size: 1.2rem; border-bottom: 3px solid var(--gold); margin-bottom: 30px; position: relative; z-index: 2; }
+.tree-branches { display: flex; gap: 20px; position: relative; justify-content: center; min-width:max-content;}
+.tree-branches::before { content: ''; position: absolute; top: -16px; left: 10%; right: 10%; height: 2px; background: var(--gold); }
+.tree-branches::after { content: ''; position: absolute; top: -30px; left: 50%; width: 2px; height: 16px; background: var(--gold); }
+.tree-node { position: relative; display: flex; flex-direction: column; align-items: center; width: 200px; }
+.tree-node::before { content: ''; position: absolute; top: -16px; left: 50%; width: 2px; height: 16px; background: var(--gold); }
+.tree-leaf { background: #fdfbf7; border: 1px solid var(--gold); color: var(--navy); padding: 15px; border-radius: 8px; text-align: center; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.tree-leaf h4 { font-family: var(--font-title); font-size: 1.05rem; font-weight: 900; margin-bottom: 8px; }
+.tree-leaf p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; font-weight: 600; }
+
+/* ================= 6. التمارين ================= */
+.app-scenario { background: #f8fafc; border-right: 4px solid var(--blue); padding: 15px 20px; border-radius: 8px; margin-bottom: 15px; font-size: 1.05rem; line-height: 1.7; font-weight: 600; color: var(--navy); }
+.ex-box { border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+.ex-q { font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; color: var(--navy); }
+.ex-opts { display: flex; gap: 10px; flex-wrap: wrap; }
+.ex-btn { flex: 1; min-width: 140px; background: #f8fafc; border: 1px solid var(--border); padding: 12px; border-radius: 8px; font-family: var(--font-body); font-weight: 600; cursor: pointer; transition: 0.2s; color: var(--navy); }
+.ex-btn:hover { border-color: var(--gold); background: #fff; }
+.ex-fb { display: none; margin-top: 15px; padding: 15px; border-radius: 8px; font-size: 0.95rem; font-weight: 700; line-height: 1.6; }
+.ex-fb.right { display: block; background: #d1fae5; color: #065f46; border: 1px solid var(--green); }
+.ex-fb.wrong { display: block; background: #fee2e2; color: #991b1b; border: 1px solid var(--red); }
+
+.game-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.g-item, .g-choice { padding: 15px; border-radius: 8px; font-weight: 700; cursor: pointer; text-align: center; display: flex; align-items: center; justify-content: center; min-height: 60px; transition: 0.2s; font-size: 0.95rem; line-height: 1.5; }
+.g-item { background: var(--navy); color: #fff; }
+.g-choice { background: #fff; border: 2px solid var(--gold); color: var(--navy); }
+.g-item.active { transform: scale(1.05); background: var(--gold); }
+.g-choice:hover { background: #fdfbf7; }
+.g-item.done, .g-choice.done { opacity: 0.5; background: var(--green) !important; border-color: var(--green) !important; color: #fff !important; pointer-events: none; }
+
+/* ================= شريط التقدم والأزرار ================= */
+.progress-tracker { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px 20px; border-radius: 12px; border: 1px solid var(--border); margin: 20px 0; font-weight: 700; color: var(--navy); }
+.prog-dots { display: flex; gap: 8px; }
+.prog-dot { width: 14px; height: 14px; border-radius: 50%; background: #e2e8f0; transition: 0.3s; }
+.prog-dot.done { background: var(--green); box-shadow: 0 0 8px rgba(5,150,105,0.4); }
+
+.nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; }
+.nav-btn { border: none; padding: 14px 28px; border-radius: 30px; font-family: var(--font-title); font-weight: 800; font-size: 1.1rem; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+.btn-gold { background: var(--gold); color: #fff; }
+.btn-navy { background: var(--navy); color: #fff; }
+.btn-outline { background: #fff; border: 2px solid var(--navy); color: var(--navy); }
+.nav-btn:disabled { background: #cbd5e1; color: #64748b; box-shadow: none; cursor: not-allowed; }
+
+/* ================= التبويبات السفلية والمراجعة ================= */
+.bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.98); border-top: 3px solid var(--gold); padding: 10px 10px max(10px, env(safe-area-inset-bottom)); box-shadow: 0 -5px 20px rgba(0,0,0,0.05); display: none; }
+.bottom-inner { max-width: 1000px; margin: 0 auto; display: flex; justify-content: center; gap: 15px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.bottom-inner::-webkit-scrollbar { display: none; }
+.btab { flex-shrink: 0; white-space: nowrap; background: transparent; border: none; color: var(--text-muted); font-family: var(--font-title); font-weight: 800; font-size: 1.05rem; padding: 10px 30px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px; }
+.btab.act { background: var(--navy); color: var(--gold-light); }
+.btab.locked { opacity: 0.4; cursor: not-allowed; }
+
+.essay-item { border-radius: 12px; margin-bottom: 15px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; }
+.essay-navy .essay-q { background: var(--navy); color: #fff; border-bottom: 3px solid var(--gold); }
+.essay-gold .essay-q { background: var(--gold); color: var(--navy); border-bottom: 3px solid var(--navy); }
+.essay-q { padding: 18px 20px; font-family: var(--font-title); font-weight: 800; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; gap: 15px; }
+.essay-q::before { content: "▼"; font-size: 0.9rem; transition: 0.3s; }
+.essay-item.open .essay-q::before { transform: rotate(180deg); }
+.essay-a { max-height: 0; overflow: hidden; transition: 0.4s ease; background: #fff; font-size: 1.05rem; line-height: 1.9; color: var(--text-main); font-weight:600;}
+.essay-item.open .essay-a { padding: 20px; max-height: 1000px; }
+
+/* التقييم النهائي والمراجعة */
+.qz-card { background: #fff; border-radius: 12px; padding: 30px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.qz-opt { display: block; width: 100%; padding: 16px; margin: 10px 0; border: 2px solid #e2e8f0; border-radius: 8px; background: #fff; cursor: pointer; text-align: right; font-family: var(--font-body); font-size: 1rem; font-weight: 600; transition: 0.2s; }
+.qz-opt:hover { border-color: var(--navy); background: #f8fafc; }
+.qz-opt.right { background: var(--green); color: #fff; border-color: var(--green); }
+.qz-opt.wrong { background: var(--red); color: #fff; border-color: var(--red); }
+
+.fc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;}
+.fc { height: 180px; perspective: 1000px; cursor: pointer; }
+.fc-in { position: relative; width: 100%; height: 100%; transition: 0.6s; transform-style: preserve-3d; border-radius: 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.fc.flip .fc-in { transform: rotateY(180deg); }
+.fc-f, .fc-b { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 16px; padding: 20px; display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.6; }
+.fc-f { background: var(--navy); color: #fff; font-weight: 700; font-size: 1.1rem; border: 2px solid var(--gold); }
+.fc-b { background: #fff; border: 2px solid var(--navy); color: var(--navy); transform: rotateY(180deg); font-weight: 600; }
+
+.toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--navy); color: var(--gold-light); padding: 12px 25px; border-radius: 30px; font-weight: 700; z-index: 1000; opacity: 0; transition: 0.3s; pointer-events: none; border: 1px solid var(--gold); }
+.toast.on { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <!-- ================= HEADER ================= -->
+  <header class="hdr" id="mainHeader" style="display:none">
+    <div class="hdr-right">
+      <div class="logo-box">
+        <img src="../../logo.png" alt="شعار الجامعة" onerror="this.style.display='none'; this.parentElement.textContent='جامعة طيبة'">
+      </div>
+      <div class="hdr-dr">د/ باسم القرافي</div>
+    </div>
+    <div class="hdr-center">
+      <div class="hdr-course">مناهج البحث في الدراسات الإسلامية</div>
+      <div class="hdr-lecture">المحاضرة الرابعة: خطة البحث وعناصرها</div>
+    </div>
+    <div class="hdr-stu" id="stuInfo"></div>
+  </header>
+
+  <div class="main">
+    
+    <!-- ================= شاشة الدخول ================= -->
+    <div id="s-login" class="scr on" style="padding:0; max-width: none;">
+      <div class="welcome-wrap">
+        <div class="welcome-box">
+          <div class="logo-box-login">
+            <img src="../../logo.png" alt="شعار الجامعة" onerror="this.style.display='none'">
+          </div>
+          <h1 class="w-title">مناهج البحث في الدراسات الإسلامية</h1>
+          <div class="w-sub">المحاضرة الرابعة: خطة البحث وعناصرها</div>
+          <div class="w-dr">إعداد: د/ باسم القرافي</div>
+          
+          <input type="text" id="iName" class="welcome-input" placeholder="أدخل اسمك الكامل هنا...">
+          <input type="text" id="iSec" class="welcome-input" placeholder="رقم الشعبة (مثال: YM3)">
+          <button class="w-btn" onclick="doLogin()">ابدأ رحلة التعلم المعرفي</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= 0. شاشة التمهيد ================= -->
+    <div id="s-0" class="scr">
+      <div class="hero-banner" style="background:#0a1628; border-color:var(--gold); padding:40px;">
+        <div class="hero-icon" style="color:var(--gold);">📝</div>
+        <div class="hero-title" style="color:#fff; font-family:var(--font-quran);">التوطئة المعرفية للمحاضرة</div>
+        <div class="hero-sub" style="color:var(--gold-light);">نظرة شمولية على مسار المحاضرة قبل البدء بالتفاصيل</div>
+      </div>
+
+      <div class="block-header">نظرة عامة على محاور المحاضرة</div>
+      <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid var(--border);">
+        <p style="font-size:1.1rem; line-height:1.8; margin-bottom:15px; font-weight:600;">تمثل "خطة البحث" المشروع الهندسي الذي يُبنى عليه البحث العلمي، وبدونها يتشتت جهد الباحث ويضيع وقته. سنتناول في هذه المحاضرة العناصر الأساسية لبناء خطة محكمة، وهي مقسمة على النحو الآتي:</p>
+        <ul class="num-list">
+          <li><span class="gold-text">مفهوم الخطة:</span> إدراك أهمية التخطيط ودوره في توجيه بوصلة البحث.</li>
+          <li><span class="gold-text">الأهمية والأهداف:</span> التمييز الدقيق بين دوافع اختيار الموضوع (الأهمية) وما يسعى الباحث للوصول إليه (الأهداف).</li>
+          <li><span class="gold-text">حدود البحث (الموضوعية والزمانية والمكانية):</span> تقييد مسار البحث لمنع التشعب وضياع الجهد.</li>
+          <li><span class="gold-text">حدود البحث (الشخصية والوعائية والعينية):</span> أدوات تحديد نطاق الدراسة المتخصصة.</li>
+          <li><span class="gold-text">تبويب البحث:</span> الهيكلة المنطقية للبحث وتفريعاته (أبواب، فصول، مباحث) وشروط صياغة عناوينها.</li>
+          <li><span class="gold-text">الدراسات السابقة:</span> أهميتها في منع التكرار، وطرق ترتيبها، ومنهجية النقد العلمي السليم لها.</li>
+        </ul>
+      </div>
+
+      <div class="nav-row">
+        <div></div><button class="nav-btn btn-navy" onclick="goSlide(1)">التالي: مفهوم الخطة ➜</button>
+      </div>
+    </div>
+
+    <!-- ================= 1. مفهوم خطة البحث ================= -->
+    <div id="s-1" class="scr" data-req="4">
+      <div class="hero-banner">
+        <div class="hero-icon">🏗️</div>
+        <div class="hero-title">الباب الأول: مفهوم خطة البحث وأهميتها</div>
+        <div class="hero-sub">الهيكل التنظيمي والمشروع الهندسي لعلاج مشكلة البحث</div>
+        <div class="hero-line"></div>
+        <div class="hero-tags"><div class="hero-tag">التعريف</div><div class="hero-tag">تحديد المعالم</div><div class="hero-tag">منع التشتت</div><div class="hero-tag">القراءة والمشرف</div></div>
+      </div>
+
+      <div class="block-header">مخرجات التعلم</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="info-card-icon">📘</div><div class="info-card-title">مفهوم الخطة</div><div class="info-card-desc">فهم الخطة كـ "مشروع هندسي" يوجه عمل الباحث.</div></div>
+        <div class="info-card"><div class="info-card-icon">⏱️</div><div class="info-card-title">أهمية التخطيط</div><div class="info-card-desc">إدراك أن العمل بلا خطة هو مضيعة للوقت وتبديد للجهد.</div></div>
+        <div class="info-card"><div class="info-card-icon">🤝</div><div class="info-card-title">معينات البناء</div><div class="info-card-desc">معرفة دور "القراءة المستفيضة" و"مراجعة المشرف" في بناء الخطة.</div></div>
+      </div>
+
+      <div class="block-header">المدخل</div>
+      <div class="intro-text">لا بد في كتابة البحث من وضع خطة كاملة تحدد معالمه؛ إذ البحث من دون خطة يُعد مضيعة للوقت، وتبديداً للجهد، وتخبطاً في مسارات غير واضحة.</div>
+
+      <div class="block-header">افهم بسرعة</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="info-card-icon">📐</div><div class="info-card-title">التعريف</div><div class="info-card-desc">هي الهيكل التنظيمي والخطوط العامة التي يهتدي بها الباحث.</div></div>
+        <div class="info-card"><div class="info-card-icon">🖼️</div><div class="info-card-title">صورة كاملة</div><div class="info-card-desc">تعطي الخطة تصوراً متكاملاً، كل عنصر يكمل جانباً من الصورة.</div></div>
+        <div class="info-card"><div class="info-card-icon">📖</div><div class="info-card-title">كيف نضعها؟</div><div class="info-card-desc">عبر القراءة في المظان ومراجعة المشرف.</div></div>
+      </div>
+
+      <div class="block-header">النص العلمي الكامل</div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">تعريف الخطة وأهميتها للباحث <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <span class="section-head">مفهوم خطة البحث:</span><br>
+          <ul>
+            <li>خطة البحث هي الهيكل التنظيمي للبحث، و<span class="hl-red">المشروع الهندسي</span> الذي يقام عليه علاج مشكلة البحث.</li>
+            <li>هي الخطوط العامة التي يهتدي بها الباحث عند تنفيذه لبحثه، لكي لا يحيد عن مساره.</li>
+            <li>خطة البحث عبارة عن وَحَدَات تجمع أجزاء الموضوع تحت مسمى الباب، أو الفصل، أو المبحث، أو المطلب، أو المسألة. ولا بد لهذه الوحدات من الارتباط الوثيق بعنوان البحث.</li>
+          </ul>
+          <span class="section-head">أهمية وجود الخطة:</span><br>
+          لا بد في كتابة البحث من وضع خطة كاملة تحدد معالمه؛ إذ البحث من دون خطة هو <span class="hl-green">مضيعة للوقت، وتبديد للجهد</span>. فالخطة هي رسم صورة كاملة عنه، وكل عنصر فيها يكمل جانباً من جوانب تلك الصورة.
+        </div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">أكبر المعينات في وضع الخطة والمزالق التي يجب تفاديها <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <span class="section-head">كيف يستعين الباحث لوضع خطة محكمة؟</span><br>
+          من أكبر ما يعين على وضع الخطة المناسبة أمران:
+          <ol>
+            <li>القراءة الواسعة في المصادر والمراجع ومظان البحث.</li>
+            <li><span class="term-blue">مراجعة المشرف</span>، والرجوع إليه ما أمكن الرجوع إليه.</li>
+          </ol>
+          <span class="section-head">تنبيهات منهجية (مزالق يجب تفاديها):</span><br>
+          ينبغي للباحث في وضع الخطة أن يتفادى التقسيمات العديدة المعقدة التي تربك القارئ، وأن يتفادى كذلك التقسيمات المجملة جداً (كأن تكون الخطة من أبواب فيضعها دون فصول، أو فصول دون مباحث، وهكذا).<br>
+          ولا يمكن الادعاء بأن خطة واحدة هي "السليمة" المطلقة، بل يمكن أن تكون الخطة في صور وأنماط ونماذج عديدة بشرط أن تحتوي على الأمور الجوهرية للبحث.
+        </div>
+      </div>
+
+      <div class="block-header">تطبيقات عملية</div>
+      <div class="app-scenario">📌 طالب دراسات عليا أراد البدء بجمع المادة العلمية وكتابة البحث فوراً قبل اعتماد هيكلة وخطة واضحة. (التطبيق: عمله هذا يعد مضيعة للوقت وتبديداً للجهد، فالخطة كالمشروع الهندسي لا بد منها قبل البناء).</div>
+
+      <div class="block-header">ملخص الدرس (خريطة ذهنية)</div>
+      <div class="tree-container">
+        <div class="tree-root">مفهوم خطة البحث وأهميتها</div>
+        <div class="tree-branches">
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>التعريف</h4><p>المشروع الهندسي والخطوط العامة الموجهة</p></div>
+          </div>
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>الأهمية</h4><p>منع التشتت وتبديد الجهد والوقت</p></div>
+          </div>
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>المعينات</h4><p>القراءة في المصادر والرجوع للمشرف</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-header">أسئلة الفهم (أكمل لفتح التالي)</div>
+      <div class="ex-box" id="ex-1-1">
+        <div class="ex-q">١. شبّه العلماء خطة البحث العلمي بـ:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(1, 1, this, true, 'صحيح. فهي الهيكل التنظيمي الأساسي.')">المشروع الهندسي</button><button class="ex-btn" onclick="act(1, 1, this, false, 'خاطئ.')">الفهرس العشوائي</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-1-2">
+        <div class="ex-q">٢. العمل والبحث الأكاديمي دون وضع خطة واضحة المعالم يؤدي إلى:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(1, 2, this, false, 'خاطئ.')">سرعة الإنجاز</button><button class="ex-btn" onclick="act(1, 2, this, true, 'أحسنت. لأن الباحث سيفقد البوصلة والموجه.')">مضيعة للوقت وتبديد للجهد</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-1-3">
+        <div class="ex-q">٣. من أكبر المعينات للباحث في وضع الخطة بعد القراءة في المصادر:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(1, 3, this, true, 'صحيح. فخبرة المشرف تقوم مسار الخطة.')">مراجعة المشرف والرجوع إليه</button><button class="ex-btn" onclick="act(1, 3, this, false, 'خاطئ.')">الاعتماد على الحدس فقط</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-1-4"><div class="ex-q">٤. صل المفاهيم:</div><div class="game-grid" id="game-1"></div></div>
+      
+      <div class="progress-tracker"><span>التقدم في هذا الموضوع:</span><div class="prog-dots" id="dots-1"><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div></div></div>
+      <div class="nav-row"><button class="nav-btn btn-outline" onclick="goSlide(0)">◁ التمهيد</button><button class="nav-btn btn-navy" id="next-1" disabled onclick="goSlide(2)">التالي: الأهمية والأهداف ➜</button></div>
+    </div>
+
+    <!-- ================= 2. الأهمية والأهداف ================= -->
+    <div id="s-2" class="scr" data-req="4">
+      <div class="hero-banner">
+        <div class="hero-icon">🎯</div>
+        <div class="hero-title">الباب الثاني: أهمية البحث وأهدافه</div>
+        <div class="hero-sub">التمييز بين دوافع الباحث (الأهمية) والنتائج المرجوة (الأهداف)</div>
+        <div class="hero-line"></div>
+        <div class="hero-tags"><div class="hero-tag">العنوان والمشكلة</div><div class="hero-tag">مسوغات البحث</div><div class="hero-tag">نتائج مرجوة</div><div class="hero-tag">ألفاظ التجلي</div></div>
+      </div>
+
+      <div class="block-header">مخرجات التعلم</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="info-card-icon">🏷️</div><div class="info-card-title">عناصر البدء</div><div class="info-card-desc">معرفة موقع "العنوان" و"المشكلة" في الخطة.</div></div>
+        <div class="info-card"><div class="info-card-icon">🌟</div><div class="info-card-title">أهمية البحث</div><div class="info-card-desc">إدراك أنها تمثل أسباب اختيار الموضوع وفوائده.</div></div>
+        <div class="info-card"><div class="info-card-icon">🎯</div><div class="info-card-title">أهداف البحث</div><div class="info-card-desc">فهمها كـ "نتائج" يسعى الباحث لتحقيقها، وصياغتها بأفعال دقيقة.</div></div>
+      </div>
+
+      <div class="block-header">المدخل</div>
+      <div class="intro-text">كثيراً ما يخلط الباحثون بين "الأهمية" و "الأهداف". والحقيقة أن بينهما فروقاً أجلاها: أن الأهمية ترجع لدوافع الباحث (لماذا)، بينما الأهداف ترجع للنتائج (ماذا سيحقق).</div>
+      
+      <div class="block-header">افهم بسرعة</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="info-card-icon">🌟</div><div class="info-card-title">الأهمية</div><div class="info-card-desc">سبب قبول الخطة، مسوغات الاختيار، وما سيترتب من فوائد.</div></div>
+        <div class="info-card"><div class="info-card-icon">🎯</div><div class="info-card-title">الأهداف</div><div class="info-card-desc">الأمور والنتائج التي يسعى الباحث لتحقيقها فعلياً.</div></div>
+        <div class="info-card"><div class="info-card-icon">✍️</div><div class="info-card-title">صياغة الهدف</div><div class="info-card-desc">يُصاغ بألفاظ مثل: بيان، إبراز، تجلية، التعرف على...</div></div>
+      </div>
+
+      <div class="block-header">النص العلمي الكامل</div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">العناصر الأولى: العنوان والمشكلة <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <span class="section-head">العنصر الأول: عنوان البحث</span><br>
+          حيث يُذكر الباحث في مقدمة خطته اسم عنوانه كاملاً ليكون دالاً على محتوى البحث.<br><br>
+          <span class="section-head">العنصر الثاني: مشكلة البحث</span><br>
+          وهي المشروع الرئيس في البحث، والأفكار الرئيسة والمساعدة التي تثير تساؤلات يسعى الباحث للإجابة عنها بالتفصيل.
+        </div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">أهمية البحث والفرق بينها وبين الأهداف <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <span class="section-head">العنصر الثالث: أهمية البحث</span><br>
+          هو عنصر رئيس في بناء الخطة، وهو <span class="term-blue">سبب من أسباب قبولها أو ردها</span>؛ فإذا أبرز الباحث أهمية البحث، وكانت الصياغة لها حسنة، كان ذلك من أعظم أسباب قبول الموضوع. وفي هذا العنصر يتكلم الباحث عن الموضوع نفسه، وفوائده، وخدمته للعلم وللأمة.<br>
+          <span class="hl-red">ملاحظة هامة:</span> يخلط كثير من الباحثين بين أهمية الموضوع، وأسباب اختياره. والحقيقة أن بينهما فروقاً أجلاها: أن الأهمية ترجع للموضوع البحثي نفسه وقيمته، في حين أن أسباب اختيار الموضوع ترجع للباحث (ميوله، إمكانياته، إلخ).<br><br>
+          <span class="section-head">الفرق الجوهري بين الأهمية والأهداف:</span><br>
+          <ul>
+            <li><span class="hl-green">الأهداف:</span> هي النتائج التي سوف يحققها الباحث عند انتهائه من البحث.</li>
+            <li><span class="hl-green">الأهمية:</span> هي ما يمكن أن يترتب عليه نتائج البحث من فوائد، وما يمكن تعميمه لصالح العملية التعليمية في مجال المشكلة.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">أهداف البحث وصياغتها المنهجية <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <span class="section-head">العنصر الرابع: أهداف البحث</span><br>
+          وهي الأمور التي يسعى الباحث إلى تحقيقها في بحثه. ومما يتوجب على الباحث العنايةُ به: أن يعنى بصياغة أهداف البحث في خطته بوضوح. ومما يعين على ذلك أن يربط صياغة الأهداف بصياغة المشكلة؛ فكأن الأهداف التي يسعى إلى تحقيقها هي الإجابة عن الأسئلة المثارة في المشكلة.<br><br>
+          <span class="section-head">صياغة الأهداف:</span><br>
+          يمكن تلافي ضعف الصياغة للهدف باستخدام <span class="hl-red">ألفاظ تجلي الهدف</span> وتجعله واضحاً قابلاً للقياس، مثل قوله: (بيان، إيضاح، إبراز، تجلية، إثبات، أو التعرف على...، أو الوقوف على...، أو الوصول إلى...، أو الرغبة في كذا وكذا...).<br>
+          <span class="term-blue">أخطاء في صياغة الأهداف:</span>
+          <ul>
+            <li>الخلط بين الأهداف، والأسباب، والأهمية والإجراءات.</li>
+            <li>أن تكون الأهداف غير مرتبطة بأسئلة البحث، ولا تمثل إجابة عنها.</li>
+            <li>الإكثار من الأهداف والتداخل بينها (يُفضل ذكر ٤ أو ٥ أهداف كافية).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block-header">تطبيقات عملية</div>
+      <div class="app-scenario">📌 كتب باحث ضمن "الأهداف": (هذا الموضوع مهم جداً لأنه يعالج قضية معاصرة تهم الشباب). (التطبيق: هذا خطأ منهجي؛ فما ذكره يندرج تحت "الأهمية/أسباب الاختيار" وليس الأهداف. الهدف يجب أن يصاغ هكذا: "بيان الحكم الشرعي للقضية المعاصرة...").</div>
+
+      <div class="block-header">ملخص الدرس (خريطة ذهنية)</div>
+      <div class="tree-container">
+        <div class="tree-root">الفرق بين الأهمية والأهداف</div>
+        <div class="tree-branches">
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>أهمية البحث</h4><p>مسوغات الاختيار وقيمة الموضوع وفوائده</p></div>
+          </div>
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>أهداف البحث</h4><p>النتائج المرجو تحقيقها استجابة للمشكلة</p></div>
+          </div>
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>ألفاظ الصياغة</h4><p>بيان، إبراز، تجلية، التعرف على...</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-header">أسئلة الفهم</div>
+      <div class="ex-box" id="ex-2-1">
+        <div class="ex-q">١. العنصر الذي يتحدث فيه الباحث عن فوائد الموضوع وقيمته العلمية وخدمته للأمة يُسمى:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(2, 1, this, false, 'خاطئ.')">أهداف البحث</button><button class="ex-btn" onclick="act(2, 1, this, true, 'صحيح. الأهمية تجيب عن مسوغات القبول والقيمة.')">أهمية البحث</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-2-2">
+        <div class="ex-q">٢. النتائج الدقيقة التي يسعى الباحث لتحقيقها والوصول إليها في نهاية بحثه تسمى:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(2, 2, this, true, 'أحسنت! هذا هو التعريف الدقيق للهدف.')">أهداف البحث</button><button class="ex-btn" onclick="act(2, 2, this, false, 'خاطئ.')">أهمية البحث</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-2-3">
+        <div class="ex-q">٣. لتكون صياغة الأهداف قوية، يُنصح ببدئها بأفعال وألفاظ تجليها مثل:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(2, 3, this, false, 'خاطئ.')">"أعتقد أن..." أو "ربما..."</button><button class="ex-btn" onclick="act(2, 3, this, true, 'صحيح. هذه الألفاظ تجعل الهدف قابلاً للقياس والتحقق.')">"بيان"، "إبراز"، "التعرف على"</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-2-4"><div class="ex-q">٤. صل المفاهيم:</div><div class="game-grid" id="game-2"></div></div>
+      
+      <div class="progress-tracker"><span>التقدم:</span><div class="prog-dots" id="dots-2"><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div></div></div>
+      <div class="nav-row"><button class="nav-btn btn-outline" onclick="goSlide(1)">◁ السابق</button><button class="nav-btn btn-navy" id="next-2" disabled onclick="goSlide(3)">التالي: حدود البحث (١) ➜</button></div>
+    </div>
+
+    <!-- ================= 3. حدود البحث (١) ================= -->
+    <div id="s-3" class="scr" data-req="4">
+      <div class="hero-banner">
+        <div class="hero-icon">🚧</div>
+        <div class="hero-title">الباب الثالث: حدود البحث ومجالاته (الجزء الأول)</div>
+        <div class="hero-sub">تقييد نطاق الدراسة لتكون محصورة وممكنة الإنجاز</div>
+        <div class="hero-line"></div>
+        <div class="hero-tags"><div class="hero-tag">الحدود الموضوعية</div><div class="hero-tag">الحدود الزمانية</div><div class="hero-tag">الحدود المكانية</div></div>
+      </div>
+
+      <div class="block-header">مخرجات التعلم</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="info-card-icon">📚</div><div class="info-card-title">الحد الموضوعي</div><div class="info-card-desc">تحديد المسألة العلمية الدقيقة التي يدرسها البحث.</div></div>
+        <div class="info-card"><div class="info-card-icon">⏳</div><div class="info-card-title">الحد الزماني</div><div class="info-card-desc">تخصيص عصر أو فترة زمنية معينة للبحث.</div></div>
+        <div class="info-card"><div class="info-card-icon">🌍</div><div class="info-card-title">الحد المكاني</div><div class="info-card-desc">قصر البحث على بيئة جغرافية محددة.</div></div>
+      </div>
+
+      <div class="block-header">المدخل</div>
+      <div class="intro-text">فالبحث العلمي الأكاديمي محدّدٌ محصورٌ مقصورٌ على موضوعٍ معين، وليس بحثاً عاماً مفتوحاً على مصراعيه يُدخل فيه الباحث ما شاء مما يطرأ عليه.</div>
+
+      <div class="block-header">افهم بسرعة</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="info-card-icon">📚</div><div class="info-card-title">الحدود الموضوعية</div><div class="info-card-desc">مثال: دراسة "لهجة قريش" فقط في بحث لغوي.</div></div>
+        <div class="info-card"><div class="info-card-icon">⏳</div><div class="info-card-title">الحدود الزمانية</div><div class="info-card-desc">مثال: البحث محدد بـ "القرن الأول الهجري".</div></div>
+        <div class="info-card"><div class="info-card-icon">🌍</div><div class="info-card-title">الحدود المكانية</div><div class="info-card-desc">مثال: دراسة متعلقة بـ "المدينة المنورة" فقط.</div></div>
+      </div>
+
+      <div class="block-header">النص العلمي الكامل</div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">العنصر الخامس: حدود البحث (المقدمة) <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <span class="term-blue">مفهوم حدود البحث:</span><br>
+          فالبحث العلمي الأكاديمي محدّد محصور مقصور على موضوع معين، وليس بحثاً عاماً مفتوحاً يدخل فيه الباحث ما يطرأ عليه. وتحت هذا العنصر يبين الباحث حدود بحثه وَفْقَ طبيعة الموضوع والعنوان. وقد تكون الحدود (موضوعية، زمانية، مكانية، شخصية، وعائية، عينية).
+        </div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">الحدود الموضوعية والزمانية والمكانية <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <ol>
+            <li><span class="hl-red">الحدود الموضوعية:</span> أي الموضوعات العلمية التي يتضمنها البحث. بحيث يُبيّن الباحث أن بحثه يتناول مسألة دقيقة محددة. <br>مثال: دراسة "الاحتجاج بالحديث الضعيف"، أو الموضوع اللغوي الفلاني المتعلق بـ "دراسة لهجة قريش"، وهكذا فلا يتجاوزها إلى غيرها.</li>
+            <li><span class="hl-green">الحدود الزمانية:</span> وذلك بتحديد العصر الذي تتجه له الدراسة. <br>مثال: هل هو القرن الأول الهجري، أو العاشر، أو السنة الفلانية؟ فهذا التحديد يريح الباحث، ويصبح من خلاله غير ملزم بما سوى تلك الفترة الزمنية.</li>
+            <li><span class="term-blue">الحدود المكانية:</span> فقد يكون الموضوع متعلقاً ببيئة جغرافية معينة، قارة كانت، أو دولة، أو مدينة. فلابد للباحث أن يوضح ذلك في حدود بحثه. <br>مثال: لو أراد أن يبحث في (الطرق الصوفية في العالم الإسلامي) فذلك بحث واسع جداً؛ فلو حدد بدولة أو مدينة لكان البحث أجدى وأكثر دقة.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="block-header">تطبيقات عملية</div>
+      <div class="app-scenario">📌 باحث اختار موضوعاً بعنوان (الحياة الاجتماعية في الأندلس) وتركه مفتوحاً. (التطبيق: سيعاني الباحث من سعة الموضوع وتشعبه عبر ٨ قرون! الصواب أن يضع حداً زمانياً كقوله: خلال القرن الخامس الهجري، ليصبح البحث قابلاً للإنجاز).</div>
+
+      <div class="block-header">ملخص الدرس (خريطة ذهنية)</div>
+      
+      <div class="tree-container">
+        <div class="tree-root">أنواع الحدود البحثية (١)</div>
+        <div class="tree-branches">
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>موضوعية</h4><p>تخصيص المسألة العلمية<br>(مثل: لهجة قريش)</p></div>
+          </div>
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>زمانية</h4><p>تخصيص عصر أو قرن<br>(القرن الأول)</p></div>
+          </div>
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>مكانية</h4><p>تخصيص نطاق جغرافي<br>(دولة أو مدينة)</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-header">أسئلة الفهم</div>
+      <div class="ex-box" id="ex-3-1">
+        <div class="ex-q">١. عندما يُقيد الباحث دراسته بـ (القرن الخامس الهجري)، فهذا يسمى:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(3, 1, this, false, 'خاطئ.')">حدوداً موضوعية</button><button class="ex-btn" onclick="act(3, 1, this, true, 'صحيح. تحديد العصر أو القرن يندرج ضمن الحدود الزمانية.')">حدوداً زمانية</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-3-2">
+        <div class="ex-q">٢. تكمن فائدة وضع حدود للبحث في أنه:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(3, 2, this, true, 'أحسنت! هذا التقييد يريح الباحث ويحمي جهده.')">يقيد الدراسة ويجعلها محصورة وممكنة الإنجاز</button><button class="ex-btn" onclick="act(3, 2, this, false, 'خاطئ.')">يجعل البحث مفتوحاً لكل فكرة تخطر بباله</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-3-3">
+        <div class="ex-q">٣. تخصيص البحث لدراسة ظاهرة ما في (مدينة مكة المكرمة) فقط يعتبر:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(3, 3, this, false, 'خاطئ.')">حداً زمانياً</button><button class="ex-btn" onclick="act(3, 3, this, true, 'صحيح. تقييد الموقع الجغرافي هو الحد المكاني.')">حداً مكانياً</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-3-4"><div class="ex-q">٤. صل المفاهيم:</div><div class="game-grid" id="game-3"></div></div>
+      
+      <div class="progress-tracker"><span>التقدم:</span><div class="prog-dots" id="dots-3"><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div></div></div>
+      <div class="nav-row"><button class="nav-btn btn-outline" onclick="goSlide(2)">◁ السابق</button><button class="nav-btn btn-navy" id="next-3" disabled onclick="goSlide(4)">التالي: حدود البحث (٢) ➜</button></div>
+    </div>
+
+    <!-- ================= 4. حدود البحث (٢) ================= -->
+    <div id="s-4" class="scr" data-req="4">
+      <div class="hero-banner">
+        <div class="hero-icon">🔍</div>
+        <div class="hero-title">الباب الرابع: حدود البحث ومجالاته (الجزء الثاني)</div>
+        <div class="hero-sub">استكمال أنواع القيود: الشخصية، الوعائية، والعينية</div>
+        <div class="hero-line"></div>
+        <div class="hero-tags"><div class="hero-tag">الحدود الشخصية</div><div class="hero-tag">الحدود الوعائية</div><div class="hero-tag">الحدود العينية</div></div>
+      </div>
+
+      <div class="block-header">مخرجات التعلم</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="info-card-icon">👤</div><div class="info-card-title">الحد الشخصي</div><div class="info-card-desc">قصر البحث على دراسة آراء شخصية علمية محددة.</div></div>
+        <div class="info-card"><div class="info-card-icon">📖</div><div class="info-card-title">الحد الوعائي</div><div class="info-card-desc">حصر الدراسة في مصدر أو كتاب أو نسخة خطية بعينها.</div></div>
+        <div class="info-card"><div class="info-card-icon">👥</div><div class="info-card-title">الحد العيني (العيّنة)</div><div class="info-card-desc">تطبيق الدراسة على عينة محددة من مجتمع البحث.</div></div>
+      </div>
+
+      <div class="block-header">المدخل</div>
+      <div class="intro-text">قد يكون موضوع البحث واسعاً جداً حتى لو حُدد زماناً ومكاناً، لذا قد يحتاج الباحث لقصره على شخصية علمية بارزة، أو كتاب محدد، أو عينة من مجتمع.</div>
+
+      <div class="block-header">افهم بسرعة</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="info-card-icon">👤</div><div class="info-card-title">الحدود الشخصية</div><div class="info-card-desc">مثال: دراسة الاختيارات الفقهية للإمام "ابن تيمية".</div></div>
+        <div class="info-card"><div class="info-card-icon">📖</div><div class="info-card-title">الحدود الوعائية</div><div class="info-card-desc">مثال: دراسة القضية من خلال كتاب "صحيح البخاري" أو طبعة معينة.</div></div>
+        <div class="info-card"><div class="info-card-icon">👥</div><div class="info-card-title">الحدود العينية</div><div class="info-card-desc">مثال: تطبيق استبانة على "طلاب جامعة طيبة" كعينة ممثلة.</div></div>
+      </div>
+
+      <div class="block-header">النص العلمي الكامل</div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">الحدود الشخصية والوعائية والعينية <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <ol>
+            <li><span class="hl-red">الحدود الشخصية:</span> فقد يكون البحث مختصاً بشخص، أو شخصيات ما؛ فيوضح ذلك بدقة. بل إذا كان البحث يدور حول ناحية مخصصة في شخصية علمية، فلا يجوز أن يتعداها إلى غيرها. <br>مثال: لو أراد باحث دراسة شخصية علمية لها تراث كثير متنوع (كابن تيمية) فلا بد من التحديد الدقيق: هل سيدرسه فقهياً أم عقدياً؟</li>
+            <li><span class="hl-green">الحدود الوعائية (المصادر):</span> فقد لا يكفي أن يكون البحث محدوداً موضوعياً؛ وإنما قد يُحدّ أيضاً بكتب معينة، أو جزء معين، أو بنسخة خطية معينة، بل قد تكون طبعة وحيدة محددة.<br>فينبغي -والحالة هذه- أن يعتمد الباحث الطبعة المثلى التي نص عليها في خطته.</li>
+            <li><span class="term-blue">الحدود العينية (العيّنات):</span> كأن تكون الدراسة محددة بمجتمع ما، أو عينة ما؛ فلابد من إيضاح حدود مجتمع البحث، وحدود العينة المختارة من هذا المجتمع وفق الأساليب العلمية الدقيقة.</li>
+          </ol>
+          <span class="section-head">تنبيه:</span> وفي أحيان ليست بقليلة، قد يكون للبحث أكثر من حد من الحدود السابقة مجتمعة، كأن يكون له حد زماني ومكاني معاً لتضييق النطاق بأكبر قدر ممكن.
+        </div>
+      </div>
+
+      <div class="block-header">تطبيقات عملية</div>
+      <div class="app-scenario">📌 باحث اختار عنوان: (الآراء الفقهية للإمام الشافعي). (التطبيق: لقد استخدم هنا "الحدود الشخصية" لقصر بحثه على عالم واحد بدلاً من دراسة الآراء الفقهية لكل المذاهب).</div>
+
+      <div class="block-header">ملخص الدرس (خريطة ذهنية)</div>
+      <div class="tree-container">
+        <div class="tree-root">أنواع الحدود البحثية (٢)</div>
+        <div class="tree-branches">
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>شخصية</h4><p>تخصيص الدراسة بعالم محدد<br>(مثل ابن تيمية)</p></div>
+          </div>
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>وعائية</h4><p>تقييد الدراسة بكتاب أو نسخة أو طبعة معينة</p></div>
+          </div>
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>عينية</h4><p>تحديد عينة تطبيقية<br>من المجتمع المستهدف</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-header">أسئلة الفهم</div>
+      <div class="ex-box" id="ex-4-1">
+        <div class="ex-q">١. إذا اقتصر الباحث في دراسته على (كتاب معين أو طبعة محددة)، فهذا يندرج تحت:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(4, 1, this, false, 'خاطئ. الحد الشخصي للأفراد.')">الحدود الشخصية</button><button class="ex-btn" onclick="act(4, 1, this, true, 'صحيح. الوعاء هو المصدر أو الكتاب المستقى منه.')">الحدود الوعائية (المصادر)</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-4-2">
+        <div class="ex-q">٢. دراسة (الآراء العقدية للإمام أحمد بن حنبل) تُعد تقييداً للبحث باستخدام:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(4, 2, this, true, 'أحسنت! لتركيزها على شخصية الإمام أحمد.')">الحدود الشخصية</button><button class="ex-btn" onclick="act(4, 2, this, false, 'خاطئ.')">الحدود الزمانية</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-4-3">
+        <div class="ex-q">٣. هل يمكن أن يجمع البحث الواحد أكثر من نوع من الحدود (كزماني ومكاني معاً)؟</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(4, 3, this, false, 'خاطئ.')">لا، يُشترط اختيار نوع واحد فقط</button><button class="ex-btn" onclick="act(4, 3, this, true, 'صحيح. فذلك يزيد من دقة البحث وحصره.')">نعم، قد يجمع أكثر من حد لزيادة الدقة</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-4-4"><div class="ex-q">٤. صل المفاهيم:</div><div class="game-grid" id="game-4"></div></div>
+      
+      <div class="progress-tracker"><span>التقدم:</span><div class="prog-dots" id="dots-4"><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div></div></div>
+      <div class="nav-row"><button class="nav-btn btn-outline" onclick="goSlide(3)">◁ السابق</button><button class="nav-btn btn-navy" id="next-4" disabled onclick="goSlide(5)">التالي: تبويب البحث ➜</button></div>
+    </div>
+
+    <!-- ================= 5. تبويب البحث وهيكلته ================= -->
+    <div id="s-5" class="scr" data-req="4">
+      <div class="hero-banner">
+        <div class="hero-icon">📑</div>
+        <div class="hero-title">الباب الخامس: تبويب البحث وهيكلته</div>
+        <div class="hero-sub">التقسيم المنطقي المتسلسل وشروط صياغة العناوين الداخلية</div>
+        <div class="hero-line"></div>
+        <div class="hero-tags">
+          <div class="hero-tag">أبواب وفصول</div><div class="hero-tag">تسلسل هرمي</div><div class="hero-tag">دقة العناوين</div><div class="hero-tag">التوازن</div>
+        </div>
+      </div>
+
+      <div class="block-header">مخرجات التعلم</div>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-card-icon">📊</div>
+          <div class="info-card-title">التسلسل الهرمي</div>
+          <div class="info-card-desc">معرفة ترتيب التقسيمات (باب، فصل، مبحث، مطلب).</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon">✍️</div>
+          <div class="info-card-title">صياغة العناوين</div>
+          <div class="info-card-desc">إدراك شروط العنوان الداخلي (الدقة، الجاذبية، الإيجاز).</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon">⚖️</div>
+          <div class="info-card-title">توازن الخطة</div>
+          <div class="info-card-desc">أهمية التقارب في أحجام الفصول والمباحث قدر الإمكان.</div>
+        </div>
+      </div>
+
+      <div class="block-header">المدخل</div>
+      <div class="intro-text">
+        تُقسم الخطة على هيئة وَحْدَة موضوعية مترابطة، بحيث تندرج التقسيمات الصغرى تحت الكبرى في تسلسل منطقي محكم يشبه البناء المرصوص.
+      </div>
+
+      <div class="block-header">افهم بسرعة</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="info-card-icon">🔽</div><div class="info-card-title">التسلسل</div><div class="info-card-desc">الأبواب تُقسم لفصول، والفصول لمباحث، والمباحث لمطالب.</div></div>
+        <div class="info-card"><div class="info-card-icon">🚫</div><div class="info-card-title">التكرار</div><div class="info-card-desc">يمنع أن يكون عنوان الباب أو الفصل مطابقاً للعنوان الرئيسي للبحث.</div></div>
+        <div class="info-card"><div class="info-card-icon">✨</div><div class="info-card-title">سمات العنوان</div><div class="info-card-desc">الدقة، المرونة، الإيجاز، وألا يحمل حكماً مسبقاً قبل الدراسة.</div></div>
+      </div>
+
+      <div class="block-header">النص العلمي الكامل</div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">العنصر السابع: تبويب البحث وتقسيماته <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <span class="section-head">هيكلية التقسيم:</span><br>
+          الخطة تتكون من أبواب تُقَسَّم فيها الأبواب إلى فصول، والفصول إلى مباحث، والمباحث إلى مطالب، والمطالب يمكن أن تقسم إلى مسائل.<br>
+          <span class="term-blue">الترتيب المنطقي:</span> وما تحت المسائل يُرتب ترتيباً منطقياً متسلسلاً كأن يقال: أولاً، ثانياً، وتحتها: ١- ٢...، وتحتها: أ- ب... وهكذا.<br><br>
+          <span class="section-head">الترابط الموضوعي:</span><br>
+          يجب أن يُجعل البحث على هيئة وَحْدَة موضوعية؛ بحيث ترتبط أبواب البحث بالعنوان الرئيس، وترتبط الفصول بالباب الذي تتبعه، والمباحث بالفصل، والمطالب بالمبحث، وهلم جرا.
+        </div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">شروط وضوابط صياغة العناوين الداخلية <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <ol>
+            <li><span class="hl-red">عدم مطابقة العنوان الرئيسي:</span> يُراعى في العنوانات ألا تتكرر؛ بحيث لا يكون عنوان الباب هو عنوان البحث الرئيس، أو أن يكون عنوان أحد الفصول هو عنوان الباب الذي تدخل تحته. (فالجزء لا يسوغ أن يكون مساوياً للكل).</li>
+            <li><span class="hl-green">سمات العنوان الناجح:</span> يُراعى في العنوانات الدقة، المرونة، الجاذبية، والإيجاز.</li>
+            <li><span class="term-blue">خلوه من الأحكام المسبقة:</span> يراعى ألا تكون العناوين على هيئة سؤال، أو أن تحمل حكماً مسبقاً قبل إجراء الدراسة. كأن يُعنون الباحث بـ "أدلة التحريم القاطعة"، فالأفضل أن يكون العنوان محايداً.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">التوازن وتطابق العنوان مع المحتوى <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <ul>
+            <li><span class="term-blue">التوازن في الحجم:</span> يراعى أن تكون الخطة -قدر الإمكان- متقاربة في حجم الأبواب، والفصول، والمباحث؛ إذ لا يحسن أن يكون بين الأبواب تفاوت كبير جداً إلا إذا كان ثَمَّ مسوغ لذلك.</li>
+            <li><span class="term-blue">مطابقة العنوان لما تحته:</span> كأن يكون عنوان الباب (مفهوم التكفير، وضوابطه، وموانعه)، فهنا يكون منطقياً أن يُقسم لثلاثة فصول: الفصل الأول: المفهوم. الثاني: الضوابط. الثالث: الموانع.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block-header">تطبيقات عملية</div>
+      <div class="app-scenario">📌 باحث عنوان رسالته (أحكام المعاملات المالية). ثم سمّى الباب الأول بـ (أحكام المعاملات المالية). (التطبيق: خطأ منهجي؛ فالباب جزء من الرسالة، ولا يجوز أن يحمل الجزء نفس عنوان البحث الأساسي).</div>
+
+      <div class="block-header">ملخص الدرس (خريطة ذهنية)</div>
+      <div class="tree-container">
+        <div class="tree-root">تبويب البحث وهيكلته</div>
+        <div class="tree-branches">
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>التسلسل المنطقي</h4><p>باب ← فصل ← مبحث ← مطلب</p></div>
+          </div>
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>شروط العناوين</h4><p>الدقة، الإيجاز، عدم التكرار، والموضوعية</p></div>
+          </div>
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>التوازن</h4><p>التقارب في حجم الفصول والمباحث قدر الإمكان</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-header">أسئلة الفهم</div>
+      <div class="ex-box" id="ex-5-1">
+        <div class="ex-q">١. الترتيب الهرمي الصحيح لتقسيمات خطة البحث من الأكبر للأصغر هو:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(5, 1, this, false, 'خاطئ.')">فصل ثم باب ثم مطلب</button><button class="ex-btn" onclick="act(5, 1, this, true, 'أحسنت! هذا هو الترتيب المنطقي المعتمد.')">باب ثم فصل ثم مبحث ثم مطلب</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-5-2">
+        <div class="ex-q">٢. هل يجوز أن يكون عنوان (الفصل الأول) مطابقاً تماماً لـ (عنوان البحث الرئيسي)؟</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(5, 2, this, true, 'صحيح. الجزء لا يسوغ أن يكون مساوياً للكل.')">لا يجوز تكرار ومطابقة العناوين</button><button class="ex-btn" onclick="act(5, 2, this, false, 'خاطئ.')">نعم يجوز للتوكيد</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-5-3">
+        <div class="ex-q">٣. يُراعى في صياغة العناوين الداخلية للبحث أن:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(5, 3, this, true, 'صحيح. يجب أن يتسم العنوان بالحياد العلمي.')">لا تحمل حكماً مسبقاً قبل الدراسة</button><button class="ex-btn" onclick="act(5, 3, this, false, 'خاطئ.')">تكون على هيئة أسئلة طويلة دوماً</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-5-4"><div class="ex-q">٤. صل المفاهيم:</div><div class="game-grid" id="game-5"></div></div>
+      
+      <div class="progress-tracker"><span>التقدم:</span><div class="prog-dots" id="dots-5"><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div></div></div>
+      <div class="nav-row"><button class="nav-btn btn-outline" onclick="goSlide(4)">◁ السابق</button><button class="nav-btn btn-navy" id="next-5" disabled onclick="goSlide(6)">التالي: الدراسات السابقة ➜</button></div>
+    </div>
+
+    <!-- ================= 6. الدراسات السابقة ================= -->
+    <div id="s-6" class="scr" data-req="4">
+      <div class="hero-banner">
+        <div class="hero-icon">📚</div>
+        <div class="hero-title">الباب السادس: الدراسات السابقة ومراجعة الأدبيات</div>
+        <div class="hero-sub">كيفية توظيف جهود السابقين ونقدها علمياً لبيان فجوة البحث</div>
+        <div class="hero-line"></div>
+        <div class="hero-tags"><div class="hero-tag">تجنب التكرار</div><div class="hero-tag">الترتيب التاريخي</div><div class="hero-tag">الترتيب الموضوعي</div><div class="hero-tag">النقد العلمي</div></div>
+      </div>
+
+      <div class="block-header">مخرجات التعلم</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="info-card-icon">💡</div><div class="info-card-title">أهمية الدراسات</div><div class="info-card-desc">إدراك دورها في منع تكرار الجهد وإبراز شخصية الباحث.</div></div>
+        <div class="info-card"><div class="info-card-icon">📑</div><div class="info-card-title">الترتيب والعرض</div><div class="info-card-desc">معرفة طرق عرض الدراسات (تاريخياً أو موضوعياً).</div></div>
+        <div class="info-card"><div class="info-card-icon">⚖️</div><div class="info-card-title">النقد العلمي</div><div class="info-card-desc">كيفية تقييم ونقد الدراسات بإنصاف وبناءً على الدليل.</div></div>
+      </div>
+
+      <div class="block-header">المدخل والخاتمة</div>
+      <div class="intro-text">لا يبدأ الباحث من الصفر، بل يقف على أكتاف من سبقوه، ومراجعة الدراسات السابقة هي ما تمنح بحثه الأصالة وتحدد مسار إضافته العلمية للمكتبة الإسلامية.</div>
+
+      <div class="block-header">افهم بسرعة</div>
+      <div class="info-grid">
+        <div class="info-card"><div class="info-card-icon">🚫</div><div class="info-card-title">الهدف الأهم</div><div class="info-card-desc">تجنب الوقوع في الأخطاء السابقة أو تكرار بحوث مستوفاة.</div></div>
+        <div class="info-card"><div class="info-card-icon">📅</div><div class="info-card-title">الترتيب التاريخي</div><div class="info-card-desc">من الأقدم للأحدث لمعرفة تطور فكرة البحث.</div></div>
+        <div class="info-card"><div class="info-card-icon">🧩</div><div class="info-card-title">الترتيب الموضوعي</div><div class="info-card-desc">الترتيب بحسب تشابه المناهج والموضوعات المطروحة.</div></div>
+        <div class="info-card"><div class="info-card-icon">🤝</div><div class="info-card-title">أدب النقد</div><div class="info-card-desc">النقد الهادئ لبيان القصور دون تجريح لشخصيات الباحثين.</div></div>
+      </div>
+
+      <div class="block-header">النص العلمي الكامل</div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">العنصر التاسع: أهمية الدراسات السابقة وفوائدها <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <span class="section-head">لماذا تُعد الدراسات السابقة ركناً أساسياً؟</span><br>
+          <ul>
+            <li>أنها تجنب الباحث الوقوع في الأخطاء التي وقع فيها السابقون.</li>
+            <li>أنها <span class="hl-red">تنأى بالباحث عن تكرار الأبحاث</span> التي دُرست دراسة مستوفاة.</li>
+            <li>تساعد الباحث على بناء مشروعه العلمي وتوجهه نحو الطريق الصحيح.</li>
+            <li>تعينه على تطوير الجوانب التي لم تنل حظها الكامل من البحث والتوسع.</li>
+            <li>تُعد مصدراً لإلهام الباحثين الجدد وتسهم في إكمال النقص في المكتبة الإسلامية.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">الخطوات الإجرائية لجمع وعرض الدراسات السابقة <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <span class="section-head">خطوات العرض:</span><br>
+          <ol>
+            <li>جمع ما أمكن من الرسائل العلمية (ماجستير ودكتوراه) والبحوث المحكمة والكتب المرتبطة مباشرة بموضوعه.</li>
+            <li><span class="term-blue">الترتيب المنهجي:</span> ويتم إما بـ <span class="hl-green">التسلسل التاريخي</span> (من الأقدم للأحدث لتوضيح التطور)، أو <span class="hl-green">الترتيب الموضوعي</span> (بناءً على تشابه الموضوعات المبحوثة والمناهج).</li>
+            <li>ترابط فقرات العرض؛ بحيث تكون القراءة متسلسلة تكمل بعضها بعضاً.</li>
+            <li>وصف بيانات الدراسات من حيث عناوينها، أسماء مؤلفيها، نوعها، ومكان وزمان نشرها لتسهيل الرجوع إليها.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="accordion" onclick="toggleAcc(this)">
+        <div class="accordion-header">منهجية نقد الدراسات السابقة <span class="accordion-icon">+</span></div>
+        <div class="accordion-body">
+          <span class="section-head">كيف ينقد الباحث من سبقه؟</span><br>
+          <ul>
+            <li><span class="term-blue">الشمولية والموضوعية:</span> ألا يقتصر النقد على ناحية معينة كذكر العيوب فقط، بل يشمل المحتوى، المنهجية، وتحليل البيانات.</li>
+            <li><span class="term-blue">الإنصاف والأدب العلمي:</span> الابتعاد عن النقد الجارح أو النيل من الأشخاص. فالباحث الناجح يبين أوجه القصور بعبارة علمية هادئة مبنية على الدليل والبرهان، مع الاعتراف لذوي الفضل بفضلهم.</li>
+            <li><span class="hl-red">الهدف من النقد:</span> إبراز الفجوة العلمية التي تركها السابقون، لتكون هي المنطلق لبحثه الجديد (الإضافة العلمية).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block-header">تطبيقات عملية</div>
+      <div class="app-scenario">📌 باحث وجد دراسات سابقة في موضوعه، فاكتفى بسرد أسمائها دون أن يعلق عليها أو يقرأها بعمق. (التطبيق: صنيع خاطئ؛ فالمقصود ليس مجرد حصر الأسماء، بل نقدها وبيان أوجه القصور فيها لإثبات "فجوة البحث" التي سيملؤها الباحث).</div>
+
+      <div class="block-header">ملخص الدرس (خريطة ذهنية)</div>
+      <div class="tree-container">
+        <div class="tree-root">مراجعة الدراسات السابقة</div>
+        <div class="tree-branches">
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>الغاية</h4><p>منع التكرار، وتحديد فجوة البحث الجديدة</p></div>
+          </div>
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>الترتيب</h4><p>إما تاريخي (للتطور) أو موضوعي (للتشابه)</p></div>
+          </div>
+          <div class="tree-node">
+            <div class="tree-leaf"><h4>النقد</h4><p>شامل، هادئ، منصف، ومبني على الدليل</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block-header">أسئلة الفهم</div>
+      <div class="ex-box" id="ex-6-1">
+        <div class="ex-q">١. من أهم الفوائد التي يجنيها الباحث من استعراض "الدراسات السابقة":</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(6, 1, this, true, 'صحيح. فهي تقيه من إضاعة الجهد في موضوعات قُتلت بحثاً.')">تجنبه تكرار الأبحاث التي دُرست دراسة مستوفاة</button><button class="ex-btn" onclick="act(6, 1, this, false, 'خاطئ.')">زيادة عدد صفحات رسالته فقط</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-6-2">
+        <div class="ex-q">٢. عرض الدراسات السابقة بدءاً من أقدمها تاريخياً وصولاً لأحدثها يُسمى:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(6, 2, this, false, 'خاطئ.')">الترتيب الموضوعي</button><button class="ex-btn" onclick="act(6, 2, this, true, 'أحسنت! هذا الترتيب يبرز التطور الزمني للبحث.')">الترتيب (التسلسل) التاريخي</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-6-3">
+        <div class="ex-q">٣. يجب على الباحث عند نقد الدراسات السابقة أن:</div>
+        <div class="ex-opts"><button class="ex-btn" onclick="act(6, 3, this, true, 'صحيح. الأدب والموضوعية من سمات الباحث الرصين.')">ينقد بعبارة علمية هادئة مبنية على الدليل والإنصاف</button><button class="ex-btn" onclick="act(6, 3, this, false, 'خاطئ.')">يهمش ويُسفه آراء جميع من سبقه</button></div><div class="ex-fb"></div>
+      </div>
+      <div class="ex-box" id="ex-6-4"><div class="ex-q">٤. صل المفاهيم:</div><div class="game-grid" id="game-6"></div></div>
+      
+      <div class="progress-tracker"><span>التقدم:</span><div class="prog-dots" id="dots-6"><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div><div class="prog-dot"></div></div></div>
+      <div class="nav-row"><button class="nav-btn btn-outline" onclick="goSlide(5)">◁ السابق</button><button class="nav-btn btn-gold" id="next-6" disabled onclick="finishLesson()">✓ إتمام الدروس والانتقال</button></div>
+    </div>
+
+    <!-- ================= TAB: REVIEW (المراجعة الشاملة) ================= -->
+    <div id="s-review" class="scr">
+      
+      <div class="hero-banner" style="background:var(--navy); color:#fff; border:none;">
+        <div class="hero-icon" style="color:var(--gold);">🧠</div>
+        <div class="hero-title" style="color:#fff;">المراجعة الشاملة</div>
+        <div class="hero-sub" style="color:var(--gold-light);">بطاقات المفاهيم والأسئلة المقالية لترسيخ الفهم لخطة البحث وعناصرها</div>
+      </div>
+      
+      <div class="block-header">أولاً: بطاقات المفاهيم (اضغط للقلب)</div>
+      <div class="fc-grid" id="fcBox"></div>
+
+      <div class="block-header" style="margin-top:40px;">ثانياً: الأسئلة المقالية (١٠ أسئلة)</div>
+      <div class="essay-list">
+        <div class="essay-item essay-navy" onclick="this.classList.toggle('open')"><div class="essay-q">١. ما هو التعريف الدقيق لخطة البحث؟</div><div class="essay-a">هي الهيكل التنظيمي للبحث، والمشروع الهندسي الذي يقام عليه علاج المشكلة، والخطوط العامة التي يهتدي بها الباحث.</div></div>
+        <div class="essay-item essay-gold" onclick="this.classList.toggle('open')"><div class="essay-q">٢. ما هو الفرق الجوهري بين أهمية البحث وأهداف البحث؟</div><div class="essay-a">الأهمية تجيب عن دافع الاختيار ومسوغات القبول وقيمة الموضوع (لماذا). أما الأهداف فهي النتائج التي يسعى الباحث لتحقيقها فعلياً عند انتهاء بحثه (ماذا).</div></div>
+        <div class="essay-item essay-navy" onclick="this.classList.toggle('open')"><div class="essay-q">٣. اذكر ثلاثة ألفاظ ينصح باستخدامها في صياغة أهداف البحث لتبدو واضحة.</div><div class="essay-a">بيان، إبراز، تجلية، الوقوف على، التعرف على...</div></div>
+        <div class="essay-item essay-gold" onclick="this.classList.toggle('open')"><div class="essay-q">٤. ماذا نقصد بـ "الحدود الموضوعية" للبحث؟</div><div class="essay-a">هي تخصيص المسألة العلمية الدقيقة التي يتضمنها البحث بحيث لا يتجاوزها لغيرها، مثل قصر البحث اللغوي على دراسة (لهجة قريش).</div></div>
+        <div class="essay-item essay-navy" onclick="this.classList.toggle('open')"><div class="essay-q">٥. إذا كان البحث يقتصر على كتاب محدد أو طبعة معينة، فما نوع هذه الحدود؟</div><div class="essay-a">يُطلق عليها اسم: الحدود الوعائية (نسبة لوعاء المعلومات كالكتاب أو المخطوط).</div></div>
+        <div class="essay-item essay-gold" onclick="this.classList.toggle('open')"><div class="essay-q">٦. ما هو الترتيب المنطقي المعتمد في الأكاديميات لتقسيمات (تبويب) الخطة من الأكبر للأصغر؟</div><div class="essay-a">باب، ثم تحته فصل، ثم المبحث، ثم المطلب، ثم المسألة.</div></div>
+        <div class="essay-item essay-navy" onclick="this.classList.toggle('open')"><div class="essay-q">٧. اذكر ثلاثة شروط لنجاح صياغة العناوين الداخلية للبحث (الفصول والأبواب).</div><div class="essay-a">١. ألا تكون مطابقة لعنوان البحث الرئيسي. ٢. أن تتسم بالدقة والإيجاز والجاذبية. ٣. ألا تحمل حكماً مسبقاً قبل الدراسة.</div></div>
+        <div class="essay-item essay-gold" onclick="this.classList.toggle('open')"><div class="essay-q">٨. ما الفائدة العظمى من استعراض الباحث للدراسات السابقة في خطته؟</div><div class="essay-a">تجنبه الوقوع في تكرار موضوعات أشبعت بحثاً، وتوجهه للطريق الصحيح، وتحدد الفجوة العلمية التي سيضيفها بحثه.</div></div>
+        <div class="essay-item essay-navy" onclick="this.classList.toggle('open')"><div class="essay-q">٩. اذكر طريقتين مشهورتين في منهجية ترتيب وعرض الدراسات السابقة.</div><div class="essay-a">١. الترتيب التاريخي (من الأقدم للأحدث لمعرفة تطور الفكرة). ٢. الترتيب الموضوعي (حسب تشابه المناهج والموضوعات).</div></div>
+        <div class="essay-item essay-gold" onclick="this.classList.toggle('open')"><div class="essay-q">١٠. كيف يكون النقد العلمي البنّاء للدراسات السابقة؟</div><div class="essay-a">بأن يكون النقد موضوعياً ومبنياً على الدليل والبرهان، بعبارات هادئة ومهذبة بعيدة عن التجريح أو تهميش جهود السابقين، لإثبات ما غفلوا عنه فقط.</div></div>
+      </div>
+    </div>
+
+    <!-- ================= TAB: QUIZ (التقييم النهائي) ================= -->
+    <div id="s-quiz" class="scr">
+      <div class="hero-banner" style="background:#fdfaf3;">
+        <div class="hero-icon">🎓</div>
+        <div class="hero-title">التقييم الشامل والنهائي</div>
+        <div class="hero-sub">يحتوي على ٢٠ سؤالاً لتقييم فهمك للمحاضرة (النتيجة تُرسل للدكتور آلياً)</div>
+        <div class="hero-line"></div>
+      </div>
+      <div id="qzBox"></div>
+    </div>
+
+  </div>
+
+  <!-- ================= BOTTOM NAVIGATION BAR ================= -->
+  <div class="bottom-bar" id="bottomBar">
+    <div class="bottom-inner">
+      <button class="btab act" data-t="lesson" onclick="switchTab('lesson')">📚 مسار الدرس</button>
+      <button class="btab locked" id="tab-review" data-t="review" onclick="switchTab('review')">🧠 المراجعة والتلخيص</button>
+      <button class="btab locked" id="tab-quiz" data-t="quiz" onclick="switchTab('quiz')">📝 التقييم الشامل</button>
+    </div>
+  </div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+/* ================= DATA ================= */
+const GAMES = {
+  1: {pairs:[{l:"خطة البحث",r:"المشروع الهندسي للبحث"},{l:"البحث بدون خطة",r:"مضيعة للوقت وتبديد للجهد"},{l:"أهم معينات وضع الخطة",r:"القراءة ومراجعة المشرف"}]},
+  2: {pairs:[{l:"أهمية البحث",r:"دوافع الاختيار وفوائد الموضوع"},{l:"أهداف البحث",r:"النتائج التي يسعى الباحث لتحقيقها"},{l:"ألفاظ صياغة الهدف",r:"بيان، إبراز، التعرف على"}]},
+  3: {pairs:[{l:"الحدود الموضوعية",r:"تحديد دقيق للمسألة (كلهجة قريش)"},{l:"الحدود الزمانية",r:"التقييد بعصر أو قرن محدد"},{l:"الحدود المكانية",r:"التقييد بنطاق جغرافي (دولة)"}]},
+  4: {pairs:[{l:"الحدود الشخصية",r:"تخصيص الدراسة بعالم محدد (ابن تيمية)"},{l:"الحدود الوعائية",r:"التقييد بمصدر أو كتاب معين"},{l:"الحدود العينية",r:"التطبيق على عينة من المجتمع"}]},
+  5: {pairs:[{l:"الترتيب المنطقي",r:"باب، فصل، مبحث، مطلب"},{l:"شروط العناوين الداخلية",r:"ألا تطابق العنوان الرئيسي للبحث"},{l:"توازن الخطة",r:"تقارب أحجام الفصول والمباحث"}]},
+  6: {pairs:[{l:"الهدف من الدراسات السابقة",r:"تجنب التكرار ومعرفة الفجوة"},{l:"الترتيب التاريخي",r:"من الأقدم للأحدث"},{l:"النقد العلمي",r:"موضوعي وهادئ مبني على الدليل"}]}
+};
+
+const FLASHCARDS =[
+  {q:"بم شبه المنهجيون (خطة البحث) بالنسبة للباحث؟",a:"بالمشروع الهندسي الذي يقام عليه البناء ليمنع التخبط والتشتت."},
+  {q:"ما الفرق بين (أهمية) البحث و(أهدافه)؟",a:"الأهمية: أسباب اختيار الموضوع وفائدته (الدوافع). الأهداف: النتائج المرجو الوصول إليها نهاية البحث."},
+  {q:"دراسة الآراء الفقهية لـ (الإمام مالك). ما نوع الحد البحثي هنا؟",a:"حدود شخصية، لأنه قيّد البحث بعالم محدد."},
+  {q:"دراسة أثر وسائل التواصل الاجتماعي على (طلاب جامعة طيبة). ما نوع الحد؟",a:"حدود عينية، لأنه اختار (عينة) تطبيقية من المجتمع."},
+  {q:"اذكر التسلسل الهرمي الصحيح لتقسيمات هيكل البحث.",a:"الباب ← الفصل ← المبحث ← المطلب ← المسألة."},
+  {q:"هل يجوز جعل عنوان (الفصل) نفس عنوان (الرسالة ككل)؟",a:"لا يجوز، فالجزء لا يساوي ولا يطابق الكل."},
+  {q:"ما الفائدة من استعراض (الدراسات السابقة)؟",a:"منع التكرار، الوقوف على ما انتهى إليه الآخرون، وإبراز شخصية الباحث والإضافة الجديدة."},
+  {q:"كيف ترتب الدراسات السابقة عادة في الخطة؟",a:"إما ترتيباً تاريخياً (من الأقدم للأحدث) أو موضوعياً (حسب تشابه المواضيع)."},
+  {q:"ما هو شرط صياغة العناوين من ناحية الأحكام؟",a:"أن تخلو من الأحكام المسبقة قبل الدراسة (وأن تتسم بالحياد والدقة والإيجاز)."},
+  {q:"من مزالق نقد الباحثين للدراسات السابقة؟",a:"التجريح الشخصي، نسيان الاعتراف بجهود السابقين، والنقد بلا دليل برهاني."}
+];
+
+const QUIZ = [
+  {q:"يُطلق على الخطوط العامة والهيكل التنظيمي الذي يعتمد عليه الباحث:",o:["الخاتمة","المقدمة التمهيدية","خطة البحث","فهرس المصادر"],a:2},
+  {q:"البحث العلمي بدون وضع خطة واضحة المعالم يُعد:",o:["أسرع في الإنجاز","مضيعة للوقت وتبديداً للجهد","أصالة علمية","إبداعاً غير مقيد"],a:1},
+  {q:"من أهم الأمور التي تعين الباحث على إعداد خطة محكمة:",o:["تجنب القراءة الكثيرة","نقل الخطة من باحث آخر","القراءة المستفيضة ومراجعة المشرف","الاعتماد على الانترنت المفتوح"],a:2},
+  {q:"العنصر الذي يوضح (أسباب اختيار الموضوع ومسوغات قبوله):",o:["أهداف البحث","مشكلة البحث","أهمية البحث","الدراسات السابقة"],a:2},
+  {q:"النتائج المحددة التي يسعى الباحث للوصول إليها وإثباتها تسمى:",o:["أهداف البحث","أهمية البحث","منهج البحث","حدود البحث"],a:0},
+  {q:"يُفضل بدء صياغة (أهداف البحث) بألفاظ دقيقة مثل:",o:["أعتقد أن","من المحتمل","بيان، إبراز، التعرف على","السرد العشوائي"],a:2},
+  {q:"إذا قيد الباحث دراسته بـ (القرن السابع الهجري) فهذا يندرج تحت:",o:["الحدود الزمانية","الحدود المكانية","الحدود الموضوعية","الحدود الوعائية"],a:0},
+  {q:"تخصيص البحث ليتناول (لهجة قبيلة قريش في القرآن) فقط، يُعد:",o:["حداً زمانياً","حداً مكانياً","حداً عيْنياً","حداً موضوعياً دقيقاً"],a:3},
+  {q:"قصر الدراسة على (آراء الإمام الشافعي الأصولية) هو تقييد باستخدام:",o:["الحدود المكانية","الحدود الشخصية","الحدود الزمانية","الحدود الوعائية"],a:1},
+  {q:"إذا حدد الباحث الاعتماد على (طبعة معينة من صحيح البخاري)، فهذا يُسمى:",o:["الحدود الوعائية (المصادر)","الحدود العينية","الحدود الشخصية","الحدود الموضوعية"],a:0},
+  {q:"تطبيق الاستبانة على (أطباء مستشفيات المدينة) كشريحة ممثلة يُعد:",o:["حدوداً زمانية","حدوداً مكانية فقط","حدوداً عينية (عينة دراسة)","حدوداً شخصية"],a:2},
+  {q:"الترتيب الأكاديمي الصحيح لتبويب البحث من الأكبر للأصغر:",o:["فصل، باب، مبحث","باب، فصل، مبحث، مطلب","مبحث، فصل، باب","مطلب، مسألة، باب"],a:1},
+  {q:"في صياغة عناوين فصول البحث، هل يجوز أن يطابق عنوان الفصل عنوان الرسالة ككل؟",o:["نعم يجوز تماماً","لا يجوز لأن الجزء لا يساوي الكل","يجوز في الماجستير دون الدكتوراه","يستحب ذلك للتوكيد"],a:1},
+  {q:"من شروط العنوان الداخلي (الأبواب والفصول) الناجح:",o:["أن يكون طويلاً جداً كقصة","أن يحمل حكماً مسبقاً قبل إثباته","أن يكون دقيقاً، موجزاً، ومرناً","أن يكون غامضاً لإثارة القارئ"],a:2},
+  {q:"يُقصد بـ (التوازن في الخطة):",o:["مساواة عدد المصادر بعدد الصفحات","التقارب في حجم الأبواب والفصول قدر الإمكان","توازن الألوان في الطباعة","تطابق الأهمية مع الأهداف"],a:1},
+  {q:"الفائدة الكبرى من عرض (الدراسات السابقة) هي:",o:["زيادة حشو البحث بالأسماء","تجنب تكرار دراسة ما سبق بحثه واستيفاؤه","الاستغناء عن جمع المادة من المصادر الأصلية","إرضاء المشرف فقط"],a:1},
+  {q:"ترتيب الدراسات السابقة (من الأقدم تاريخياً إلى الأحدث) يسمى:",o:["الترتيب الموضوعي","الترتيب العشوائي","الترتيب (التسلسل) التاريخي","الترتيب الأبجدي للمؤلفين"],a:2},
+  {q:"عند نقد الدراسات السابقة، يجب على الباحث أن:",o:["يُظهر القصور بإنصاف وأدب وبناءً على دليل","يتصيد الأخطاء النحوية للباحثين السابقين","يسفه آراء السابقين ليظهر إبداعه","يتجنب ذكر أي نقص في بحوثهم"],a:0},
+  {q:"الخلط بين (الأهمية) و (الأهداف) في إعداد الخطة يُعتبر:",o:["طريقة حديثة في البحث","خطأ منهجياً شائعاً","أمراً اختيارياً للباحث","دليلاً على الإبداع"],a:1},
+  {q:"الادعاء بأن هناك أنموذجاً وتصميماً (واحداً فقط) لا ثاني له لخطة البحث الصحيحة هو:",o:["ادعاء صحيح ومسلم به","ادعاء خاطئ، فالخطط تتعدد أنماطها ما دامت مستوفية للعناصر الجوهرية","صحيح في الفقه وخاطئ في اللغة","رأي أجمع عليه الأكاديميون"],a:1}
+];
+
+/* ================= STATE & LOGIC ================= */
+let user={n:'',s:''}, curSlide=0, startTime=null;
+let progress = { 1:new Set(), 2:new Set(), 3:new Set(), 4:new Set(), 5:new Set(), 6:new Set() };
+let activeL = null;
+
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const toast = m => { const t=$('#toast'); t.textContent=m; t.classList.add('on'); setTimeout(()=>t.classList.remove('on'), 3000); };
+
+function doLogin(){
+  const n=$('#iName').value.trim(), s=$('#iSec').value.trim();
+  if(!n||!s) return toast('⚠️ يرجى إدخال الاسم الكامل والشعبة');
+  user={n,s}; $('#stuInfo').textContent=`${n} | الشعبة: ${s}`;
+  $('#mainHeader').style.display='flex'; $('#bottomBar').style.display='flex';
+  startTime = Date.now();
+  renderGames(); renderReview(); renderQuiz();
+  goSlide(0);
+}
+
+function goSlide(i){
+  $$('.scr').forEach(s=>s.classList.remove('on'));
+  $(`#s-${i}`).classList.add('on');
+  curSlide = i; window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function switchTab(t){
+  const btn = $(`#tab-${t}`);
+  if(btn && btn.classList.contains('locked')) return toast('🔒 أكمل الدروس الستة أولاً لفتح هذه الأقسام');
+
+  $$('.scr').forEach(s=>s.classList.remove('on'));
+  if(t==='lesson') $(`#s-${curSlide}`).classList.add('on');
+  else $(`#s-${t}`).classList.add('on');
+  
+  $$('.btab').forEach(b=>b.classList.remove('act'));
+  $(`.btab[data-t="${t}"]`).classList.add('act');
+  window.scrollTo(0,0);
+}
+
+function toggleAcc(el){ el.classList.toggle('active'); }
+
+/* ================= PROGRESSION ================= */
+function act(slide, exNum, btn, isCorrect, msg){
+  const box = btn.closest('.ex-box');
+  const fb = box.querySelector('.ex-fb');
+  box.querySelectorAll('.ex-btn').forEach(b => b.style.display='none');
+  fb.textContent = msg;
+  fb.className = 'ex-fb ' + (isCorrect ? 'right' : 'wrong');
+  markDone(slide, exNum);
+}
+
+function markDone(slide, exNum){
+  progress[slide].add(exNum);
+  const dots = $$(`#dots-${slide} .prog-dot`);
+  if(dots[exNum-1]) dots[exNum-1].classList.add('done');
+  if(progress[slide].size === parseInt($(`#s-${slide}`).dataset.req)){
+    const nextBtn = $(`#next-${slide}`);
+    if(nextBtn) { nextBtn.disabled = false; toast('✅ أتممت المطلوب، تفضل للموضوع التالي.'); }
+  }
+}
+
+function finishLesson(){
+  toast('🎉 عظيم! لقد أنهيت المقرر بالكامل. تم فتح أقسام المراجعة والتقييم لك.');
+  $$('.btab.locked').forEach(b => b.classList.remove('locked'));
+  switchTab('review');
+}
+
+/* ================= GAMES ================= */
+function renderGames(){
+  for(let i=1; i<=6; i++){
+    if(!GAMES[i]) continue;
+    const g = GAMES[i], sh =[...g.pairs].sort(()=>Math.random()-.5);
+    $(`#game-${i}`).innerHTML = `
+      <div style="display:flex;flex-direction:column;gap:10px">${g.pairs.map((p,idx)=>`<div class="g-item" onclick="pickL(${i},this,${idx})">${p.l}</div>`).join('')}</div>
+      <div style="display:flex;flex-direction:column;gap:10px">${sh.map((p)=>`<div class="g-choice" onclick="pickR(${i},this,'${p.r}')">${p.r}</div>`).join('')}</div>`;
+  }
+}
+
+function pickL(s, el, idx){ $$(`#game-${s} .g-item`).forEach(e=>e.classList.remove('active')); el.classList.add('active'); activeL={s, el, idx}; }
+function pickR(s, el, txt){
+  if(!activeL || activeL.s !== s) return;
+  if(txt === GAMES[s].pairs[activeL.idx].r){
+    activeL.el.classList.add('done'); el.classList.add('done'); activeL = null;
+    if([...$$(`#game-${s} .g-item`)].every(e=>e.classList.contains('done'))) markDone(s, 4);
+  } else { toast('❌ غير مطابق، حاول مجدداً'); activeL.el.classList.remove('active'); activeL = null; }
+}
+
+/* ================= REVIEW & QUIZ ================= */
+function renderReview(){
+  $('#fcBox').innerHTML = FLASHCARDS.map(c=>`<div class="fc" onclick="this.classList.toggle('flip')"><div class="fc-in"><div class="fc-f">${c.q}</div><div class="fc-b">${c.a}</div></div></div>`).join('');
+}
+
+let score=0, answered=0;
+function renderQuiz(){
+  $('#qzBox').innerHTML = QUIZ.map((q,i)=>`<div class="qz-card" id="qc-${i}"><h3 style="margin-bottom:20px;color:var(--navy);font-family:var(--font-title);line-height:1.6;">س${i+1}: ${q.q}</h3>${q.o.map((o,j)=>`<button class="qz-opt" onclick="ansQ(${i},${j},this)">${o}</button>`).join('')}</div>`).join('') + `<div id="qzRes"></div>`;
+}
+
+function ansQ(qi, oi, btn){
+  const card = $(`#qc-${qi}`); if(card.dataset.done) return;
+  card.dataset.done = '1';
+  const btns = card.querySelectorAll('.qz-opt'); btns.forEach(b => b.disabled = true);
+  if(oi === QUIZ[qi].a){ btn.classList.add('right'); score++; } 
+  else { btn.classList.add('wrong'); btns[QUIZ[qi].a].classList.add('right'); }
+  answered++; if(answered === QUIZ.length) finishQuiz();
+}
+
+function finishQuiz(){
+  const s = Math.floor((Date.now() - startTime)/1000);
+  const timeStr = `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+  
+  // إرسال النتيجة إلى Google Forms الخاص بمناهج البحث
+  const fd = new FormData();
+  fd.append("entry.1586336836", user.n);       // الاسم
+  fd.append("entry.928982094", user.s);        // الشعبة
+  fd.append("entry.1749117756", score);        // الدرجة النهائية
+  fd.append("entry.1056240715", timeStr);      // الوقت
+  
+  fetch("https://docs.google.com/forms/d/e/1FAIpQLSfeR4l7Slx8jVWYuBMwTSCbGvFFGJaO6qCkQNmUNpzFlnKMWA/formResponse", { method: "POST", mode: "no-cors", body: fd }).catch(e=>console.log(e));
+
+  $('#qzRes').innerHTML = `<div style="text-align:center; padding:40px; background:#f8fafc; border-radius:16px; border:2px solid var(--gold); margin-top:30px;"><h2 style="color:var(--navy);font-family:var(--font-title);">انتهى التقييم!</h2><div style="font-size:4rem;font-weight:900;color:var(--green);margin:15px 0;">${score} / ${QUIZ.length}</div><p style="font-size:1.1rem;color:var(--text-main);"><strong>${user.n}</strong> | الشعبة: <strong>${user.s}</strong></p><p style="margin-top:15px; color:var(--text-muted); font-weight:700;">✅ تم إرسال نتيجتك للدكتور. وقت التعلم: ${timeStr} دقيقة.</p></div>`;
+  $('#qzRes').scrollIntoView({behavior:'smooth'});
+}
+</script>
+</body>
+</html>
